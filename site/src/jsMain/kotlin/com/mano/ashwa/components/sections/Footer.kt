@@ -1,54 +1,221 @@
 package com.mano.ashwa.components.sections
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.mano.ashwa.data.DISCORD_LINK
+import com.mano.ashwa.data.REPO_LINK
+import com.stevdza.san.kotlinbs.components.BSButton
+import com.stevdza.san.kotlinbs.forms.BSInput
+import com.stevdza.san.kotlinbs.forms.BSTextArea
+import com.stevdza.san.kotlinbs.icons.BSIcons
+import com.stevdza.san.kotlinbs.models.BSBorderRadius
+import com.stevdza.san.kotlinbs.models.button.ButtonCustomization
+import com.varabyte.kobweb.compose.css.AlignItems
+import com.varabyte.kobweb.compose.css.FontStyle
+import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.JustifyContent
 import com.varabyte.kobweb.compose.css.TextAlign
-import com.varabyte.kobweb.compose.css.WhiteSpace
+import com.varabyte.kobweb.compose.css.functions.LinearGradient
+import com.varabyte.kobweb.compose.css.functions.linearGradient
+import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
+import com.varabyte.kobweb.compose.foundation.layout.Column
+import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.compose.ui.toAttrs
-import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
+import com.varabyte.kobweb.compose.ui.graphics.Colors
+import com.varabyte.kobweb.compose.ui.modifiers.alignItems
+import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
+import com.varabyte.kobweb.compose.ui.modifiers.display
+import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
+import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
+import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
+import com.varabyte.kobweb.compose.ui.modifiers.justifyContent
+import com.varabyte.kobweb.compose.ui.modifiers.padding
+import com.varabyte.kobweb.compose.ui.modifiers.textAlign
+import com.varabyte.kobweb.compose.ui.modifiers.width
 import com.varabyte.kobweb.silk.components.text.SpanText
-import com.varabyte.kobweb.silk.style.CssStyle
-import com.varabyte.kobweb.silk.style.base
-import com.varabyte.kobweb.silk.style.toModifier
-import com.varabyte.kobweb.silk.style.vars.color.ColorVar
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.percent
-import org.jetbrains.compose.web.dom.Span
-import com.mano.ashwa.toSitePalette
+import org.jetbrains.compose.web.attributes.*
+import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.dom.*
 
-val FooterStyle = CssStyle.base {
-    Modifier
-        .backgroundColor(colorMode.toSitePalette().nearBackground)
-        .padding(topBottom = 1.5.cssRem, leftRight = 10.percent)
+data class FooterSocial(val iconName: String, val url: String)
+
+val footerSocials = listOf(
+	FooterSocial("discord", DISCORD_LINK),
+	FooterSocial("github", REPO_LINK),
+//	FooterSocial("linkedin", LINKEDIN_LINK),
+//	FooterSocial("twitch", TWITCH_LINK),
+//	FooterSocial("x-twitter", TWITTER_LINK),
+)
+
+data class ProjectLink(val name: String, val url: String)
+
+val projectLinks = listOf(
+	ProjectLink("Kore", "https://kore.ayfri.com"),
+	ProjectLink("Atom Clicker", "https://atom-clicker.ayfri.com"),
+	ProjectLink("PokeCards-Collector", "https://pokecards-collector.ayfri.com"),
+	ProjectLink("Cursors Draw", "https://cursors.draw.ayfri.com"),
+	ProjectLink("Realtime TodoList", "https://realtime-todolist.pages.dev"),
+	ProjectLink("GPT Images", "https://gpt-images.ayfri.com"),
+)
+
+@Composable
+fun FooterContactField(
+	label: String,
+	id: String,
+	type: InputType<String> = InputType.Text,
+	required: Boolean = false,
+	range: IntRange? = null,
+	textArea: Boolean = false,
+	autocomplete: String? = null,
+) {
+	Div {
+		Label(id) {
+			Text(label)
+		}
+
+		if (textArea) {
+			TextArea {
+				id(id)
+				if (required) attr("required", "")
+				placeholder(label)
+				minLength(range?.first ?: 0)
+				maxLength(range?.last ?: Int.MAX_VALUE)
+				if (autocomplete != null) attr("autocomplete", autocomplete)
+			}
+		} else {
+			Input(type) {
+				id(id)
+				if (required) attr("required", "")
+				placeholder(label)
+				minLength(range?.first ?: 0)
+				maxLength(range?.last ?: Int.MAX_VALUE)
+				if (autocomplete != null) attr("autocomplete", autocomplete)
+			}
+		}
+	}
 }
 
 @Composable
-fun Footer(modifier: Modifier = Modifier) {
-    Box(FooterStyle.toModifier().then(modifier), contentAlignment = Alignment.Center) {
-        Span(Modifier.textAlign(TextAlign.Center).toAttrs()) {
-            val sitePalette = ColorMode.current.toSitePalette()
-            SpanText("Built with ")
-            Link(
-                "https://github.com/varabyte/kobweb",
-                "Kobweb",
-                Modifier.setVariable(ColorVar, sitePalette.brand.primary),
-                variant = UncoloredLinkVariant
-            )
-            SpanText(", template designed by ")
+fun Footer() {
+	Column(modifier = Modifier.fillMaxWidth().backgroundColor(Colors.Gray),
+//		verticalArrangement = Arrangement.Center,
+		//horizontalAlignment = ColumnDefaults.HorizontalAlignment
+	) {
+		SpanText("Contact Me",
+			modifier = Modifier.fontStyle(FontStyle.Normal).fontWeight(FontWeight.Bold)
+				.align(alignment = Alignment.CenterHorizontally).padding(10.px))
 
-            // Huge thanks to UI Rocket (https://ui-rocket.com) for putting this great template design together for us!
-            // If you like what you see here and want help building your own site, consider checking out their services.
-            Link(
-                "https://ui-rocket.com",
-                "UI Rocket",
-                Modifier.setVariable(ColorVar, sitePalette.brand.accent).whiteSpace(WhiteSpace.NoWrap),
-                variant = UncoloredLinkVariant
-            )
-        }
-    }
+		var firstName by remember { mutableStateOf("") }
+		var lastName by remember { mutableStateOf("") }
+
+		ContactUsInput( firstName= firstName,
+			lastName = lastName
+//			onFirstName = { firstName = it },
+//			onLastName = { lastName = it }
+		)
+
+	}
+
 }
+
+@Composable
+fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
+				   lastName: String, onLastName: (String) -> Unit = {}) {
+
+	val fullWidth = 520.px
+	val gap = 10.px
+	var halfWidth = 250.px
+
+	Column(
+		// I want to center align all the content in this Column
+		modifier = Modifier.fillMaxWidth().alignItems(AlignItems.Center)//.padding(gap)
+	) {
+		// First Name and Last Name side by side
+		Row(
+			modifier = Modifier
+				.fillMaxWidth(),
+			horizontalArrangement = Arrangement.Center,
+			verticalAlignment = Alignment.CenterVertically
+		) {
+			BSInput(
+				modifier = Modifier.width(halfWidth),
+				value = firstName,
+				label = "First Name",
+				placeholder = "First Name",
+				onValueChange = {
+					onFirstName(it)
+				},
+			)
+			Box(modifier = Modifier.padding (gap))
+			BSInput(
+				modifier = Modifier.width(halfWidth),
+				value = lastName,
+				label = "Last Name",
+				placeholder = "Last Name",
+				onValueChange = {
+					onLastName(it)
+				},
+			)
+		}
+
+		Box(modifier = Modifier.padding(gap))
+		// Subject
+		BSInput(
+			modifier = Modifier.width(fullWidth),
+			value = lastName,
+			label = "Subject",
+			placeholder = "Subject",
+			onValueChange = {
+				onLastName(it)
+			},
+		)
+
+		Box(modifier = Modifier.padding(gap))
+		// Message
+		BSTextArea (
+			modifier = Modifier.width(fullWidth),
+			value = lastName,
+			label = "Message",
+			placeholder = "Message",
+			onValueChange = {
+				onLastName(it)
+			}
+		)
+
+		Box(modifier = Modifier.padding(gap))
+		// Send Button
+
+			BSButton(
+				modifier = Modifier.width(fullWidth-30.px)
+					.justifyContent(JustifyContent.Center),
+				text = "Send Message  ✉\uFE0F",
+				customization = ButtonCustomization(
+					color = Colors.White,
+					hoverColor = Colors.White,
+					activeColor = Colors.WhiteSmoke,
+					borderColor = Colors.White,
+					hoverBorderColor = Colors.White,
+					activeBorderColor = rgb(168, 192, 255),
+					gradient = linearGradient(
+						from = rgb(168, 192, 255),
+						to = rgb(63, 43, 150),
+						dir = LinearGradient.Direction.ToTopRight
+					),
+					borderRadius = BSBorderRadius(all = 50.px),
+					horizontalPadding = 1.25.cssRem
+				),
+				onClick = {}
+			)
+
+
+		Box(modifier = Modifier.padding(gap))
+	}
+}
+
+
+
