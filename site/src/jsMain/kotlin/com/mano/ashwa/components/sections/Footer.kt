@@ -18,6 +18,7 @@ import com.varabyte.kobweb.compose.css.FontStyle
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.JustifyContent
 import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.css.functions.LinearGradient
 import com.varabyte.kobweb.compose.css.functions.linearGradient
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
@@ -29,14 +30,19 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.alignItems
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
+import com.varabyte.kobweb.compose.ui.modifiers.color
 import com.varabyte.kobweb.compose.ui.modifiers.display
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
+import com.varabyte.kobweb.compose.ui.modifiers.height
 import com.varabyte.kobweb.compose.ui.modifiers.justifyContent
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.textAlign
+import com.varabyte.kobweb.compose.ui.modifiers.textDecorationLine
 import com.varabyte.kobweb.compose.ui.modifiers.width
+import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.silk.components.layout.HorizontalDivider
 import com.varabyte.kobweb.silk.components.text.SpanText
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
@@ -102,7 +108,7 @@ fun FooterContactField(
 
 @Composable
 fun Footer() {
-	Column(modifier = Modifier.fillMaxWidth().backgroundColor(Colors.Gray),
+	Column(modifier = Modifier.fillMaxWidth(),
 //		verticalArrangement = Arrangement.Center,
 		//horizontalAlignment = ColumnDefaults.HorizontalAlignment
 	) {
@@ -119,6 +125,8 @@ fun Footer() {
 //			onLastName = { lastName = it }
 		)
 
+		QuickInfos()
+
 	}
 
 }
@@ -133,7 +141,7 @@ fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
 
 	Column(
 		// I want to center align all the content in this Column
-		modifier = Modifier.fillMaxWidth().alignItems(AlignItems.Center)//.padding(gap)
+		modifier = Modifier.fillMaxWidth().alignItems(AlignItems.Center)
 	) {
 		// First Name and Last Name side by side
 		Row(
@@ -211,11 +219,143 @@ fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
 				),
 				onClick = {}
 			)
-
-
 		Box(modifier = Modifier.padding(gap))
 	}
 }
 
+@Composable
+fun QuickInfos() {
+	Row(modifier = Modifier.fillMaxWidth(),
+		horizontalArrangement = Arrangement.SpaceEvenly,
+		verticalAlignment = Alignment.Top // changed from CenterVertically to Top
+	) {
+		// Start ### My Projects-------------------------------
+		Row(
+			modifier = Modifier.fillMaxWidth().padding(20.px)
+				.padding(20.px),
+			horizontalArrangement = Arrangement.SpaceEvenly,
+			verticalAlignment = Alignment.Top // changed from CenterVertically to Top
+		) {
+			Column(
+				horizontalAlignment = Alignment.Start,
+				verticalArrangement = Arrangement.Center,
+				modifier = Modifier.padding(10.px)
+			) {
+				H5 { Text("My Projects") }
+				Column(
+					horizontalAlignment = Alignment.Start,
+					verticalArrangement = Arrangement.Center,
+					modifier = Modifier.padding(10.px)
+				) {
+					H5 { Text("Quick Links") }
+					A (
+						href = "https://www.keysight.com/in/en/product/NTH50047B/nemo-handy-handheld-measurement-solution.html",
+						attrs = {
+							target(ATarget.Blank)
+						}
+					) {
+						SpanText("Nemo Handy Handheld Measurement Solution", modifier = Modifier.padding(5.px))
+					}
+					A(
+						href = "https://play.google.com/store/apps/details?id=com.mobstac.thehindu&h&pli=1",
+						attrs = {
+							target(ATarget.Blank)
+						}
+					) {
+						SpanText(
+							"The Hindu: India & World News",
+							modifier = Modifier.padding(5.px)
+						)
+					}
+					A(
+						href = "https://play.google.com/store/apps/details?id=com.mobstac.thehindubusinessline",
+						attrs = {
+							target(ATarget.Blank)
+						}
+					) {
+						SpanText(
+							"The Hindu BusinessLine",
+							modifier = Modifier.padding(5.px)
+						)
+					}
+					SpanText("Shorts News", modifier = Modifier.padding(5.px))
+					SpanText("KMP Shopify: Shopify Mobile Apps POC", modifier = Modifier.padding(5.px))
+					SpanText("KMP Project : THE HINDU", modifier = Modifier.padding(5.px))
+				}
+			}
+		}
 
 
+		// Start ### Quick Links ### --------------------------------------
+		Row(
+			modifier = Modifier.fillMaxWidth().padding(20.px)
+				.padding(20.px),
+			horizontalArrangement = Arrangement.SpaceEvenly,
+			verticalAlignment = Alignment.Top // changed from CenterVertically to Top
+		) {
+			Column(
+				horizontalAlignment = Alignment.Start,
+				verticalArrangement = Arrangement.Center,
+				modifier = Modifier.padding(10.px)
+			) {
+				H5 { Text("Quick Links") }
+				SpanText("Home", modifier = Modifier.padding(5.px).textAlign(TextAlign.Start))
+				SpanText("About Me", modifier = Modifier.padding(5.px))
+				SpanText("Skills", modifier = Modifier.padding(5.px))
+				SpanText("Experiences", modifier = Modifier.padding(5.px))
+				SpanText("Portfolio", modifier = Modifier.padding(5.px))
+				SpanText("Download CV", modifier = Modifier.padding(5.px))
+			}
+		}
+
+		// Start ### Follow Me-------------------------------
+		Row(
+			modifier = Modifier.fillMaxWidth().padding(20.px)
+				.padding(20.px),
+			horizontalArrangement = Arrangement.SpaceEvenly,
+			verticalAlignment = Alignment.Top // changed from CenterVertically to Top
+		) {
+			Column(
+				horizontalAlignment = Alignment.Start,
+				verticalArrangement = Arrangement.Center,
+				modifier = Modifier.padding(10.px)
+			) {
+				H5 { Text("Follow Me") }
+				Div(
+					attrs = Modifier
+						.fillMaxWidth()
+						.height(2.px)
+						.backgroundColor(Colors.Blue)
+						.toAttrs()
+				)
+
+				A (
+					href = "https://github.com/ashwanisingh8713",
+					attrs = {
+						target(ATarget.Blank)
+					}
+				) {
+					SpanText("GitHub", modifier = Modifier.padding(5.px))
+				}
+				A (
+					href = "https://github.com/ashwanisingh8713",
+					attrs = {
+						target(ATarget.Blank)
+					}
+				) {
+					SpanText("Linkedin", modifier = Modifier.padding(5.px))
+				}
+
+				A (
+					href = "https://medium.com/@ashwanisingh8713",
+					attrs = {
+						target(ATarget.Blank)
+					}
+				) {
+					SpanText("Medium", modifier = Modifier.padding(5.px))
+				}
+			}
+		}
+	}
+
+}
