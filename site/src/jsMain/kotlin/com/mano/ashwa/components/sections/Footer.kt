@@ -5,12 +5,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.mano.ashwa.data.DISCORD_LINK
-import com.mano.ashwa.data.REPO_LINK
 import com.stevdza.san.kotlinbs.components.BSButton
 import com.stevdza.san.kotlinbs.forms.BSInput
 import com.stevdza.san.kotlinbs.forms.BSTextArea
-import com.stevdza.san.kotlinbs.icons.BSIcons
 import com.stevdza.san.kotlinbs.models.BSBorderRadius
 import com.stevdza.san.kotlinbs.models.button.ButtonCustomization
 import com.varabyte.kobweb.compose.css.AlignItems
@@ -18,7 +15,6 @@ import com.varabyte.kobweb.compose.css.FontStyle
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.JustifyContent
 import com.varabyte.kobweb.compose.css.TextAlign
-import com.varabyte.kobweb.compose.css.TextDecorationLine
 import com.varabyte.kobweb.compose.css.functions.LinearGradient
 import com.varabyte.kobweb.compose.css.functions.linearGradient
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
@@ -30,8 +26,6 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.alignItems
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
-import com.varabyte.kobweb.compose.ui.modifiers.color
-import com.varabyte.kobweb.compose.ui.modifiers.display
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
@@ -39,72 +33,13 @@ import com.varabyte.kobweb.compose.ui.modifiers.height
 import com.varabyte.kobweb.compose.ui.modifiers.justifyContent
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.textAlign
-import com.varabyte.kobweb.compose.ui.modifiers.textDecorationLine
 import com.varabyte.kobweb.compose.ui.modifiers.width
 import com.varabyte.kobweb.compose.ui.toAttrs
-import com.varabyte.kobweb.silk.components.layout.HorizontalDivider
 import com.varabyte.kobweb.silk.components.text.SpanText
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 
-data class FooterSocial(val iconName: String, val url: String)
-
-val footerSocials = listOf(
-	FooterSocial("discord", DISCORD_LINK),
-	FooterSocial("github", REPO_LINK),
-//	FooterSocial("linkedin", LINKEDIN_LINK),
-//	FooterSocial("twitch", TWITCH_LINK),
-//	FooterSocial("x-twitter", TWITTER_LINK),
-)
-
-data class ProjectLink(val name: String, val url: String)
-
-val projectLinks = listOf(
-	ProjectLink("Kore", "https://kore.ayfri.com"),
-	ProjectLink("Atom Clicker", "https://atom-clicker.ayfri.com"),
-	ProjectLink("PokeCards-Collector", "https://pokecards-collector.ayfri.com"),
-	ProjectLink("Cursors Draw", "https://cursors.draw.ayfri.com"),
-	ProjectLink("Realtime TodoList", "https://realtime-todolist.pages.dev"),
-	ProjectLink("GPT Images", "https://gpt-images.ayfri.com"),
-)
-
-@Composable
-fun FooterContactField(
-	label: String,
-	id: String,
-	type: InputType<String> = InputType.Text,
-	required: Boolean = false,
-	range: IntRange? = null,
-	textArea: Boolean = false,
-	autocomplete: String? = null,
-) {
-	Div {
-		Label(id) {
-			Text(label)
-		}
-
-		if (textArea) {
-			TextArea {
-				id(id)
-				if (required) attr("required", "")
-				placeholder(label)
-				minLength(range?.first ?: 0)
-				maxLength(range?.last ?: Int.MAX_VALUE)
-				if (autocomplete != null) attr("autocomplete", autocomplete)
-			}
-		} else {
-			Input(type) {
-				id(id)
-				if (required) attr("required", "")
-				placeholder(label)
-				minLength(range?.first ?: 0)
-				maxLength(range?.last ?: Int.MAX_VALUE)
-				if (autocomplete != null) attr("autocomplete", autocomplete)
-			}
-		}
-	}
-}
 
 @Composable
 fun Footer() {
@@ -125,6 +60,15 @@ fun Footer() {
 //			onLastName = { lastName = it }
 		)
 
+		// Divider
+		Box(
+			modifier = Modifier
+				.fillMaxWidth()
+				.height(2.px)
+				.backgroundColor(Colors.LightGray)
+		)
+
+		// Quick Infos
 		QuickInfos()
 
 	}
@@ -137,7 +81,7 @@ fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
 
 	val fullWidth = 520.px
 	val gap = 10.px
-	var halfWidth = 250.px
+	val halfWidth = 250.px
 
 	Column(
 		// I want to center align all the content in this Column
@@ -247,7 +191,6 @@ fun QuickInfos() {
 					verticalArrangement = Arrangement.Center,
 					modifier = Modifier.padding(10.px)
 				) {
-					H5 { Text("Quick Links") }
 					A (
 						href = "https://www.keysight.com/in/en/product/NTH50047B/nemo-handy-handheld-measurement-solution.html",
 						attrs = {
