@@ -79,7 +79,5 @@ fun HomePage() {
                 ResumeSection()
             }
         }
-
-
     }
 }
