@@ -167,90 +167,9 @@ fun NavHeader() {
         })
     }
 
-    /*Row(NavHeaderStyle.toModifier(), verticalAlignment = Alignment.CenterVertically) {
-//        Link("https://kobweb.varabyte.com") {
-//            // Block display overrides inline display of the <img> tag, so it calculates centering better
-//            Image("/kobweb-logo.png", "Kobweb Logo", Modifier.height(2.cssRem).display(DisplayStyle.Block))
-//        }
 
-        Box(
-            Modifier
-                .padding(topBottom = 1.cssRem, leftRight = 2.cssRem)
-                .fontSize(1.5.cssRem)
-        ) {
-            SpanText("Ashwani Kumar", Modifier.fontSize(1.5.cssRem).fontWeight(FontWeight.Bold).color(color = Colors.Black))
-        }
-
-
-        Spacer()
-
-        Row(Modifier.gap(1.5.cssRem).displayIfAtLeast(Breakpoint.MD), verticalAlignment = Alignment.CenterVertically) {
-            MenuItems()
-            ColorModeButton()
-        }
-
-        Row(
-            Modifier
-                .fontSize(1.5.cssRem)
-                .gap(1.cssRem)
-                .displayUntil(Breakpoint.MD),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            var menuState by remember { mutableStateOf(SideMenuState.CLOSED) }
-
-            ColorModeButton()
-            HamburgerButton(onClick =  { menuState = SideMenuState.OPEN })
-
-            if (menuState != SideMenuState.CLOSED) {
-                SideMenu(
-                    menuState,
-                    close = { menuState = menuState.close() },
-                    onAnimationEnd = { if (menuState == SideMenuState.CLOSING) menuState = SideMenuState.CLOSED }
-                )
-            }
-        }
-    }*/
 }
 
-@Composable
-private fun SideMenu(menuState: SideMenuState, close: () -> Unit, onAnimationEnd: () -> Unit) {
-    Overlay(
-        Modifier
-            .setVariable(OverlayVars.BackgroundColor, Colors.Transparent)
-            .onClick { close() }
-    ) {
-        key(menuState) { // Force recompute animation parameters when close button is clicked
-            Column(
-                Modifier
-                    .fillMaxHeight()
-                    .width(clamp(8.cssRem, 33.percent, 10.cssRem))
-                    .align(Alignment.CenterEnd)
-                    // Close button will appear roughly over the hamburger button, so the user can close
-                    // things without moving their finger / cursor much.
-                    .padding(top = 1.cssRem, leftRight = 1.cssRem)
-                    .gap(1.5.cssRem)
-                    .backgroundColor(ColorMode.current.toSitePalette().nearBackground)
-                    .animation(
-                        SideMenuSlideInAnim.toAnimation(
-                            duration = 200.ms,
-                            timingFunction = if (menuState == SideMenuState.OPEN) AnimationTimingFunction.EaseOut else AnimationTimingFunction.EaseIn,
-                            direction = if (menuState == SideMenuState.OPEN) AnimationDirection.Normal else AnimationDirection.Reverse,
-                            fillMode = AnimationFillMode.Forwards
-                        )
-                    )
-                    .borderRadius(topLeft = 2.cssRem)
-                    .onClick { it.stopPropagation() }
-                    .onAnimationEnd { onAnimationEnd() },
-                horizontalAlignment = Alignment.End
-            ) {
-                CloseButton(onClick = { close() })
-                Column(Modifier.padding(right = 0.75.cssRem).gap(1.5.cssRem).fontSize(1.4.cssRem), horizontalAlignment = Alignment.End) {
-                    MenuItems()
-                }
-            }
-        }
-    }
-}
 
 object HeaderStyle : StyleSheet() {
     const val NAVBAR_COLOR = "#0A0A0F"
