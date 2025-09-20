@@ -13,10 +13,10 @@ val tabs = listOf(
 	Tab("Home", Screen.Home.route),
 	Tab("About Me", Screen.About.route),
 	Tab("My Skills", Screen.Skill.route),
-	Tab("My Projects", Screen.Project.route),
 	Tab("Experiences", Screen.Experiences.route),
-	Tab("Portfolio", Screen.Portfolio.route),
-	Tab("Articles", Screen.Articles.route),
+	Tab("My Projects", Screen.Project.route),
+	//Tab("Portfolio", Screen.Portfolio.route),
+	Tab("Cover Letter", Screen.CoverLetter.route),
 )
 
 @Composable
