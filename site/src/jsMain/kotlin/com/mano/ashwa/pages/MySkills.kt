@@ -27,8 +27,8 @@ import com.varabyte.kobweb.core.layout.Layout
 import org.jetbrains.compose.web.dom.Div
 
 @InitRoute
-fun initHomePage3(ctx: InitRouteContext) {
-    ctx.data.add(PageLayoutData("Ashwani Kumar"))
+fun initSkillPage(ctx: InitRouteContext) {
+    ctx.data.add(PageLayoutData("Ashwani Skills"))
 }
 
 @Page(Skill_Route)
