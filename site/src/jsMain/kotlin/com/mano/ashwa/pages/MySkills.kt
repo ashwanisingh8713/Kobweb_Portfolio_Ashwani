@@ -3,13 +3,13 @@ package com.mano.ashwa.pages
 import org.jetbrains.compose.web.css.fr
 import androidx.compose.runtime.Composable
 import com.mano.ashwa.components.layouts.PageLayoutData
-import com.mano.ashwa.navigation.Screen
+import com.mano.ashwa.components.widgets.SkillCardView
+import com.mano.ashwa.model.SkillData
 import com.mano.ashwa.navigation.Skill_Route
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.core.Page
 import com.varabyte.kobweb.compose.foundation.layout.*
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.compose.ui.modifiers.*
@@ -17,7 +17,6 @@ import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.DisplayStyle
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
 import com.varabyte.kobweb.compose.ui.modifiers.fontSize
-import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.data.add
@@ -53,7 +52,7 @@ fun SkillPage() {
                     .toAttrs()
             ) {
                 skillCards.forEach { card ->
-                    SkillCard(
+                    SkillCardView(
                         title = card.title,
                         skills = card.skills,
                         icon = card.icon,
@@ -65,36 +64,9 @@ fun SkillPage() {
     }
 }
 
-@Composable
-fun SkillCard(title: String, skills: List<String>, icon: String? = null,
-              color: Color = Colors.WhiteSmoke) {
-    Box(
-        Modifier
-            .fillMaxWidth()
-            .backgroundColor(color)
-            .borderRadius(12.px)
-            .padding(16.px)
-    ) {
-        Column(Modifier.gap(8.px)) {
-            Row(Modifier.gap(8.px)) {
-                if (icon != null) {
-                    SpanText(icon, Modifier.fontSize(24.px))
-                }
-                SpanText(title, Modifier.fontWeight(FontWeight.Bold).fontSize(20.px))
-            }
-            Column {
-                skills.forEach {
-                    SpanText("• $it", Modifier.fontSize(16.px).color(Colors.DarkSlateGray))
-                }
-            }
-        }
-    }
-}
 
-data class SkillCardData(val title: String, val skills: List<String>, val icon: String, val color: Color)
-
-val skillCards = listOf(
-    SkillCardData(
+private val skillCards = listOf(
+    SkillData(
         title = "Multiplatform & Android",
         skills = listOf(
             "Kotlin Multiplatform Development (Android, iOS, Web)",
@@ -104,7 +76,7 @@ val skillCards = listOf(
         icon = "📱",
         color = Colors.LightBlue
     ),
-    SkillCardData(
+    SkillData(
         title = "Architecture & Patterns",
         skills = listOf(
             "SOLID principles",
@@ -114,7 +86,7 @@ val skillCards = listOf(
         icon = "🏗️",
         color = Colors.LightGoldenRodYellow
     ),
-    SkillCardData(
+    SkillData(
         title = "Libraries & Tools",
         skills = listOf(
             "DI (KOIN, HILT)",
@@ -125,7 +97,7 @@ val skillCards = listOf(
         icon = "🛠️",
         color = Colors.LightGreen
     ),
-    SkillCardData(
+    SkillData(
         title = "Debugging & Performance",
         skills = listOf(
             "Log back stack tracking",
@@ -135,7 +107,7 @@ val skillCards = listOf(
         icon = "🔍",
         color = Colors.MistyRose
     ),
-    SkillCardData(
+    SkillData(
         title = "Backend & Integration",
         skills = listOf(
             "GoLang Microservices (GIN)",
@@ -145,7 +117,7 @@ val skillCards = listOf(
         icon = "🔗",
         color = Colors.Lavender
     ),
-    SkillCardData(
+    SkillData(
         title = "Project & Team",
         skills = listOf(
             "Project Management Tools",
@@ -155,7 +127,7 @@ val skillCards = listOf(
         icon = "👥",
         color = Colors.HoneyDew
     ),
-    SkillCardData(
+    SkillData(
         title = "Testing & Reactive",
         skills = listOf(
             "UnitTest cases writing",
@@ -164,7 +136,7 @@ val skillCards = listOf(
         icon = "✅",
         color = Colors.AliceBlue
     ),
-    SkillCardData(
+    SkillData(
         title = "AI & Wireframing",
         skills = listOf(
             "AI Tools & Prompt Engineering"

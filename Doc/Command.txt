@@ -1,0 +1,8 @@
+## To clean the project
+./gradlew clean
+
+## To delete KSP caches
+rm -rf site/build/kspCaches
+
+## To build and Run the project
+Kobweb run
