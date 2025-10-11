@@ -33,6 +33,7 @@ fun BSHeader(ctx: PageContext) {
         ),
         expand = NavBarExpand.LG,
         backgroundStyle = BackgroundStyle.Dark,
+        // It creates Navigation Tabs and handles selection redirections and states
         items = NavTabDataList(
             ctx,
             selectedTabId,

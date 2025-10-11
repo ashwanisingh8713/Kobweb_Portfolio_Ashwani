@@ -77,6 +77,16 @@ private val skillCards = listOf(
         color = Colors.LightBlue
     ),
     SkillData(
+        title = "Multiplatform & Android",
+        skills = listOf(
+            "Kotlin Multiplatform Development (Android, iOS, Web)",
+            "Android Native App Development",
+            "JetPack Libs & ComposeUI"
+        ),
+        icon = "📱",
+        color = Colors.LightBlue
+    ),
+    SkillData(
         title = "Architecture & Patterns",
         skills = listOf(
             "SOLID principles",

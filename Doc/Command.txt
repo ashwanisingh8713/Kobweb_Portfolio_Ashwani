@@ -4,5 +4,8 @@
 ## To delete KSP caches
 rm -rf site/build/kspCaches
 
+## to delete full build folder
+rm -rf site/build
+
 ## To build and Run the project
 Kobweb run

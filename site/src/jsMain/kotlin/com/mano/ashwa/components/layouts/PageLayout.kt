@@ -62,11 +62,11 @@ fun PageLayout(ctx: PageContext, content: @Composable ColumnScope.() -> Unit) {
         ) {
             //NavHeader()
 
-            BSHeader(ctx)
+            BSHeader(ctx) // Header with navigation links
             Div(PageContentStyle.toAttrs()) {
-                content()
+                content() // Main page content
             }
-            Footer()
+            Footer() // Footer at the bottom
         }
 
     }
