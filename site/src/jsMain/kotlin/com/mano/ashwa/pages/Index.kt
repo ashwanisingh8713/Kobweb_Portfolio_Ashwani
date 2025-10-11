@@ -24,7 +24,12 @@ import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.dom.Div
 import com.mano.ashwa.components.layouts.PageLayoutData
 import com.mano.ashwa.components.sections.ResumeSection
+import com.mano.ashwa.navigation.Screen
 import com.mano.ashwa.toSitePalette
+import com.stevdza.san.kotlinbs.components.BSButton
+import com.varabyte.kobweb.core.PageContext
+import com.varabyte.kobweb.silk.components.text.SpanText
+import org.jetbrains.compose.web.css.px
 
 // Container that has a tagline and grid on desktop, and just the tagline on mobile
 val HeroContainerStyle = CssStyle {
@@ -67,7 +72,11 @@ fun initHomePage(ctx: InitRouteContext) {
 @Page
 @Layout(".components.layouts.PageLayout")
 @Composable
-fun HomePage() {
+fun HomePage(ctx: PageContext) {
+    // When @Layout is used, then mentioned "PageLayout" UI comes automatically in calling page.
+    // the "content" parameter which is here as lambda, gets remaining UI of the page
+    // Below full code is referred from PageLayout.kt -> PageLayout function parameter 'content'
+    // here whatever is written those will go inside "content" parameter, because it has last parameter as Lambda function
     Row(HeroContainerStyle.toModifier()) {
         Box {
             val sitePalette = ColorMode.current.toSitePalette()
@@ -75,7 +84,6 @@ fun HomePage() {
             Column(Modifier.gap(2.cssRem)) {
                 // Write this resume in Kobweb Compose App.
                 //  /Users/ashwani/Kobweb/Kobweb_Portfolio_Ashwani/site/Resume/Ashwani Android Tech Lead & KMP Developer.pdf
-
                 ResumeSection()
             }
         }
