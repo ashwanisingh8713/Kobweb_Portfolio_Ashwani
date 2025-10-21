@@ -16,7 +16,6 @@ import java.net.URI
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.compose.compiler)
-    //alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kobweb.application)
     alias(libs.plugins.kobwebx.markdown)
 }
@@ -33,16 +32,12 @@ version = "1.0-SNAPSHOT"
 
 kobweb {
     app {
-//  #      index {
-// #           description.set("Powered by Kobweb")
-//   #     }
         index {
-            val url = "https://ayfri.com"
-            val authorStr = "Pierre Roy"
-            val twitterHandle = "@Ayfri_"
+            val url = ""
+            val authorStr = "Ashwani Kumar Singh"
 
             val descriptionStr = """
-				Hi, I'm Pierre Roy, an IT student, and I'm passionate about computer science and especially programming.
+				Hi, I'm Ashwani Kumar Singh, a software engineer based in India, and I'm passionate about mobile technology and AgenticAI.
 				Discover my projects and my blog on this website.
 			""".trimIndent()
 
@@ -55,9 +50,6 @@ kobweb {
             globals.put("url", url)
 
             faviconPath = "/logo.png"
-
-            // Remove head.apply { add { ... } } block for configuration cache compatibility
-            // If you need to add custom meta/link/script tags, use supported properties or static resources
         }
     }
 }
@@ -68,10 +60,6 @@ kotlin {
     configAsKobwebApplication("ashwa" /*, includeServer = true*/)
 
     sourceSets {
-//        commonMain.dependencies {
-//          // Add shared dependencies between JS and JVM here if building a fullstack app
-//        }
-
         jsMain.dependencies {
             implementation(libs.compose.runtime)
             implementation(libs.compose.html.core)
@@ -83,10 +71,5 @@ kotlin {
             implementation(libs.kobwebx.markdown)
             implementation(libs.kotlin.bootstrap)
         }
-
-        // Uncomment the following if you pass `includeServer = true` into the `configAsKobwebApplication` call.
-//        jvmMain.dependencies {
-//            compileOnly(libs.kobweb.api) // Provided by Kobweb backend at runtime
-//        }
     }
 }
