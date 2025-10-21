@@ -1,6 +1,9 @@
 ## To clean the project
 ./gradlew clean
 
+## To clean the build artifacts and clear the cache:
+./gradlew clean build --refresh-dependencies
+
 ## To delete KSP caches
 rm -rf site/build/kspCaches
 
@@ -9,3 +12,4 @@ rm -rf site/build
 
 ## To build and Run the project
 Kobweb run
+

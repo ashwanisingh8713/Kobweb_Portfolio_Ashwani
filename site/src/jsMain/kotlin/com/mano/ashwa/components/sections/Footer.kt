@@ -281,7 +281,7 @@ fun QuickInfos() {
 					SpanText("GitHub", modifier = Modifier.padding(5.px))
 				}
 				A (
-					href = "https://github.com/ashwanisingh8713",
+					href = "https://www.linkedin.com/in/ashwani-kumar-singh-45577042/",
 					attrs = {
 						target(ATarget.Blank)
 					}
