@@ -2,8 +2,7 @@ package com.mano.ashwa.components.layouts
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.mano.ashwa.components.sections.BSHeader
-import com.varabyte.kobweb.compose.dom.svg.*
+import com.mano.ashwa.sections.BSHeader
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
@@ -21,7 +20,7 @@ import org.jetbrains.compose.web.css.fr
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.css.vh
-import com.mano.ashwa.components.sections.Footer
+import com.mano.ashwa.sections.Footer
 import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.px
 

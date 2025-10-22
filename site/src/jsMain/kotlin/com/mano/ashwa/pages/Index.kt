@@ -23,13 +23,9 @@ import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.dom.Div
 import com.mano.ashwa.components.layouts.PageLayoutData
-import com.mano.ashwa.components.sections.ResumeSection
-import com.mano.ashwa.navigation.Screen
+import com.mano.ashwa.sections.ResumeSection
 import com.mano.ashwa.toSitePalette
-import com.stevdza.san.kotlinbs.components.BSButton
 import com.varabyte.kobweb.core.PageContext
-import com.varabyte.kobweb.silk.components.text.SpanText
-import org.jetbrains.compose.web.css.px
 
 // Container that has a tagline and grid on desktop, and just the tagline on mobile
 val HeroContainerStyle = CssStyle {
