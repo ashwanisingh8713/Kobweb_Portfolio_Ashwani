@@ -97,7 +97,7 @@ fun ExperienceCardView(data: ExperienceData) {
 }
 
 @Composable
-fun ChipLayout(items: List<String>, chipColor: Color = Colors.Gray) {
+fun ChipLayout(items: List<String>, chipColor: Color = Colors.LightBlue) { // Changed default color
     Div({
         style {
             display(DisplayStyle.Flex)
@@ -107,6 +107,10 @@ fun ChipLayout(items: List<String>, chipColor: Color = Colors.Gray) {
             property("margin-bottom", "4px")
             property("margin-right", "4px")
             width(100.percent)
+            // Subtle light blue background for layout
+            property("background-color", "#e3f2fd")
+            property("border-radius", "12px")
+            property("padding", "8px 0")
         }
     }) {
         items.forEach { tech ->
@@ -116,23 +120,26 @@ fun ChipLayout(items: List<String>, chipColor: Color = Colors.Gray) {
 }
 
 @Composable
-fun Chip(text: String, color: Color = Colors.Gray) {
+fun Chip(text: String, color: Color = Colors.LightBlue) { // Changed default color
     Box(
         Modifier
             .backgroundColor(color)
             .borderRadius(16.px)
             .padding(left = 12.px, right = 12.px, top = 4.px, bottom = 4.px)
-            .margin(2.px)
+            .margin(left = 5.px, top = 3.px, right = 3.px, bottom = 3.px)
     ) {
         org.jetbrains.compose.web.dom.Span({
             style {
                 property("white-space", "nowrap")
                 property("font-size", "14px")
-                property("color", Colors.DarkSlateBlue.toString()) // More contrast
+                property("color", Colors.DarkSlateBlue.toString())
                 property("margin-right", "8px")
                 property("margin-bottom", "8px")
-                property("box-shadow", "0 2px 8px 0 rgba(0, 120, 255, 0.10)") // Subtle shadow
-                property("border", "1px solid #90caf9") // Light blue border
+                property("box-shadow", "0 2px 8px 0 rgba(0, 120, 255, 0.10)")
+                property("display", "flex")
+                property("align-items", "center")
+                property("justify-content", "center") // Center align text
+                property("height", "100%")
             }
         }) {
             org.jetbrains.compose.web.dom.Text(text)
