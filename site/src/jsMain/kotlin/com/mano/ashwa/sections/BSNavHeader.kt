@@ -1,4 +1,4 @@
-package com.mano.ashwa.components.sections
+package com.mano.ashwa.sections
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.mano.ashwa.components.widgets.NavTabDataList
+import com.mano.ashwa.navigation.Screen
 import com.stevdza.san.kotlinbs.components.BSNavBar
 import com.stevdza.san.kotlinbs.models.BackgroundStyle
 import com.stevdza.san.kotlinbs.models.navbar.NavBarBrand
@@ -17,11 +18,9 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.core.PageContext
 
-
-
 @Composable
 fun BSHeader(ctx: PageContext) {
-    var selectedTabId by remember { mutableStateOf(com.mano.ashwa.navigation.Screen.Home.id) }
+    var selectedTabId by remember { mutableStateOf(Screen.Home.id) }
     BSNavBar(
         modifier = Modifier.fillMaxWidth(),
         stickyTop = true,

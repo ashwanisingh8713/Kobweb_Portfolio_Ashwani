@@ -1,4 +1,4 @@
-package com.mano.ashwa.components.sections
+package com.mano.ashwa.sections
 
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.foundation.layout.Column
