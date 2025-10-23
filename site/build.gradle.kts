@@ -1,17 +1,6 @@
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import kotlinx.html.HEAD
-import kotlinx.html.link
 import kotlinx.html.meta
-import kotlinx.html.script
-import kotlinx.html.unsafe
-import com.varabyte.kobweb.common.text.ensureSurrounded
-import com.varabyte.kobweb.common.text.splitCamelCase
-import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
-import com.varabyte.kobwebx.gradle.markdown.children
-import kotlinx.html.*
-import org.commonmark.node.Text
-import java.net.HttpURLConnection
-import java.net.URI
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -47,6 +36,7 @@ kobweb {
 
             globals.put("author", authorStr)
             globals.put("description", descriptionStr)
+            globals.put("image", image) // Add image to globals so it's available in templates and to avoid an unused-property warning
             globals.put("url", url)
 
             faviconPath = "/logo.png"
