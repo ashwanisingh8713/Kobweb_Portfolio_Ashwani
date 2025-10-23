@@ -3,7 +3,6 @@ package com.mano.ashwa.pages
 import androidx.compose.runtime.Composable
 import com.mano.ashwa.components.layouts.PageLayoutData
 import com.mano.ashwa.components.widgets.ExperienceCardView
-import com.mano.ashwa.components.widgets.SkillCardView
 import com.mano.ashwa.model.ExperienceData
 import com.mano.ashwa.navigation.Experience_Route
 import com.varabyte.kobweb.compose.css.FontWeight
@@ -43,7 +42,7 @@ fun initExperiencesPage(ctx: InitRouteContext) {
 @Composable
 fun Experiences() {
     // You can add content here for the My Experience page
-    Box(Modifier.fillMaxWidth().backgroundColor(Colors.WhiteSmoke).padding(32.px)) {
+    Box(Modifier.fillMaxWidth().backgroundColor(Colors.Transparent).padding(32.px)) {
         Column(
             Modifier.gap(32.px),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -125,7 +124,7 @@ private val experienceCards = listOf(
             "Understanding and accumulating requirements, Making Flow Diagram, Providing Task breakup and estimation, distributing tasks"
         ),
         icon = "📱",
-        color = Colors.LightBlue
+        color = Colors.LightGreen
     ),
 
     // GLOBAL LOGIC INDIA LTD
@@ -145,7 +144,7 @@ private val experienceCards = listOf(
             "Worked on MVM Design Pattern using RxJava",
         ),
         icon = "📱",
-        color = Colors.LightBlue
+        color = Colors.LightYellow
     ),
 
 
@@ -166,7 +165,7 @@ private val experienceCards = listOf(
             "Social Login Implementation",
         ),
         icon = "📱",
-        color = Colors.LightBlue
+        color = Colors.LightCyan
     ),
 
     // RED ORANGE TECHNOLOGIES
@@ -185,7 +184,7 @@ private val experienceCards = listOf(
             "Third party libs integration",
         ),
         icon = "📱",
-        color = Colors.LightBlue
+        color = Colors.LightPink
     ),
 
     // LIMITEX TECHNOLOGIES
@@ -202,6 +201,6 @@ private val experienceCards = listOf(
             "Learning Android, creating layouts and designs"
         ),
         icon = "📱",
-        color = Colors.LightBlue
+        color = Colors.WhiteSmoke
     ),
 )

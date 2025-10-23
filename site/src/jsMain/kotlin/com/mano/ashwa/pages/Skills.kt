@@ -34,7 +34,7 @@ fun initSkillPage(ctx: InitRouteContext) {
 @Layout(".components.layouts.PageLayout")
 @Composable
 fun SkillPage() {
-    Box(Modifier.fillMaxWidth().backgroundColor(Colors.WhiteSmoke).padding(32.px)) {
+    Box(Modifier.fillMaxWidth().backgroundColor(Colors.Transparent).padding(32.px)) {
         Column(
             Modifier.gap(32.px),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -218,5 +218,3 @@ private val skillCards = listOf(
         color = Colors.Linen
     )
 )
-
-

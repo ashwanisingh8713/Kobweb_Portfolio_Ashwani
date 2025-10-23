@@ -23,7 +23,7 @@ val bannerStyle = CssStyle {
     base {
         Modifier
             .fillMaxSize()
-            .padding(200.px, 0.px, 100.px, 0.px)
+            .padding(60.px, 0.px, 100.px, 0.px)
             .backgroundPosition(BackgroundPosition.of(CSSPosition.Top))
             .backgroundImage(url(Assets.BannerBg))
             .backgroundPosition(BackgroundPosition.of(CSSPosition.Center))

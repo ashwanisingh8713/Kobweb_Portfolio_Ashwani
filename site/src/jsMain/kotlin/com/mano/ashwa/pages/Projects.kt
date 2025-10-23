@@ -41,7 +41,7 @@ fun initMyProjectsPage(ctx: InitRouteContext) {
 @Layout(".components.layouts.PageLayout")
 @Composable
 fun Projects() {
-    Box(Modifier.fillMaxWidth().backgroundColor(Colors.WhiteSmoke).padding(32.px)) {
+    Box(Modifier.fillMaxWidth().backgroundColor(Colors.Transparent).padding(32.px)) {
         Column(
             Modifier.gap(32.px),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -68,30 +68,30 @@ fun Projects() {
 
 private val projectCards = listOf(
     ProjectData(
-        name = "Nemo Handy – Wireless Network Measurement Tool",
+        name = "Nemo Handy  Wireless Network Measurement Tool",
         description = "Android app for wireless diagnostics, QoS/QoE, and network performance. Features Bluetooth & GooglePlayService NearBy, 5G/LTE/VoLTE/IoT testing, dashboards, device compatibility, instant reporting, and cloud uploads.",
         duration = "2024 - Present",
         role = "Tech Lead / Android Architect",
         technologies = listOf("Android", "Kotlin", "JNI", "Bluetooth", "Google Play Service NearBy", "REST API", "Cloud Integration"),
-        icon = "📱",
+        icon = "\ud83d\udcf1",
         color = Colors.LightBlue
     ),
     ProjectData(
-        name = "Kobweb-Blog – Full-Stack Technical Blogging Platform",
+        name = "Kobweb-Blog  Full-Stack Technical Blogging Platform",
         description = "Kotlin Multiplatform blogging platform using Kobweb, Compose for Web, Ktor, and MongoDB. Features category, search, auth, REST APIs, and dynamic content.",
         duration = "2023 - 2024",
         role = "Full Stack Developer",
         technologies = listOf("Kotlin Multiplatform", "Kobweb", "Compose for Web", "Ktor", "MongoDB"),
-        icon = "🌐",
+        icon = "\ud83c\udf10",
         color = Colors.LightGreen
     ),
     ProjectData(
-        name = "Portfolio Website – Personal Branding Site",
+        name = "Portfolio Website  Personal Branding Site",
         description = "Responsive portfolio site with contact form, built and deployed using Kobweb and Compose for Web.",
         duration = "2023 - Present",
         role = "Web Developer",
         technologies = listOf("Kotlin Multiplatform", "Kobweb", "Compose for Web", "Ktor", "MongoDB"),
-        icon = "💼",
+        icon = "\ud83d\udcbc",
         color = Colors.LightYellow
     ),
     ProjectData(
@@ -100,7 +100,7 @@ private val projectCards = listOf(
         duration = "2015 - 2024",
         role = "Lead Android Developer",
         technologies = listOf("Android", "Kotlin", "Java", "Dynamic UI", "DFP Ads", "Analytics", "REST API"),
-        icon = "📰",
+        icon = "\ud83d\udcf0",
         color = Colors.LightCyan
     ),
     ProjectData(
@@ -109,7 +109,7 @@ private val projectCards = listOf(
         duration = "2023 - 2024",
         role = "KMP Developer",
         technologies = listOf("Kotlin Multiplatform", "Compose UI", "Koin", "Ktor", "GraphQL", "Shopify API"),
-        icon = "🛒",
+        icon = "\ud83d\uded2",
         color = Colors.LightPink
     ),
     ProjectData(
@@ -118,7 +118,7 @@ private val projectCards = listOf(
         duration = "2010 - Present",
         role = "Developer / Tech Lead",
         technologies = listOf("Android", "Kotlin", "KMP", "Internal Tools"),
-        icon = "✨",
+        icon = "\u2728",
         color = Colors.WhiteSmoke
     )
 )

@@ -25,7 +25,6 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.alignItems
-import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
@@ -35,15 +34,17 @@ import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.textAlign
 import com.varabyte.kobweb.compose.ui.modifiers.width
 import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.components.text.SpanText
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
+import com.mano.ashwa.AppStyle
 
 
 @Composable
 fun Footer() {
-	Column(modifier = Modifier.fillMaxWidth(),
+	Column(modifier = Modifier.fillMaxWidth().styleModifier { property("background-color", AppStyle.CONTENT_BACKGROUND_COLOR); property("color", "#ffffff") },
 //		verticalArrangement = Arrangement.Center,
 		//horizontalAlignment = ColumnDefaults.HorizontalAlignment
 	) {
@@ -65,7 +66,7 @@ fun Footer() {
 			modifier = Modifier
 				.fillMaxWidth()
 				.height(2.px)
-				.backgroundColor(Colors.LightGray)
+				.styleModifier { property("background-color", "#2b2b2b") }
 		)
 
 		// Quick Infos
@@ -95,7 +96,7 @@ fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			BSInput(
-				modifier = Modifier.width(halfWidth),
+				modifier = Modifier.width(halfWidth).styleModifier { property("background-color", "#121212"); property("color","#ffffff"); property("border-color","#444") },
 				value = firstName,
 				label = "First Name",
 				placeholder = "First Name",
@@ -105,7 +106,7 @@ fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
 			)
 			Box(modifier = Modifier.padding (gap))
 			BSInput(
-				modifier = Modifier.width(halfWidth),
+				modifier = Modifier.width(halfWidth).styleModifier { property("background-color", "#121212"); property("color","#ffffff"); property("border-color","#444") },
 				value = lastName,
 				label = "Last Name",
 				placeholder = "Last Name",
@@ -118,7 +119,7 @@ fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
 		Box(modifier = Modifier.padding(gap))
 		// Subject
 		BSInput(
-			modifier = Modifier.width(fullWidth),
+			modifier = Modifier.width(fullWidth).styleModifier { property("background-color", "#121212"); property("color","#ffffff"); property("border-color","#444") },
 			value = lastName,
 			label = "Subject",
 			placeholder = "Subject",
@@ -130,7 +131,7 @@ fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
 		Box(modifier = Modifier.padding(gap))
 		// Message
 		BSTextArea (
-			modifier = Modifier.width(fullWidth),
+			modifier = Modifier.width(fullWidth).styleModifier { property("background-color", "#121212"); property("color","#ffffff"); property("border-color","#444") },
 			value = lastName,
 			label = "Message",
 			placeholder = "Message",
@@ -145,7 +146,7 @@ fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
 			BSButton(
 				modifier = Modifier.width(fullWidth-30.px)
 					.justifyContent(JustifyContent.Center),
-				text = "Send Message  ✉\uFE0F",
+				text = "Send Message  \u2709\uFE0F",
 				customization = ButtonCustomization(
 					color = Colors.White,
 					hoverColor = Colors.White,
@@ -268,7 +269,7 @@ fun QuickInfos() {
 					attrs = Modifier
 						.fillMaxWidth()
 						.height(2.px)
-						.backgroundColor(Colors.Blue)
+						.styleModifier { property("background-color", "#3b82f6") }
 						.toAttrs()
 				)
 
