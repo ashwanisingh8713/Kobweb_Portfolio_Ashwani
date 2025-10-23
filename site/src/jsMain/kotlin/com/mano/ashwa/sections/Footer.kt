@@ -353,60 +353,75 @@ fun QuickInfos() {
                 modifier = Modifier.padding(20.px).styleModifier { property("min-width", "180px") }
             ) {
                 H5 { Text("Quick Links") }
-                SpanText(
-                    "Home",
-                    modifier = Modifier.padding(5.px).textAlign(TextAlign.Start)
-                        .styleModifier {
-                            property("cursor", "pointer"); property(
-                            "color",
-                            "#93C5FD"
-                        )
-                        })
-                SpanText(
-                    "About Me",
-                    modifier = Modifier.padding(5.px)
-                        .styleModifier {
-                            property("cursor", "pointer"); property(
-                            "color",
-                            "#93C5FD"
-                        )
-                        })
-                SpanText(
-                    "Skills",
-                    modifier = Modifier.padding(5.px)
-                        .styleModifier {
-                            property("cursor", "pointer"); property(
-                            "color",
-                            "#93C5FD"
-                        )
-                        })
-                SpanText(
-                    "Experiences",
-                    modifier = Modifier.padding(5.px)
-                        .styleModifier {
-                            property("cursor", "pointer"); property(
-                            "color",
-                            "#93C5FD"
-                        )
-                        })
-                SpanText(
-                    "Portfolio",
-                    modifier = Modifier.padding(5.px)
-                        .styleModifier {
-                            property("cursor", "pointer"); property(
-                            "color",
-                            "#93C5FD"
-                        )
-                        })
-                SpanText(
-                    "Download CV",
-                    modifier = Modifier.padding(5.px)
-                        .styleModifier {
-                            property("cursor", "pointer"); property(
-                            "color",
-                            "#93C5FD"
-                        )
-                        })
+                A(href = "#home") {
+                    SpanText(
+                        "Home",
+                        modifier = Modifier.padding(5.px).textAlign(TextAlign.Start)
+                            .styleModifier {
+                                property("cursor", "pointer"); property(
+                                "color",
+                                "#93C5FD"
+                            )
+                            })
+                }
+                A(href = "#about") {
+                    SpanText(
+                        "About Me",
+                        modifier = Modifier.padding(5.px)
+                            .styleModifier {
+                                property("cursor", "pointer"); property(
+                                "color",
+                                "#93C5FD"
+                            )
+                            })
+                }
+                A(href = "skill") {
+                    SpanText(
+                        "Skills",
+                        modifier = Modifier.padding(5.px)
+                            .styleModifier {
+                                property("cursor", "pointer"); property(
+                                "color",
+                                "#93C5FD"
+                            )
+                            })
+                }
+                A(href = "experiences") {
+                    SpanText(
+                        "Experiences",
+                        modifier = Modifier.padding(5.px)
+                            .styleModifier {
+                                property("cursor", "pointer"); property(
+                                "color",
+                                "#93C5FD"
+                            )
+                            })
+                }
+                A(href = "project") {
+                    SpanText(
+                        "Projects",
+                        modifier = Modifier.padding(5.px)
+                            .styleModifier {
+                                property("cursor", "pointer"); property(
+                                "color",
+                                "#93C5FD"
+                            )
+                            })
+                }
+                // Download CV - adjust href to the real path if different
+                A(href = "/cv.pdf", attrs = {
+                    attr("download", "Abhishek_Verma_CV.pdf")
+                }) {
+                    SpanText(
+                        "Download CV",
+                        modifier = Modifier.padding(5.px)
+                            .styleModifier {
+                                property("cursor", "pointer"); property(
+                                "color",
+                                "#93C5FD"
+                            )
+                            })
+                }
             }
 
             // Start ### Follow Me-------------------------------
@@ -465,5 +480,3 @@ fun QuickInfos() {
         }
     }
 }
-
-

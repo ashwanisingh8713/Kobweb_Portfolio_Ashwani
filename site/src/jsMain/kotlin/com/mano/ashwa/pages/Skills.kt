@@ -27,7 +27,7 @@ import org.jetbrains.compose.web.dom.Div
 
 @InitRoute
 fun initSkillPage(ctx: InitRouteContext) {
-    ctx.data.add(PageLayoutData("Ashwani Skills"))
+    ctx.data.add(PageLayoutData("Abhishek Skills"))
 }
 
 @Page(Skill_Route)

@@ -34,7 +34,7 @@ import org.jetbrains.compose.web.dom.Div
 
 @InitRoute
 fun initMyProjectsPage(ctx: InitRouteContext) {
-    ctx.data.add(PageLayoutData("Ashwani Projects"))
+    ctx.data.add(PageLayoutData("Abhishek Projects"))
 }
 
 @Page(Project_Route)
