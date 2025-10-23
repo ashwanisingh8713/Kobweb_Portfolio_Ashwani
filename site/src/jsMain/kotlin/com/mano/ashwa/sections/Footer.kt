@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE", "UNUSED_VALUE", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+
 package com.mano.ashwa.sections
 
 import androidx.compose.runtime.Composable
@@ -10,7 +12,6 @@ import com.stevdza.san.kotlinbs.forms.BSInput
 import com.stevdza.san.kotlinbs.forms.BSTextArea
 import com.stevdza.san.kotlinbs.models.BSBorderRadius
 import com.stevdza.san.kotlinbs.models.button.ButtonCustomization
-import com.varabyte.kobweb.compose.css.AlignItems
 import com.varabyte.kobweb.compose.css.FontStyle
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.JustifyContent
@@ -24,7 +25,6 @@ import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
-import com.varabyte.kobweb.compose.ui.modifiers.alignItems
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
@@ -40,266 +40,420 @@ import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import com.mano.ashwa.AppStyle
+import kotlinx.browser.window
 
 
 @Composable
 fun Footer() {
-	Column(modifier = Modifier.fillMaxWidth().styleModifier { property("background-color", AppStyle.CONTENT_BACKGROUND_COLOR); property("color", "#ffffff") },
-//		verticalArrangement = Arrangement.Center,
-		//horizontalAlignment = ColumnDefaults.HorizontalAlignment
+	// Outer background for footer (keeps same color but add top padding)
+	Column(
+		modifier = Modifier
+			.fillMaxWidth()
+			.styleModifier { property("background-color", AppStyle.CONTENT_BACKGROUND_COLOR); property("color", "#ffffff") }
+			.padding(40.px)
 	) {
-		SpanText("Contact Me",
-			modifier = Modifier.fontStyle(FontStyle.Normal).fontWeight(FontWeight.Bold)
-				.align(alignment = Alignment.CenterHorizontally).padding(10.px))
-
-		var firstName by remember { mutableStateOf("") }
-		var lastName by remember { mutableStateOf("") }
-
-		ContactUsInput( firstName= firstName,
-			lastName = lastName
-//			onFirstName = { firstName = it },
-//			onLastName = { lastName = it }
+		// Title
+		SpanText(
+			"Contact Me",
+			modifier = Modifier
+				.fontStyle(FontStyle.Normal)
+				.fontWeight(FontWeight.Bold)
+				.align(alignment = Alignment.CenterHorizontally)
+				.padding(top = 16.px) // reduced from 80.px so title sits just above the card
+				.styleModifier { property("font-size", "20px"); property("letter-spacing", "0.4px") }
 		)
+
+		// Card container for contact form to make it look elevated and centered
+		Box(
+			modifier = Modifier
+				.fillMaxWidth()
+				.styleModifier {
+					property("display", "flex")
+					property("justify-content", "center")
+					property("align-items", "center")
+					// removed min-height: 100vh so the card sits directly below the title instead of being pushed down
+					property("padding", "40px 0")
+				}
+		) {
+			Box(
+				modifier = Modifier
+					.styleModifier {
+						property("width", "100%")
+						property("max-width", "980px")
+						property("background-color", "#071126")
+						property("border-radius", "14px")
+						property("box-shadow", "0 12px 40px rgba(2,6,23,0.6)")
+						property("padding", "28px")
+					}
+			)
+			{
+				// Centered contact inputs inside the card
+				Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+					ContactUsInput()
+				}
+			}
+		}
 
 		// Divider
 		Box(
 			modifier = Modifier
 				.fillMaxWidth()
-				.height(2.px)
-				.styleModifier { property("background-color", "#2b2b2b") }
+				.height(1.px)
+				.styleModifier { property("background-color", "#1f2937"); property("margin-top", "28px"); property("margin-bottom", "28px") }
 		)
 
-		// Quick Infos
+		// Quick Infos and Socials
 		QuickInfos()
 
 	}
-
 }
 
+
 @Composable
-fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
-				   lastName: String, onLastName: (String) -> Unit = {}) {
+fun ContactUsInput() {
 
-	val fullWidth = 520.px
-	val gap = 10.px
-	val halfWidth = 250.px
+    val fullWidth = 520.px
+    val gap = 10.px
+    val halfWidth = 250.px
 
-	Column(
-		// I want to center align all the content in this Column
-		modifier = Modifier.fillMaxWidth().alignItems(AlignItems.Center)
-	) {
-		// First Name and Last Name side by side
-		Row(
-			modifier = Modifier
-				.fillMaxWidth(),
-			horizontalArrangement = Arrangement.Center,
-			verticalAlignment = Alignment.CenterVertically
-		) {
-			BSInput(
-				modifier = Modifier.width(halfWidth).styleModifier { property("background-color", "#121212"); property("color","#ffffff"); property("border-color","#444") },
-				value = firstName,
-				label = "First Name",
-				placeholder = "First Name",
-				onValueChange = {
-					onFirstName(it)
-				},
-			)
-			Box(modifier = Modifier.padding (gap))
-			BSInput(
-				modifier = Modifier.width(halfWidth).styleModifier { property("background-color", "#121212"); property("color","#ffffff"); property("border-color","#444") },
-				value = lastName,
-				label = "Last Name",
-				placeholder = "Last Name",
-				onValueChange = {
-					onLastName(it)
-				},
-			)
-		}
 
-		Box(modifier = Modifier.padding(gap))
-		// Subject
-		BSInput(
-			modifier = Modifier.width(fullWidth).styleModifier { property("background-color", "#121212"); property("color","#ffffff"); property("border-color","#444") },
-			value = lastName,
-			label = "Subject",
-			placeholder = "Subject",
-			onValueChange = {
-				onLastName(it)
-			},
-		)
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
+    var subject by remember { mutableStateOf("") }
+    var message by remember { mutableStateOf("") }
+    var statusMessage by remember { mutableStateOf<String?>(null) }
+    var statusIsError by remember { mutableStateOf(false) }
+    var isSending by remember { mutableStateOf(false) }
 
-		Box(modifier = Modifier.padding(gap))
-		// Message
-		BSTextArea (
-			modifier = Modifier.width(fullWidth).styleModifier { property("background-color", "#121212"); property("color","#ffffff"); property("border-color","#444") },
-			value = lastName,
-			label = "Message",
-			placeholder = "Message",
-			onValueChange = {
-				onLastName(it)
-			}
-		)
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // First Name and Last Name side by side
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            BSInput(
+                modifier = Modifier.width(halfWidth).styleModifier {
+                    property("background-color", "#0b1220"); property(
+                    "color",
+                    "#ffffff"
+                ); property("border-color", "#263244"); property(
+                    "padding",
+                    "10px"
+                ); property("border-radius", "8px")
+                },
+                value = firstName,
+                label = "First Name",
+                placeholder = "First Name",
+                onValueChange = {
+                    firstName = it
+                },
+            )
+            Box(modifier = Modifier.padding(gap))
+            BSInput(
+                modifier = Modifier.width(halfWidth).styleModifier {
+                    property("background-color", "#0b1220"); property(
+                    "color",
+                    "#ffffff"
+                ); property("border-color", "#263244"); property(
+                    "padding",
+                    "10px"
+                ); property("border-radius", "8px")
+                },
+                value = lastName,
+                label = "Last Name",
+                placeholder = "Last Name",
+                onValueChange = {
+                    lastName = it
+                },
+            )
+        }
 
-		Box(modifier = Modifier.padding(gap))
-		// Send Button
+        Box(modifier = Modifier.padding(gap))
+        // Subject
+        BSInput(
+            modifier = Modifier.width(fullWidth).styleModifier {
+                property("background-color", "#0b1220"); property(
+                "color",
+                "#ffffff"
+            ); property("border-color", "#263244"); property(
+                "padding",
+                "10px"
+            ); property("border-radius", "8px")
+            },
+            value = subject,
+            label = "Subject",
+            placeholder = "Subject",
+            onValueChange = {
+                subject = it
+            },
+        )
 
-			BSButton(
-				modifier = Modifier.width(fullWidth-30.px)
-					.justifyContent(JustifyContent.Center),
-				text = "Send Message  \u2709\uFE0F",
-				customization = ButtonCustomization(
-					color = Colors.White,
-					hoverColor = Colors.White,
-					activeColor = Colors.WhiteSmoke,
-					borderColor = Colors.White,
-					hoverBorderColor = Colors.White,
-					activeBorderColor = rgb(168, 192, 255),
-					gradient = linearGradient(
-						from = rgb(168, 192, 255),
-						to = rgb(63, 43, 150),
-						dir = LinearGradient.Direction.ToTopRight
-					),
-					borderRadius = BSBorderRadius(all = 50.px),
-					horizontalPadding = 1.25.cssRem
-				),
-				onClick = {}
-			)
-		Box(modifier = Modifier.padding(gap))
-	}
+        Box(modifier = Modifier.padding(gap))
+        // Message
+        BSTextArea(
+            modifier = Modifier.width(fullWidth).styleModifier {
+                property("background-color", "#0b1220"); property(
+                "color",
+                "#ffffff"
+            ); property("border-color", "#263244"); property(
+                "padding",
+                "10px"
+            ); property("border-radius", "8px")
+            },
+            value = message,
+            label = "Message",
+            placeholder = "Message",
+            onValueChange = {
+                message = it
+            }
+        )
+
+        Box(modifier = Modifier.padding(gap))
+        // Send Button
+
+        BSButton(
+            modifier = Modifier.width(fullWidth - 30.px)
+                .justifyContent(JustifyContent.Center),
+            text = if (isSending) "Sending..." else "Send Message  \u2709\uFE0F",
+            customization = ButtonCustomization(
+                color = Colors.White,
+                hoverColor = Colors.White,
+                activeColor = Colors.WhiteSmoke,
+                borderColor = Colors.White,
+                hoverBorderColor = Colors.White,
+                activeBorderColor = rgb(168, 192, 255),
+                gradient = linearGradient(
+                    from = rgb(168, 192, 255),
+                    to = rgb(63, 43, 150),
+                    dir = LinearGradient.Direction.ToTopRight
+                ),
+                borderRadius = BSBorderRadius(all = 50.px),
+                horizontalPadding = 1.25.cssRem
+            ),
+            onClick = {
+                if (isSending) return@BSButton
+                // basic validation
+                if (firstName.isBlank() || lastName.isBlank() || subject.isBlank() || message.isBlank()) {
+                    statusIsError = true
+                    statusMessage = "Please fill in all fields before sending."
+                    return@BSButton
+                }
+                statusMessage = null
+                isSending = true
+                // simulate sending delay
+                window.setTimeout({
+                    // success
+                    isSending = false
+                    statusIsError = false
+                    statusMessage = "Thanks — your message has been sent!"
+                    firstName = ""
+                    lastName = ""
+                    subject = ""
+                    message = ""
+                }, 1100)
+            }
+        )
+
+        // Inline status message (success or error)
+        statusMessage?.let { msg ->
+            SpanText(
+                msg,
+                modifier = Modifier.padding(top = 10.px).styleModifier {
+                    property("color", if (statusIsError) "#f97373" else "#86efac")
+                    property("font-weight", "500")
+                }
+            )
+        }
+    }
 }
 
 @Composable
 fun QuickInfos() {
-	Row(modifier = Modifier.fillMaxWidth(),
-		horizontalArrangement = Arrangement.SpaceEvenly,
-		verticalAlignment = Alignment.Top // changed from CenterVertically to Top
-	) {
-		// Start ### My Projects-------------------------------
-		Row(
-			modifier = Modifier.fillMaxWidth().padding(20.px)
-				.padding(20.px),
-			horizontalArrangement = Arrangement.SpaceEvenly,
-			verticalAlignment = Alignment.Top // changed from CenterVertically to Top
-		) {
-			Column(
-				horizontalAlignment = Alignment.Start,
-				verticalArrangement = Arrangement.Center,
-				modifier = Modifier.padding(10.px)
-			) {
-				H5 { Text("My Projects") }
-				Column(
-					horizontalAlignment = Alignment.Start,
-					verticalArrangement = Arrangement.Center,
-					modifier = Modifier.padding(10.px)
-				) {
-					A (
-						href = "https://www.keysight.com/in/en/product/NTH50047B/nemo-handy-handheld-measurement-solution.html",
-						attrs = {
-							target(ATarget.Blank)
-						}
-					) {
-						SpanText("Nemo Handy Handheld Measurement Solution", modifier = Modifier.padding(5.px))
-					}
-					A(
-						href = "https://play.google.com/store/apps/details?id=com.mobstac.thehindu&h&pli=1",
-						attrs = {
-							target(ATarget.Blank)
-						}
-					) {
-						SpanText(
-							"The Hindu: India & World News",
-							modifier = Modifier.padding(5.px)
-						)
-					}
-					A(
-						href = "https://play.google.com/store/apps/details?id=com.mobstac.thehindubusinessline",
-						attrs = {
-							target(ATarget.Blank)
-						}
-					) {
-						SpanText(
-							"The Hindu BusinessLine",
-							modifier = Modifier.padding(5.px)
-						)
-					}
-					SpanText("Shorts News", modifier = Modifier.padding(5.px))
-					SpanText("KMP Shopify: Shopify Mobile Apps POC", modifier = Modifier.padding(5.px))
-					SpanText("KMP Project : THE HINDU", modifier = Modifier.padding(5.px))
-				}
-			}
-		}
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Top // changed from CenterVertically to Top
+        ) {
+            // Start ### My Projects-------------------------------
+            Column(
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.padding(20.px).styleModifier { property("min-width", "220px") }
+            ) {
+                H5 { Text("My Projects") }
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.padding(10.px)
+                ) {
+                    A(
+                        href = "https://www.keysight.com/in/en/product/NTH50047B/nemo-handy-handheld-measurement-solution.html",
+                        attrs = {
+                            target(ATarget.Blank)
+                            attr("rel", "noopener noreferrer")
+                        }
+                    ) {
+                        SpanText(
+                            "Nemo Handy Handheld Measurement Solution",
+                            modifier = Modifier.padding(5.px)
+                                .styleModifier { property("color", "#93C5FD") })
+                    }
+                    A(
+                        href = "https://play.google.com/store/apps/details?id=com.mobstac.thehindu&h&pli=1",
+                        attrs = {
+                            target(ATarget.Blank)
+                            attr("rel", "noopener noreferrer")
+                        }
+                    ) {
+                        SpanText(
+                            "The Hindu: India & World News",
+                            modifier = Modifier.padding(5.px)
+                                .styleModifier { property("color", "#93C5FD") }
+                        )
+                    }
+                    A(
+                        href = "https://play.google.com/store/apps/details?id=com.mobstac.thehindubusinessline",
+                        attrs = {
+                            target(ATarget.Blank)
+                            attr("rel", "noopener noreferrer")
+                        }
+                    ) {
+                        SpanText(
+                            "The Hindu BusinessLine",
+                            modifier = Modifier.padding(5.px)
+                                .styleModifier { property("color", "#93C5FD") }
+                        )
+                    }
+                    SpanText("Shorts News", modifier = Modifier.padding(5.px))
+                    SpanText(
+                        "KMP Shopify: Shopify Mobile Apps POC",
+                        modifier = Modifier.padding(5.px)
+                    )
+                    SpanText("KMP Project : THE HINDU", modifier = Modifier.padding(5.px))
+                }
+            }
 
+            // Start ### Quick Links ### --------------------------------------
+            Column(
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.padding(20.px).styleModifier { property("min-width", "180px") }
+            ) {
+                H5 { Text("Quick Links") }
+                SpanText(
+                    "Home",
+                    modifier = Modifier.padding(5.px).textAlign(TextAlign.Start)
+                        .styleModifier {
+                            property("cursor", "pointer"); property(
+                            "color",
+                            "#93C5FD"
+                        )
+                        })
+                SpanText(
+                    "About Me",
+                    modifier = Modifier.padding(5.px)
+                        .styleModifier {
+                            property("cursor", "pointer"); property(
+                            "color",
+                            "#93C5FD"
+                        )
+                        })
+                SpanText(
+                    "Skills",
+                    modifier = Modifier.padding(5.px)
+                        .styleModifier {
+                            property("cursor", "pointer"); property(
+                            "color",
+                            "#93C5FD"
+                        )
+                        })
+                SpanText(
+                    "Experiences",
+                    modifier = Modifier.padding(5.px)
+                        .styleModifier {
+                            property("cursor", "pointer"); property(
+                            "color",
+                            "#93C5FD"
+                        )
+                        })
+                SpanText(
+                    "Portfolio",
+                    modifier = Modifier.padding(5.px)
+                        .styleModifier {
+                            property("cursor", "pointer"); property(
+                            "color",
+                            "#93C5FD"
+                        )
+                        })
+                SpanText(
+                    "Download CV",
+                    modifier = Modifier.padding(5.px)
+                        .styleModifier {
+                            property("cursor", "pointer"); property(
+                            "color",
+                            "#93C5FD"
+                        )
+                        })
+            }
 
-		// Start ### Quick Links ### --------------------------------------
-		Row(
-			modifier = Modifier.fillMaxWidth().padding(20.px)
-				.padding(20.px),
-			horizontalArrangement = Arrangement.SpaceEvenly,
-			verticalAlignment = Alignment.Top // changed from CenterVertically to Top
-		) {
-			Column(
-				horizontalAlignment = Alignment.Start,
-				verticalArrangement = Arrangement.Center,
-				modifier = Modifier.padding(10.px)
-			) {
-				H5 { Text("Quick Links") }
-				SpanText("Home", modifier = Modifier.padding(5.px).textAlign(TextAlign.Start))
-				SpanText("About Me", modifier = Modifier.padding(5.px))
-				SpanText("Skills", modifier = Modifier.padding(5.px))
-				SpanText("Experiences", modifier = Modifier.padding(5.px))
-				SpanText("Portfolio", modifier = Modifier.padding(5.px))
-				SpanText("Download CV", modifier = Modifier.padding(5.px))
-			}
-		}
+            // Start ### Follow Me-------------------------------
+            Column(
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.padding(20.px).styleModifier { property("min-width", "180px") }
+            ) {
+                H5 { Text("Follow Me") }
+                Div(
+                    attrs = Modifier
+                        .fillMaxWidth()
+                        .height(2.px)
+                        .styleModifier { property("background-color", "#3b82f6") }
+                        .toAttrs()
+                )
 
-		// Start ### Follow Me-------------------------------
-		Row(
-			modifier = Modifier.fillMaxWidth().padding(20.px)
-				.padding(20.px),
-			horizontalArrangement = Arrangement.SpaceEvenly,
-			verticalAlignment = Alignment.Top // changed from CenterVertically to Top
-		) {
-			Column(
-				horizontalAlignment = Alignment.Start,
-				verticalArrangement = Arrangement.Center,
-				modifier = Modifier.padding(10.px)
-			) {
-				H5 { Text("Follow Me") }
-				Div(
-					attrs = Modifier
-						.fillMaxWidth()
-						.height(2.px)
-						.styleModifier { property("background-color", "#3b82f6") }
-						.toAttrs()
-				)
-
-				A (
-					href = "https://github.com/ashwanisingh8713",
-					attrs = {
-						target(ATarget.Blank)
-					}
-				) {
-					SpanText("GitHub", modifier = Modifier.padding(5.px))
-				}
-				A (
-					href = "https://www.linkedin.com/in/ashwani-kumar-singh-45577042/",
-					attrs = {
-						target(ATarget.Blank)
-					}
-				) {
-					SpanText("Linkedin", modifier = Modifier.padding(5.px))
-				}
-
-				A (
-					href = "https://medium.com/@ashwanisingh8713",
-					attrs = {
-						target(ATarget.Blank)
-					}
-				) {
-					SpanText("Medium", modifier = Modifier.padding(5.px))
-				}
-			}
-		}
-	}
-
+                A(
+                    href = "https://github.com/abhishek-0203",
+                    attrs = {
+                        target(ATarget.Blank)
+                        attr("rel", "noopener noreferrer")
+                    }
+                ) {
+                    SpanText(
+                        "GitHub",
+                        modifier = Modifier.padding(5.px).styleModifier {
+                            property("color", "#ffffff"); property(
+                            "background-color",
+                            "#0f172a"
+                        ); property("padding", "6px 10px"); property(
+                            "border-radius",
+                            "8px"
+                        ); property("display", "inline-block")
+                        })
+                }
+                A(
+                    href = "https://www.linkedin.com/in/abhishek-verma-196789379/",
+                    attrs = {
+                        target(ATarget.Blank)
+                        attr("rel", "noopener noreferrer")
+                    }
+                ) {
+                    SpanText(
+                        "Linkedin",
+                        modifier = Modifier.padding(5.px).styleModifier {
+                            property("color", "#ffffff"); property(
+                            "background-color",
+                            "#0f172a"
+                        ); property("padding", "6px 10px"); property(
+                            "border-radius",
+                            "8px"
+                        ); property("display", "inline-block")
+                        })
+            }
+        }
+    }
 }
