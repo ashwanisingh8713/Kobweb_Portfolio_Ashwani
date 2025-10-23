@@ -127,7 +127,6 @@ fun ContactUsInput() {
     var statusIsError by remember { mutableStateOf(false) }
 
     // Mailto-only behavior: open the visitor's email client pre-filled and addressed to you.
-    // If you later want automatic delivery (server-side), we can add Formspree or a backend.
     val recipientEmail = "v.abhishek0203@gmail.com"
 
     Column(
