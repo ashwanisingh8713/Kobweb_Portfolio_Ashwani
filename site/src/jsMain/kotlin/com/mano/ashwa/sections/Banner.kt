@@ -1,4 +1,4 @@
-package org.example.portfolio.section
+package com.mano.ashwa.sections
 
 import androidx.compose.runtime.Composable
 import com.mano.ashwa.components.rememberAnimatedText
