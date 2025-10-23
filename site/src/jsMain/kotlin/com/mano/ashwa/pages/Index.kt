@@ -26,6 +26,7 @@ import com.mano.ashwa.components.layouts.PageLayoutData
 import com.mano.ashwa.sections.ResumeSection
 import com.mano.ashwa.toSitePalette
 import com.varabyte.kobweb.core.PageContext
+import org.example.portfolio.section.Banner
 
 // Container that has a tagline and grid on desktop, and just the tagline on mobile
 val HeroContainerStyle = CssStyle {
@@ -49,15 +50,7 @@ val HomeGridCellStyle = CssStyle.base {
         .borderRadius(1.cssRem)
 }
 
-@Composable
-private fun GridCell(color: Color, row: Int, column: Int, width: Int? = null, height: Int? = null) {
-    Div(
-        HomeGridCellStyle.toModifier()
-            .setVariable(GridCellColorVar, color)
-            .gridItem(row, column, width, height)
-            .toAttrs()
-    )
-}
+
 
 
 @InitRoute
@@ -73,15 +66,5 @@ fun HomePage(ctx: PageContext) {
     // the "content" parameter which is here as lambda, gets remaining UI of the page
     // Below full code is referred from PageLayout.kt -> PageLayout function parameter 'content'
     // here whatever is written those will go inside "content" parameter, because it has last parameter as Lambda function
-    Row(HeroContainerStyle.toModifier()) {
-        Box {
-            val sitePalette = ColorMode.current.toSitePalette()
-
-            Column(Modifier.gap(2.cssRem)) {
-                // Write this resume in Kobweb Compose App.
-                //  /Users/ashwani/Kobweb/Kobweb_Portfolio_Ashwani/site/Resume/Ashwani Android Tech Lead & KMP Developer.pdf
-                ResumeSection()
-            }
-        }
-    }
+    Banner()
 }
