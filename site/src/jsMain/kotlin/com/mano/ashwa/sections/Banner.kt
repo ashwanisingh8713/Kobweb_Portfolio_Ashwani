@@ -15,6 +15,7 @@ import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.icons.fa.FaCircleArrowRight
 import com.varabyte.kobweb.silk.components.layout.SimpleGrid
@@ -51,7 +52,7 @@ fun Banner() {
                         iterationCount = AnimationIterationCount.of(1)
                     ),
                     upDownAnim.toAnimation(
-                        duration = 3.s,
+                        duration = 2.s,
                         direction = AnimationDirection.Alternate,
                         iterationCount = AnimationIterationCount.Infinite
                     )
@@ -81,7 +82,7 @@ fun BannerText(text: String) {
                 .toAttrs()
         ) {
             SpanText(
-                text = "Hi! I'm Ashwani $text",
+                text = "Hi! I'm Abhishek $text",
                 modifier = Modifier.borderRight(
                     width = 0.08.em,
                     style = LineStyle.Solid,
@@ -97,11 +98,37 @@ fun BannerText(text: String) {
                 .width(100.percent)
                 .toAttrs()
         ) {
-            SpanText("Constants.LOREM")
+            // SpanText("Constants.LOREM")
         }
         Row(modifier = buttonStyle.toModifier()) {
             SpanText("Let's Connect")
             FaCircleArrowRight()
         }
+        // More attractive bio block: a short gradient-highlighted headline followed by a readable paragraph
+        Row(
+            modifier = Modifier
+                .padding(top = 60.px)
+                .fontSize(24.px atBreakpointMd 20.px)
+                .lineHeight(1.6.em)
+        ) {
+            Column(Modifier.fillMaxWidth()) {
+                // Headline with gradient text
+                SpanText(
+                    text = "A motivated and quick-learning developer with hands-on experience in modern technologies and a strong desire to build impactful digital solutions. Driven by curiosity, innovation, and continuous growth.",
+                    modifier = Modifier
+                        .fontSize(26.px atBreakpointMd 22.px)
+                        .fontWeight(600)
+                        .styleModifier {
+                            property("background", "linear-gradient(90deg, #60A5FA, #7C3AED)")
+                            property("-webkit-background-clip", "text")
+                            property("-webkit-text-fill-color", "transparent")
+                            property("text-shadow", "0 6px 18px rgba(124,58,237,0.08)")
+                            property("display", "block")
+                        }
+                )
+
+
+            }
+        }
     }
-}
+ }
