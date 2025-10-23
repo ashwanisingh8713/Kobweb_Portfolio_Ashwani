@@ -42,6 +42,8 @@ import org.jetbrains.compose.web.dom.*
 import com.mano.ashwa.AppStyle
 import kotlinx.browser.window
 
+// Make the JS global function available to Kotlin/JS so we can URL-encode strings
+external fun encodeURIComponent(str: String): String
 
 @Composable
 fun Footer() {
@@ -123,7 +125,10 @@ fun ContactUsInput() {
     var message by remember { mutableStateOf("") }
     var statusMessage by remember { mutableStateOf<String?>(null) }
     var statusIsError by remember { mutableStateOf(false) }
-    var isSending by remember { mutableStateOf(false) }
+
+    // Mailto-only behavior: open the visitor's email client pre-filled and addressed to you.
+    // If you later want automatic delivery (server-side), we can add Formspree or a backend.
+    val recipientEmail = "v.abhishek0203@gmail.com"
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -219,7 +224,7 @@ fun ContactUsInput() {
         BSButton(
             modifier = Modifier.width(fullWidth - 30.px)
                 .justifyContent(JustifyContent.Center),
-            text = if (isSending) "Sending..." else "Send Message  \u2709\uFE0F",
+            text = "Send Message  \u2709\uFE0F",
             customization = ButtonCustomization(
                 color = Colors.White,
                 hoverColor = Colors.White,
@@ -236,26 +241,30 @@ fun ContactUsInput() {
                 horizontalPadding = 1.25.cssRem
             ),
             onClick = {
-                if (isSending) return@BSButton
                 // basic validation
                 if (firstName.isBlank() || lastName.isBlank() || subject.isBlank() || message.isBlank()) {
                     statusIsError = true
                     statusMessage = "Please fill in all fields before sending."
                     return@BSButton
                 }
-                statusMessage = null
-                isSending = true
-                // simulate sending delay
-                window.setTimeout({
-                    // success
-                    isSending = false
-                    statusIsError = false
-                    statusMessage = "Thanks — your message has been sent!"
-                    firstName = ""
-                    lastName = ""
-                    subject = ""
-                    message = ""
-                }, 1100)
+
+                val fullName = "$firstName $lastName"
+                val body = "From: $fullName\n\n$message"
+                // encode subject/body to safely include in mailto
+                val encodedSubject = encodeURIComponent(subject)
+                val encodedBody = encodeURIComponent(body)
+                val mailto = "mailto:$recipientEmail?subject=$encodedSubject&body=$encodedBody"
+
+                // open default mail client (visitor must press send in their client)
+                window.open(mailto, "_self")
+
+                // local UI feedback and clear fields
+                statusIsError = false
+                statusMessage = "Your email client should now be open to send the message."
+                firstName = ""
+                lastName = ""
+                subject = ""
+                message = ""
             }
         )
 
