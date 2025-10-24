@@ -69,11 +69,12 @@ private val skillCards = listOf(
     SkillData(
         title = "Kotlin Multiplatform & Android",
         skills = listOf(
-            "Kotlin Multiplatform (Android, iOS, Web)",
-            "Android native apps using Kotlin, Java, Jetpack Compose",
-            "Compose Multiplatform UI for Web/Desktop",
-            "Material Design 3, Navigation, Room, DataStore",
-            "Kobweb framework for full-stack Kotlin web"
+            "Familiar in Kotlin for building Android and web-based applications",
+            "Familiar with Jetpack Compose and Compose Multiplatform for responsive UI design",
+            "Familiar with Material Design 3, Navigation Components, and UI theming",
+            "Basic understanding of Kotlin Kobweb framework for full-stack web development",
+            "Knowledge of Coroutines and Flow for managing asynchronous operations",
+            "Skilled in REST API integration, JSON handling, and API debugging"
         ),
         icon = "📱",
         color = Colors.LightBlue
@@ -105,8 +106,8 @@ private val skillCards = listOf(
     SkillData(
         title = "Kobweb Framework",
         skills = listOf(
-            "Building responsive web apps entirely in Kotlin using Kobweb",
-            "Proficient with Compose HTML, Silk styling, and route-based navigation",
+            "Familiar with responsive web apps entirely in Kotlin using Kobweb",
+            "Familiar with Compose HTML, Silk styling, and route-based navigation",
             "Creating interactive UI layouts with reusable composables & custom themes",
             "Integrating APIs, Firebase, and REST endpoints into Kobweb sites",
             "Deploying Kobweb projects via Gradle & GitHub Pages",
@@ -118,11 +119,11 @@ private val skillCards = listOf(
     SkillData(
         title = "Backend & Integration",
         skills = listOf(
-            "GoLang (Gin) microservices & REST APIs",
-            "GraphQL endpoints & WebSocket streaming",
-            "Firebase Functions for server-side logic",
-            "App integration with secure auth & data handling",
-            "Realtime data sync, caching & serialization"
+            "Familiar with Go (Gin Framework) for RESTful API development",
+            "Understanding of JWT Authentication and secure data handling",
+            "Basic Knowledge of Django for backend web services and API creation",
+            "Familiar with API testing tools like Postman and n8n for workflow automation",
+            "Version control and collaboration using Git & GitHub"
         ),
         icon = "☁️",
         color = Colors.Lavender
@@ -163,15 +164,37 @@ private val skillCards = listOf(
         color = Colors.PaleGoldenRod
     ),
     SkillData(
-        title = "Release Management",
+        title = "Tools & Technologies",
         skills = listOf(
-            "Gradle automation & variant configuration",
-            "App versioning, staging & internal testing setup",
-            "Play Console management & rollout strategy",
-            "Crash monitoring & performance feedback loop"
+            "IntelliJ IDEA, VS Code, Cursor IDE, and Git for development and version control",
+            "Experience with CI/CD pipelines using GitHub Actions",
+            "Familiar with project management tools like Jira and Asana",
+            "Knowledge of API testing with Postman and workflow automation with n8n"
+        ),
+        icon = "🌐",
+        color = Colors.PaleGoldenRod
+    ),
+    SkillData(
+        title = "Artificial Intelligence & Machine Learning",
+        skills = listOf(
+            "Strong theoretical understanding of Machine Learning and Deep Learning concepts",
+            "Knowledge of Neural Networks, CNNs, and optimization algorithms (Adam, RMSProp, etc.)",
+            "Hands-on familiarity with Scikit-learn, Pandas, NumPy, and OpenCV",
+            "Introduction to TensorFlow and PyTorch frameworks for model development"
         ),
         icon = "⚙️",
         color = Colors.Wheat
+    ),
+    SkillData(
+        title = "Generative AI & Prompt Engineering",
+        skills = listOf(
+            "Skilled in Prompt Engineering for AI-driven content creation and problem solving",
+            "Knowledge of LangChain, OpenAI API, and Supabase AI integrations",
+            "Understanding of Agentic AI systems and tool integration for workflow automation",
+            "Experience with generative AI platforms such as ChatGPT, Gemini, and DALL·E"
+        ),
+        icon = "🤖",
+        color = Colors.LightSalmon
     ),
     SkillData(
         title = "UI/UX & Design Collaboration",
@@ -185,12 +208,11 @@ private val skillCards = listOf(
         color = Colors.MistyRose
     ),
     SkillData(
-        title = "Project Leadership & Collaboration",
+        title = "Database & Storage",
         skills = listOf(
-            "Leading Android & cross-platform teams",
-            "Agile/Scrum delivery & sprint planning",
-            "Code reviews, mentoring & pair programming",
-            "Documentation & architecture diagrams (Miro, Draw.io)"
+                    "Basic SQL knowledge and relational database concepts",
+                    "Experience with JSON-based storage and lightweight backend data structures",
+                    "Understanding of Room Database and DataStore integration in Android"
         ),
         icon = "👥",
         color = Colors.HoneyDew
@@ -215,6 +237,17 @@ private val skillCards = listOf(
             "Knowledge sharing through tech sessions"
         ),
         icon = "📝",
+        color = Colors.Linen
+    ),
+
+    SkillData(
+        title = "Soft Skills & Collaboration",
+        skills = listOf(
+            "Quick learner with strong problem-solving and analytical abilities",
+            "Good communication and teamwork skills for effective collaboration",
+            "Curious and self-motivated with a passion for continuous learning and innovation"
+        ),
+        icon = "👥",
         color = Colors.Linen
     )
 )

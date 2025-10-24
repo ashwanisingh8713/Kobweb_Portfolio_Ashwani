@@ -60,6 +60,10 @@ kotlin {
             implementation(libs.silk.icons.fa)
             implementation(libs.kobwebx.markdown)
             implementation(libs.kotlin.bootstrap)
+
+            // Provide bootstrap's peer dependency to avoid the unmet peer warning during npm install
+            // @popperjs/core is required by bootstrap@5; pin to a compatible version.
+            implementation(npm("@popperjs/core", "^2.11.8"))
         }
     }
 }
