@@ -17,18 +17,43 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.core.PageContext
+import com.mano.ashwa.ThemeToggle
+import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.foundation.layout.Arrangement
+import com.varabyte.kobweb.compose.foundation.layout.Box
+import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
+import com.varabyte.kobweb.compose.ui.modifiers.opacity
+import com.varabyte.kobweb.compose.ui.modifiers.padding
+import com.varabyte.kobweb.compose.ui.modifiers.position
+import com.varabyte.kobweb.compose.ui.modifiers.top
+import com.varabyte.kobweb.compose.ui.modifiers.transition
+import com.varabyte.kobweb.compose.ui.modifiers.zIndex
+import org.jetbrains.compose.web.css.Color
+import org.jetbrains.compose.web.css.Position
+import org.jetbrains.compose.web.css.percent
+import org.jetbrains.compose.web.css.px
 
 @Composable
 fun BSHeader(ctx: PageContext) {
     var selectedTabId by remember { mutableStateOf(Screen.Home.id) }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .position(Position.Fixed)
+            .top(0.percent)
+            .backgroundColor(Color.black)
+            .opacity(0.6)
+            .zIndex(10)
+    ) {
+
     BSNavBar(
         modifier = Modifier.fillMaxWidth(),
         stickyTop = true,
         itemsAlignment = Alignment.CenterHorizontally,
         brand = NavBarBrand(
-            title = "KotlinBootstrap",
-            image = "https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg",
-            href = "#"
+            title = "Ashwani's Portfolio",
+            //image = "https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg",
+            href = ""
         ),
         expand = NavBarExpand.LG,
         backgroundStyle = BackgroundStyle.Dark,
@@ -50,4 +75,13 @@ fun BSHeader(ctx: PageContext) {
             onClick = {}
         )
     )
+
+    // Add the ThemeToggle as a right-aligned control in the header area and nudge it up so it visually sits inline
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(right = 12.px, top = (-36).px),
+        horizontalArrangement = Arrangement.End
+    ) {
+        ThemeToggle(compact = true)
+    }
+}
 }

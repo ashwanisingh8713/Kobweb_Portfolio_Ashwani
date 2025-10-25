@@ -29,10 +29,16 @@ import org.jetbrains.compose.web.css.display
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.width
+import com.mano.ashwa.LocalAppColorMode
+import com.mano.ashwa.toSitePalette
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 
 @Composable
 fun SkillCardView(title: String, skills: List<String>, icon: String? = null,
                   color: Color = Colors.WhiteSmoke) {
+    val current = LocalAppColorMode.current.value
+    val textColor = if (current == ColorMode.DARK) Colors.White else Colors.Black
+
     Box(
         Modifier
             .fillMaxWidth()
@@ -49,7 +55,7 @@ fun SkillCardView(title: String, skills: List<String>, icon: String? = null,
             }
             Column {
                 skills.forEach {
-                    SpanText("• $it", Modifier.fontSize(16.px).color(Colors.DarkSlateGray))
+                    SpanText("• $it", Modifier.fontSize(16.px).color(textColor))
                 }
             }
         }
@@ -59,6 +65,9 @@ fun SkillCardView(title: String, skills: List<String>, icon: String? = null,
 
 @Composable
 fun ExperienceCardView(data: ExperienceData) {
+    val current = LocalAppColorMode.current.value
+    val textColor = if (current == ColorMode.DARK) Colors.White else Colors.Black
+
     Box(
         Modifier
             .fillMaxWidth()
@@ -89,7 +98,7 @@ fun ExperienceCardView(data: ExperienceData) {
             }
             Column {
                 data.skills.forEach {
-                    SpanText("• $it", Modifier.fontSize(16.px).color(Colors.DarkSlateGray))
+                    SpanText("• $it", Modifier.fontSize(16.px).color(textColor))
                 }
             }
         }
@@ -149,6 +158,9 @@ fun Chip(text: String, color: Color = Colors.LightBlue) { // Changed default col
 
 @Composable
 fun ProjectCardView(data: ProjectData) {
+    val current = LocalAppColorMode.current.value
+    val textColor = if (current == ColorMode.DARK) Colors.White else Colors.Black
+
     Box(
         Modifier
             .fillMaxWidth()
@@ -173,7 +185,7 @@ fun ProjectCardView(data: ProjectData) {
                     SpanText(data.role, Modifier.fontWeight(FontWeight.Bold).fontSize(14.px))
                 }
             }
-            SpanText(data.description, Modifier.fontSize(16.px).color(Colors.DarkSlateGray))
+            SpanText(data.description, Modifier.fontSize(16.px).color(textColor))
             ChipLayout(data.technologies)
         }
     }

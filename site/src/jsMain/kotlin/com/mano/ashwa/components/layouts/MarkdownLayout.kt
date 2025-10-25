@@ -63,6 +63,7 @@ val MarkdownStyle = CssStyle {
     }
 
     cssRule("code") {
+        // Use the framework-provided `colorMode` variable available inside this CSS builder
         Modifier
             .color(colorMode.toPalette().color.toRgb().copyf(alpha = 0.8f))
             .fontWeight(FontWeight.Bolder)
@@ -74,6 +75,7 @@ val MarkdownStyle = CssStyle {
             .fillMaxWidth()
     }
     cssRule("pre > code") {
+        // Use the framework-provided `colorMode` variable available inside this CSS builder
         Modifier
             .display(DisplayStyle.Block)
             .fillMaxWidth()

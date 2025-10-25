@@ -6,7 +6,6 @@ import com.mano.ashwa.components.layouts.PageLayoutData
 import com.mano.ashwa.components.widgets.SkillCardView
 import com.mano.ashwa.model.SkillData
 import com.mano.ashwa.navigation.Skill_Route
-import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.core.Page
 import com.varabyte.kobweb.compose.foundation.layout.*
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -15,8 +14,6 @@ import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.DisplayStyle
-import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
-import com.varabyte.kobweb.compose.ui.modifiers.fontSize
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.data.add
@@ -24,6 +21,10 @@ import com.varabyte.kobweb.core.init.InitRoute
 import com.varabyte.kobweb.core.init.InitRouteContext
 import com.varabyte.kobweb.core.layout.Layout
 import org.jetbrains.compose.web.dom.Div
+import com.mano.ashwa.LocalAppColorMode
+import com.mano.ashwa.pageTitleStyle
+import com.mano.ashwa.toSitePalette
+import com.varabyte.kobweb.silk.style.toModifier
 
 @InitRoute
 fun initSkillPage(ctx: InitRouteContext) {
@@ -34,12 +35,15 @@ fun initSkillPage(ctx: InitRouteContext) {
 @Layout(".components.layouts.PageLayout")
 @Composable
 fun SkillPage() {
-    Box(Modifier.fillMaxWidth().backgroundColor(Colors.WhiteSmoke).padding(32.px)) {
+    val current = LocalAppColorMode.current.value
+    val sitePal = current.toSitePalette()
+    val textColor = if (current == com.varabyte.kobweb.silk.theme.colors.ColorMode.DARK) Colors.White else Colors.Black
+    Box(Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(32.px)) {
         Column(
             Modifier.gap(32.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SpanText("My Skills", Modifier.fontSize(32.px).fontWeight(FontWeight.Bold).color(Colors.DarkSlateBlue))
+            SpanText("My Skills", modifier = pageTitleStyle.toModifier().color(textColor))
 
             Div(
                 attrs = Modifier
@@ -65,7 +69,7 @@ fun SkillPage() {
 }
 
 
-private val skillCards = listOf(
+public val skillCards = listOf(
     SkillData(
         title = "Kotlin Multiplatform & Android",
         skills = listOf(
@@ -218,5 +222,3 @@ private val skillCards = listOf(
         color = Colors.Linen
     )
 )
-
-

@@ -5,6 +5,7 @@ import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.css.AlignItems
 import com.varabyte.kobweb.compose.css.functions.url
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.style.CssStyle
@@ -40,6 +41,7 @@ val GradientTagLineStyle = CssStyle {
             .border(1.px, LineStyle.Solid, rgba(255, 255, 255, 0.5))
             .fontSize(18.px)
             .margin(bottom = 16.px)
+            .color(Colors.White)
             .display(DisplayStyle.InlineBlock)
     }
     Breakpoint.MD {

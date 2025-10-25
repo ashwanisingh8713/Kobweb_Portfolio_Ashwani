@@ -1,17 +1,7 @@
-import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import kotlinx.html.HEAD
-import kotlinx.html.link
 import kotlinx.html.meta
-import kotlinx.html.script
-import kotlinx.html.unsafe
-import com.varabyte.kobweb.common.text.ensureSurrounded
-import com.varabyte.kobweb.common.text.splitCamelCase
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
-import com.varabyte.kobwebx.gradle.markdown.children
-import kotlinx.html.*
-import org.commonmark.node.Text
-import java.net.HttpURLConnection
-import java.net.URI
+import org.gradle.api.tasks.Delete
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -41,7 +31,7 @@ kobweb {
 				Discover my projects and my blog on this website.
 			""".trimIndent()
 
-            val image = "$url/images/avatar.webp"
+            //val image = "$url/images/avatar.webp"
 
             description.set(descriptionStr)
 
@@ -72,4 +62,21 @@ kotlin {
             implementation(libs.kotlin.bootstrap)
         }
     }
+}
+
+// Register a small task to remove KSP caches which can sometimes become stale and cause
+// `Storage for ... is already registered` IllegalStateExceptions when running the dev server.
+// We only delete the transient build/kspCaches directory (safe to regenerate).
+
+tasks.register<Delete>("cleanKspCaches") {
+    delete(file("build/kspCaches"))
+    doLast {
+        println("[build] cleanKspCaches: removed build/kspCaches to avoid stale KSP storage registrations.")
+    }
+}
+
+// Ensure the Kobweb start task runs the cache-clean first.
+// The kobweb run wrapper starts the plugin's server task, which is `kobwebStart` in this project.
+tasks.named("kobwebStart") {
+    dependsOn(tasks.named("cleanKspCaches"))
 }

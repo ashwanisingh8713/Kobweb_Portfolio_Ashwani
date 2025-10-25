@@ -31,6 +31,11 @@ import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.fr
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.Div
+import com.mano.ashwa.LocalAppColorMode
+import com.mano.ashwa.pageTitleStyle
+import com.mano.ashwa.toSitePalette
+import com.varabyte.kobweb.silk.style.toModifier
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 
 @InitRoute
 fun initMyProjectsPage(ctx: InitRouteContext) {
@@ -41,12 +46,15 @@ fun initMyProjectsPage(ctx: InitRouteContext) {
 @Layout(".components.layouts.PageLayout")
 @Composable
 fun Projects() {
-    Box(Modifier.fillMaxWidth().backgroundColor(Colors.WhiteSmoke).padding(32.px)) {
+    val current = LocalAppColorMode.current.value
+    val sitePal = current.toSitePalette()
+    val textColor = if (current == com.varabyte.kobweb.silk.theme.colors.ColorMode.DARK) Colors.White else Colors.Black
+    Box(Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(32.px)) {
         Column(
             Modifier.gap(32.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SpanText("My Projects", Modifier.fontSize(32.px).fontWeight(FontWeight.Bold).color(Colors.DarkSlateBlue))
+            SpanText("My Projects", modifier = pageTitleStyle.toModifier().color(textColor))
 
             Div(
                 attrs = Modifier

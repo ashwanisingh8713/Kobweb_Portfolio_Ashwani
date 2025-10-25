@@ -2,6 +2,9 @@ package com.mano.ashwa
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.CompositionLocalProvider
 import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxHeight
@@ -38,13 +41,29 @@ fun initStyles(ctx: InitSilkContext) {
 @Composable
 fun AppEntry(content: @Composable () -> Unit) {
     SilkApp {
-        val colorMode = ColorMode.current
-        LaunchedEffect(colorMode) {
-            colorMode.saveToLocalStorage(COLOR_MODE_KEY)
+        // Provide an app-wide MutableState<ColorMode> (backed by localStorage) so components using LocalAppColorMode
+        // will update live when the user picks a different mode.
+        val initial = ColorMode.loadFromLocalStorage(COLOR_MODE_KEY) ?: ColorMode.systemPreference
+        val appColorState = remember { mutableStateOf(initial) }
+
+        // Persist and apply runtime palette whenever the app-level color mode changes
+        LaunchedEffect(appColorState.value) {
+            appColorState.value.saveToLocalStorage(COLOR_MODE_KEY)
+            applyRuntimeColorMode(appColorState.value)
         }
 
-        Surface(SmoothColorStyle.toModifier().fillMaxHeight()) {
-            content()
+        // Apply the initial runtime palette immediately
+        LaunchedEffect(Unit) {
+            applyRuntimeColorMode(initial)
+        }
+
+        CompositionLocalProvider(LocalAppColorMode provides appColorState) {
+            Surface(SmoothColorStyle.toModifier().fillMaxHeight()) {
+                // Keep existing app content
+                content()
+
+                // ThemeToggle was moved into the header to avoid duplication
+            }
         }
     }
 }

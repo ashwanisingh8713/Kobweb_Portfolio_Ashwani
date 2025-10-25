@@ -17,16 +17,14 @@ import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.base
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
-import com.varabyte.kobweb.silk.style.toModifier
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.dom.Div
 import com.mano.ashwa.components.layouts.PageLayoutData
+import com.mano.ashwa.sections.Banner
 import com.mano.ashwa.sections.ResumeSection
 import com.mano.ashwa.toSitePalette
 import com.varabyte.kobweb.core.PageContext
-import org.example.portfolio.section.Banner
 
 // Container that has a tagline and grid on desktop, and just the tagline on mobile
 val HeroContainerStyle = CssStyle {

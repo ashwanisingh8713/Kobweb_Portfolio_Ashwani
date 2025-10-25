@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.mano.ashwa.styles.bannerStyle
 import com.stevdza.san.kotlinbs.components.BSButton
 import com.stevdza.san.kotlinbs.forms.BSInput
 import com.stevdza.san.kotlinbs.forms.BSTextArea
@@ -20,6 +21,7 @@ import com.varabyte.kobweb.compose.css.functions.linearGradient
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
+import com.varabyte.kobweb.compose.foundation.layout.ColumnDefaults
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -27,15 +29,20 @@ import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.alignItems
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
+import com.varabyte.kobweb.compose.ui.modifiers.fontSize
 import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
 import com.varabyte.kobweb.compose.ui.modifiers.height
 import com.varabyte.kobweb.compose.ui.modifiers.justifyContent
+import com.varabyte.kobweb.compose.ui.modifiers.letterSpacing
+import com.varabyte.kobweb.compose.ui.modifiers.lineHeight
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.textAlign
 import com.varabyte.kobweb.compose.ui.modifiers.width
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.text.SpanText
+import com.varabyte.kobweb.silk.style.toModifier
+import com.varabyte.kobweb.silk.style.common.SmoothColorStyle
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
@@ -43,7 +50,7 @@ import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun Footer() {
-	Column(modifier = Modifier.fillMaxWidth(),
+	Column(modifier = SmoothColorStyle.toModifier().fillMaxWidth(),
 //		verticalArrangement = Arrangement.Center,
 		//horizontalAlignment = ColumnDefaults.HorizontalAlignment
 	) {
@@ -145,7 +152,7 @@ fun ContactUsInput(firstName: String, onFirstName: (String) -> Unit = {},
 			BSButton(
 				modifier = Modifier.width(fullWidth-30.px)
 					.justifyContent(JustifyContent.Center),
-				text = "Send Message  ✉\uFE0F",
+				text = "Send Message  ✉️",
 				customization = ButtonCustomization(
 					color = Colors.White,
 					hoverColor = Colors.White,
@@ -270,7 +277,7 @@ fun QuickInfos() {
 						.height(2.px)
 						.backgroundColor(Colors.Blue)
 						.toAttrs()
-				)
+					)
 
 				A (
 					href = "https://github.com/ashwanisingh8713",

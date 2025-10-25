@@ -3,7 +3,6 @@ package com.mano.ashwa.pages
 import androidx.compose.runtime.Composable
 import com.mano.ashwa.components.layouts.PageLayoutData
 import com.mano.ashwa.components.widgets.ExperienceCardView
-import com.mano.ashwa.components.widgets.SkillCardView
 import com.mano.ashwa.model.ExperienceData
 import com.mano.ashwa.navigation.Experience_Route
 import com.varabyte.kobweb.compose.css.FontWeight
@@ -32,6 +31,10 @@ import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.fr
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.Div
+import com.mano.ashwa.LocalAppColorMode
+import com.mano.ashwa.pageTitleStyle
+import com.mano.ashwa.toSitePalette
+import com.varabyte.kobweb.silk.style.toModifier
 
 @InitRoute
 fun initExperiencesPage(ctx: InitRouteContext) {
@@ -42,13 +45,16 @@ fun initExperiencesPage(ctx: InitRouteContext) {
 @Layout(".components.layouts.PageLayout")
 @Composable
 fun Experiences() {
-    // You can add content here for the My Experience page
-    Box(Modifier.fillMaxWidth().backgroundColor(Colors.WhiteSmoke).padding(32.px)) {
+    val current = LocalAppColorMode.current.value
+    val sitePal = current.toSitePalette()
+    val textColor = if (current == com.varabyte.kobweb.silk.theme.colors.ColorMode.DARK) Colors.White else Colors.Black
+
+    Box(Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(32.px)) {
         Column(
             Modifier.gap(32.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SpanText("My Experiences", Modifier.fontSize(32.px).fontWeight(FontWeight.Bold).color(Colors.DarkSlateBlue))
+            SpanText("My Experiences", modifier = pageTitleStyle.toModifier().color(textColor))
 
             Div(
                 attrs = Modifier
@@ -61,9 +67,7 @@ fun Experiences() {
                     .toAttrs()
             ) {
                 experienceCards.forEach { card ->
-                    ExperienceCardView(
-                        card
-                    )
+                    ExperienceCardView(card)
                 }
             }
         }

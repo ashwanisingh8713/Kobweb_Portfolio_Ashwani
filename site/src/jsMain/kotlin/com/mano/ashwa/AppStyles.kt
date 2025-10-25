@@ -1,5 +1,6 @@
 package com.mano.ashwa
 
+import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -66,4 +67,10 @@ val CircleButtonVariant = ButtonStyle.addVariantBase {
 
 val UncoloredButtonVariant = ButtonStyle.addVariantBase {
     Modifier.setVariable(ButtonVars.BackgroundDefaultColor, Colors.Transparent)
+}
+
+val pageTitleStyle = CssStyle {
+    base {
+        Modifier.margin(top = 56.px).fontSize(32.px).fontWeight(FontWeight.Bold)
+    }
 }
