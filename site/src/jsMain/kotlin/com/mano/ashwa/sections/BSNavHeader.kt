@@ -1,6 +1,10 @@
 package com.mano.ashwa.sections
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.mano.ashwa.components.widgets.NavTabDataList
 import com.mano.ashwa.navigation.Screen
 import com.stevdza.san.kotlinbs.components.BSNavBar
@@ -10,32 +14,54 @@ import com.stevdza.san.kotlinbs.models.navbar.NavBarExpand
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
-import com.varabyte.kobweb.core.PageContext
+import com.varabyte.kobweb.compose.ui.modifiers.height
 import com.varabyte.kobweb.compose.ui.modifiers.padding
+import com.varabyte.kobweb.core.PageContext
 import com.varabyte.kobweb.compose.ui.styleModifier
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.cssRem
 import com.varabyte.kobweb.silk.components.text.SpanText
 import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.Div
+import kotlinx.browser.window
 
 @Composable
 fun BSHeader(ctx: PageContext) {
     // Render navbar
     Div({
-        // Keep the container full width and position relative so the download link can be placed to the right
+        // Make the header fixed so it doesn't scroll with the page. Keep full width and high z-index.
         style {
-            // minimal style: ensure children are arranged
-            property("position", "relative")
-            property("width", "100%")
+            property("position", "fixed")
+            property("top", "0")
+            property("left", "0")
+            property("right", "0")
+            property("z-index", "1100")
+            // Ensure the container uses the same height as the navbar so absolute children align correctly
+            property("height", "4rem")
         }
     }) {
+
+        // Determine active tab based on current path so active nav link is highlighted
+        val currentPath = window.location.pathname
+        val initialSelectedTab = when (currentPath) {
+            Screen.Home.route -> Screen.Home.id
+            Screen.Skill.route -> Screen.Skill.id
+            Screen.Project.route -> Screen.Project.id
+            Screen.CoverLetter.route -> Screen.CoverLetter.id
+            else -> Screen.Home.id
+        }
+
+        // Remember a local selected state so that when a tab is clicked it becomes active immediately
+        var selectedTab by remember { mutableStateOf(initialSelectedTab) }
+
         BSNavBar(
-            modifier = Modifier.fillMaxWidth(),
-            stickyTop = true,
+            // Add left padding so the brand isn't flush to the viewport edge. Tune 2.cssRem as needed.
+            modifier = Modifier.fillMaxWidth().height(4.cssRem).padding(left = 2.cssRem),
+            stickyTop = false,
             itemsAlignment = Alignment.CenterHorizontally,
             brand = NavBarBrand(
-                title = "KotlinBootstrap",
-                image = "https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg",
+                title = "ABHISHEK'S PORTFOLIO",
+                //image = "https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg",
                 href = "#"
             ),
             expand = NavBarExpand.LG,
@@ -43,8 +69,11 @@ fun BSHeader(ctx: PageContext) {
             // It creates Navigation Tabs and handles selection redirections and states
             items = NavTabDataList(
                 ctx,
-                Screen.Home.id,
-                onSelect = { _ -> /* no-op selection handler; navigation still occurs inside NavTab */ }
+                selectedTab,
+                onSelect = { id ->
+                    // Set the local selected tab immediately so the UI shows the item as active on click
+                    selectedTab = id
+                }
             )
         )
 
