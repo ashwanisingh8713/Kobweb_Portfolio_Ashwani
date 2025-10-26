@@ -307,7 +307,7 @@ fun QuickInfos() {
                         }
                     ) {
                         SpanText(
-                            "Nemo Handy Handheld Measurement Solution",
+                            "DevMatch – Developer–Client Collaboration Platform",
                             modifier = Modifier.padding(5.px)
                                 .styleModifier { property("color", "#93C5FD") })
                     }
@@ -319,7 +319,7 @@ fun QuickInfos() {
                         }
                     ) {
                         SpanText(
-                            "The Hindu: India & World News",
+                            "Kobweb-Blog  Full-Stack Technical Blogging Platform",
                             modifier = Modifier.padding(5.px)
                                 .styleModifier { property("color", "#93C5FD") }
                         )
@@ -332,17 +332,12 @@ fun QuickInfos() {
                         }
                     ) {
                         SpanText(
-                            "The Hindu BusinessLine",
+                            "Portfolio Website  Personal Branding Site",
                             modifier = Modifier.padding(5.px)
                                 .styleModifier { property("color", "#93C5FD") }
                         )
                     }
-                    SpanText("Shorts News", modifier = Modifier.padding(5.px))
-                    SpanText(
-                        "KMP Shopify: Shopify Mobile Apps POC",
-                        modifier = Modifier.padding(5.px)
-                    )
-                    SpanText("KMP Project : THE HINDU", modifier = Modifier.padding(5.px))
+//
                 }
             }
 

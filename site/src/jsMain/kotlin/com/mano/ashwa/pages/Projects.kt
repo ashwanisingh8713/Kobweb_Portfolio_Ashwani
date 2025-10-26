@@ -68,18 +68,21 @@ fun Projects() {
 
 private val projectCards = listOf(
     ProjectData(
-        name = "Nemo Handy  Wireless Network Measurement Tool",
-        description = "Android app for wireless diagnostics, QoS/QoE, and network performance. Features Bluetooth & GooglePlayService NearBy, 5G/LTE/VoLTE/IoT testing, dashboards, device compatibility, instant reporting, and cloud uploads.",
-        duration = "2024 - Present",
-        role = "Tech Lead / Android Architect",
-        technologies = listOf("Android", "Kotlin", "JNI", "Bluetooth", "Google Play Service NearBy", "REST API", "Cloud Integration"),
-        icon = "\ud83d\udcf1",
-        color = Colors.LightBlue
+        name = "DevMatch – Developer–Client Collaboration Platform",
+        description = "A Go-based backend platform enabling real-time chat, video calls (WebRTC), and dummy " +
+                "payments for seamless collaboration between developers and clients. Features include secure" +
+                " authentication with role-based access, WebSocket-based chat with message persistence, JSON file-based " +
+                "structured data management, and modular RESTful APIs built using the Gin framework.",
+        duration = "March 2025 – October 2025.",
+        role = "Backend Developer",
+        technologies = listOf("Go (Gin)", "WebRTC", "WebSocket", "JSON", "Dummy Payments"),
+        icon = "\uD83D\uDCBB",
+        color = Colors.Beige
     ),
     ProjectData(
         name = "Kobweb-Blog  Full-Stack Technical Blogging Platform",
         description = "Kotlin Multiplatform blogging platform using Kobweb, Compose for Web, Ktor, and MongoDB. Features category, search, auth, REST APIs, and dynamic content.",
-        duration = "2023 - 2024",
+        duration = "Present",
         role = "Full Stack Developer",
         technologies = listOf("Kotlin Multiplatform", "Kobweb", "Compose for Web", "Ktor", "MongoDB"),
         icon = "\ud83c\udf10",
@@ -88,37 +91,19 @@ private val projectCards = listOf(
     ProjectData(
         name = "Portfolio Website  Personal Branding Site",
         description = "Responsive portfolio site with contact form, built and deployed using Kobweb and Compose for Web.",
-        duration = "2023 - Present",
+        duration = "Present",
         role = "Web Developer",
         technologies = listOf("Kotlin Multiplatform", "Kobweb", "Compose for Web", "Ktor", "MongoDB"),
         icon = "\ud83d\udcbc",
-        color = Colors.LightYellow
+        color = Colors.LightBlue
     ),
     ProjectData(
-        name = "THE HINDU: LIVE NEWS UPDATES & BUSINESS LINE",
-        description = "Android news apps for The Hindu and Business Line. Features: customizable news feed, offline reading, multimedia, dynamic UIs, analytics, ads, and more.",
-        duration = "2015 - 2024",
-        role = "Lead Android Developer",
-        technologies = listOf("Android", "Kotlin", "Java", "Dynamic UI", "DFP Ads", "Analytics", "REST API"),
-        icon = "\ud83d\udcf0",
-        color = Colors.LightCyan
-    ),
-    ProjectData(
-        name = "KMP Project: Shopify Mobile Apps POC",
-        description = "Kotlin Multiplatform POC for Shopify apps. Used Voyager Navigator, Koin, Ktor, Clean Arch, MVI, Material-3, Compose UI, GraphQL, and Shopify APIs.",
-        duration = "2023 - 2024",
-        role = "KMP Developer",
-        technologies = listOf("Kotlin Multiplatform", "Compose UI", "Koin", "Ktor", "GraphQL", "Shopify API"),
-        icon = "\ud83d\uded2",
-        color = Colors.LightPink
-    ),
-    ProjectData(
-        name = "Additional Projects",
-        description = "Contributed to 10+ Android, Kotlin Multiplatform, and internal tooling projects.",
-        duration = "2010 - Present",
-        role = "Developer / Tech Lead",
-        technologies = listOf("Android", "Kotlin", "KMP", "Internal Tools"),
+        name = "User Module API",
+        description = "Implemented very basic User Module API (Login, Registration, Profile).",
+        duration = "2023",
+        role = "Developer",
+        technologies = listOf("GoLang"),
         icon = "\u2728",
-        color = Colors.WhiteSmoke
+        color = Colors.LightPink
     )
 )
