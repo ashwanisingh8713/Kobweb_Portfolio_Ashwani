@@ -36,7 +36,13 @@ fun Banner() {
     )
     SimpleGrid(
         numColumns(base = 1, md = 2),
-        modifier = bannerStyle.toModifier().id("home")
+        modifier = bannerStyle.toModifier().id("home").styleModifier {
+            // Apply background specifically for the Banner on the home page
+            property("background-image", "url(${Assets.BannerBg})")
+            property("background-position", "center")
+            property("background-size", "cover")
+            property("background-repeat", "no-repeat")
+        }
     ) {
         BannerText(animatedText.value)
         Image(
