@@ -12,7 +12,7 @@ sealed class Screen(val id: String, val title: String, val route: String) {
     object Home : Screen("homeId", title = "Home", route = "/")
     object About : Screen("aboutId", title = "About", route = About_Route)
     object Skill : Screen("skillId", title = "Skill", route = Skill_Route)
-    object Experience : Screen("experiencesId", title = "Experience", route = Experience_Route)
+    //object Experience : Screen("experiencesId", title = "Experience", route = Experience_Route)
     object Project : Screen("projectId", title = "Project", route = Project_Route)
     object CoverLetter : Screen(id= "coverletterId", title = "Cover Letter", route = CoverLetter_Route)
     object ContactMe : Screen(id = "contactmeId", title = "Contact Me", route = ContactMe_Route)

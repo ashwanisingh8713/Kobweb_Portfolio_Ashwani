@@ -34,9 +34,9 @@ fun NavTabDataList(ctx: PageContext, selectedTabId: String, onSelect: (String) -
     NavTab(ctx = ctx, id = Screen.Skill.id, title = Screen.Skill.title, path = Screen.Skill.route, isSelected = selectedTabId == Screen.Skill.id) {
         onSelect(Screen.Skill.id)
     },
-    NavTab(ctx = ctx, id = Screen.Experience.id, title = Screen.Experience.title, path = Screen.Experience.route, isSelected = selectedTabId == Screen.Experience.id) {
-        onSelect(Screen.Experience.id)
-    },
+//   NavTab(ctx = ctx, id = Screen.Experience.id, title = Screen.Experience.title, path = Screen.Experience.route, isSelected = selectedTabId == Screen.Experience.id) {
+//       onSelect(Screen.Experience.id)
+   // },
     NavTab(ctx = ctx, id = Screen.Project.id, title = Screen.Project.title, path = Screen.Project.route, isSelected = selectedTabId == Screen.Project.id) {
         onSelect(Screen.Project.id)
     },

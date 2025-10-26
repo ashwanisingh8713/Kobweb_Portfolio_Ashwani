@@ -386,17 +386,17 @@ fun QuickInfos() {
                             )
                             })
                 }
-                A(href = "experiences") {
-                    SpanText(
-                        "Experiences",
-                        modifier = Modifier.padding(5.px)
-                            .styleModifier {
-                                property("cursor", "pointer"); property(
-                                "color",
-                                "#93C5FD"
-                            )
-                            })
-                }
+//                A(href = "experiences") {
+//                    SpanText(
+//                        "Experiences",
+//                        modifier = Modifier.padding(5.px)
+//                            .styleModifier {
+//                                property("cursor", "pointer"); property(
+//                                "color",
+//                                "#93C5FD"
+//                            )
+//                            })
+//                }
                 A(href = "project") {
                     SpanText(
                         "Projects",
