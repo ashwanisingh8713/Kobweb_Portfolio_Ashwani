@@ -71,6 +71,20 @@ val UncoloredButtonVariant = ButtonStyle.addVariantBase {
 
 val pageTitleStyle = CssStyle {
     base {
-        Modifier.margin(top = 56.px).fontSize(32.px).fontWeight(FontWeight.Bold)
+        Modifier.margin(all = 56.px ).fontSize(32.px).fontWeight(FontWeight.Bold)
+    }
+}
+
+// Highlight style used for inline keywords (bold only, no margins)
+val highlightStyle = CssStyle {
+    base {
+        Modifier.fontWeight(FontWeight.Bold)
+    }
+}
+
+// Normal inline text style to ensure non-highlighted text is regular weight
+val normalTextStyle = CssStyle {
+    base {
+        Modifier.fontWeight(FontWeight.Normal)
     }
 }

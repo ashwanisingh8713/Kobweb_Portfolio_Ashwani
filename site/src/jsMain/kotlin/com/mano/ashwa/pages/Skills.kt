@@ -38,9 +38,8 @@ fun SkillPage() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
     val textColor = if (current == com.varabyte.kobweb.silk.theme.colors.ColorMode.DARK) Colors.White else Colors.Black
-    Box(Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(32.px)) {
-        Column(
-            Modifier.gap(32.px),
+    Column(
+            Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(32.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             SpanText("My Skills", modifier = pageTitleStyle.toModifier().color(textColor))
@@ -66,7 +65,6 @@ fun SkillPage() {
             }
         }
     }
-}
 
 
 public val skillCards = listOf(
