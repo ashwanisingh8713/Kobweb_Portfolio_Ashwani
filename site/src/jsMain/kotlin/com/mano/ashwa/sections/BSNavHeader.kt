@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.mano.ashwa.LocalAppColorMode
 import com.mano.ashwa.components.widgets.NavTabDataList
 import com.mano.ashwa.navigation.Screen
 import com.stevdza.san.kotlinbs.components.BSNavBar
@@ -18,10 +19,12 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.core.PageContext
 import com.mano.ashwa.ThemeToggle
+import com.mano.ashwa.toSitePalette
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
+import com.varabyte.kobweb.compose.ui.modifiers.color
 import com.varabyte.kobweb.compose.ui.modifiers.opacity
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.position
@@ -35,6 +38,9 @@ import org.jetbrains.compose.web.css.px
 
 @Composable
 fun BSHeader(ctx: PageContext) {
+    val current = LocalAppColorMode.current.value
+    val sitePal = current.toSitePalette()
+
     var selectedTabId by remember { mutableStateOf(Screen.Home.id) }
     Box(
         modifier = Modifier
@@ -47,7 +53,7 @@ fun BSHeader(ctx: PageContext) {
     ) {
 
     BSNavBar(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().color(sitePal.nearBackground),
         stickyTop = true,
         itemsAlignment = Alignment.CenterHorizontally,
         brand = NavBarBrand(

@@ -31,18 +31,18 @@ fun initSkillPage(ctx: InitRouteContext) {
     ctx.data.add(PageLayoutData("Ashwani Skills"))
 }
 
+
 @Page(Skill_Route)
 @Layout(".components.layouts.PageLayout")
 @Composable
 fun SkillPage() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
-    val textColor = if (current == com.varabyte.kobweb.silk.theme.colors.ColorMode.DARK) Colors.White else Colors.Black
     Column(
             Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(32.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SpanText("My Skills", modifier = pageTitleStyle.toModifier().color(textColor))
+            SpanText("My Skills", modifier = pageTitleStyle.toModifier().color(sitePal.pageTitleColor))
 
             Div(
                 attrs = Modifier

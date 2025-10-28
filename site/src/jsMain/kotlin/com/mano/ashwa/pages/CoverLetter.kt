@@ -74,32 +74,31 @@ val keywords = listOf(
 fun CoverLetter() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
-    val textColor = if (current == com.varabyte.kobweb.silk.theme.colors.ColorMode.DARK) Colors.White else Colors.Black
     Column(
         Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground),//.gap(32.px),
     ) {
         SpanText("My Cover Letter",
-            modifier = pageTitleStyle.toModifier().padding(top=40.px).color(textColor).align(alignment = Alignment.CenterHorizontally)
+            modifier = pageTitleStyle.toModifier().padding(top=40.px).color(sitePal.pageTitleColor).align(alignment = Alignment.CenterHorizontally)
         )
 
         // Constrain content width to full width and apply left/right margins for gutters
         Column(modifier = Modifier.fillMaxWidth().padding (left = 24.px, right = 64.px)) {
-            renderParagraph("Dear Hiring Manager,", textColor)
-            renderParagraph("", textColor)
-            renderParagraph("I am writing to express my interest in a position such as Tech Lead, Lead Android / Kotlin Multiplatform Developer, Full Stack Mobile Developer, or GoLang Developer. With over 14 years of hands-on experience in software engineering and mobile application development, I have cultivated a deep technical foundation combined with a passion for innovation and clean, scalable architecture.", textColor)
-            renderParagraph("", textColor)
-            renderParagraph("My expertise spans Kotlin Multiplatform Development (Android, iOS, Web), native Android app engineering, and Full Stack web development using the Kobweb framework. I have worked extensively with technologies like Compose UI, Jetpack libraries, Ktor, Coroutines, GraphQL, Firebase, and Keycloak (Identity and Access Management). Additionally, I have strong backend experience in GoLang (GIN framework), enabling me to build efficient microservices and connect mobile and web ecosystems seamlessly.", textColor)
-            renderParagraph("", textColor)
-            renderParagraph("Beyond coding, I focus on telecom and network performance, Bluetooth & NearBy discovery, and app optimization, using tools like memory profilers and ADB to resolve performance bottlenecks. I apply SOLID principles and patterns like MVVM and MVI, emphasizing a single business logic approach for cross-platform applications to ensure reliability, maintainability, and scalability.", textColor)
-            renderParagraph("", textColor)
-            renderParagraph("Currently, I lead teams and oversee projects from concept to deployment, ensuring seamless coordination across development, testing, and client communication. I work closely with stakeholders to translate complex requirements into efficient, scalable, and maintainable technical solutions.", textColor)
-            renderParagraph("", textColor)
-            renderParagraph("I have been exploring Kobweb, AI integration through the Koog (Kotlin Agentic Framework) and applying prompt engineering techniques to build intelligent, context-aware systems that enhance automation and decision-making within mobile and web applications.", textColor)
-            renderParagraph("", textColor)
-            renderParagraph("Thank you for considering my application.", textColor)
-            renderParagraph("", textColor)
-            renderParagraph("Sincerely,", textColor)
-            renderParagraph("Ashwani Kumar Singh", textColor)
+            renderParagraph("Dear Hiring Manager,", sitePal.textColor)
+            renderParagraph("", sitePal.textColor)
+            renderParagraph("I am writing to express my interest in a position such as Tech Lead, Lead Android / Kotlin Multiplatform Developer, Full Stack Mobile Developer, or GoLang Developer. With over 14 years of hands-on experience in software engineering and mobile application development, I have cultivated a deep technical foundation combined with a passion for innovation and clean, scalable architecture.", sitePal.textColor)
+            renderParagraph("", sitePal.textColor)
+            renderParagraph("My expertise spans Kotlin Multiplatform Development (Android, iOS, Web), native Android app engineering, and Full Stack web development using the Kobweb framework. I have worked extensively with technologies like Compose UI, Jetpack libraries, Ktor, Coroutines, GraphQL, Firebase, and Keycloak (Identity and Access Management). Additionally, I have strong backend experience in GoLang (GIN framework), enabling me to build efficient microservices and connect mobile and web ecosystems seamlessly.", sitePal.textColor)
+            renderParagraph("", sitePal.textColor)
+            renderParagraph("Beyond coding, I focus on telecom and network performance, Bluetooth & NearBy discovery, and app optimization, using tools like memory profilers and ADB to resolve performance bottlenecks. I apply SOLID principles and patterns like MVVM and MVI, emphasizing a single business logic approach for cross-platform applications to ensure reliability, maintainability, and scalability.", sitePal.textColor)
+            renderParagraph("", sitePal.textColor)
+            renderParagraph("Currently, I lead teams and oversee projects from concept to deployment, ensuring seamless coordination across development, testing, and client communication. I work closely with stakeholders to translate complex requirements into efficient, scalable, and maintainable technical solutions.", sitePal.textColor)
+            renderParagraph("", sitePal.textColor)
+            renderParagraph("I have been exploring Kobweb, AI integration through the Koog (Kotlin Agentic Framework) and applying prompt engineering techniques to build intelligent, context-aware systems that enhance automation and decision-making within mobile and web applications.", sitePal.textColor)
+            renderParagraph("", sitePal.textColor)
+            renderParagraph("Thank you for considering my application.", sitePal.textColor)
+            renderParagraph("", sitePal.textColor)
+            renderParagraph("Sincerely,", sitePal.textColor)
+            renderParagraph("Ashwani Kumar Singh", sitePal.textColor)
         }
     }
 }

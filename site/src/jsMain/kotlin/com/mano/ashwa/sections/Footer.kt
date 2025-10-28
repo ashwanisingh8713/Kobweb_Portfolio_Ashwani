@@ -5,7 +5,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.mano.ashwa.LocalAppColorMode
 import com.mano.ashwa.styles.bannerStyle
+import com.mano.ashwa.toSitePalette
 import com.stevdza.san.kotlinbs.components.BSButton
 import com.stevdza.san.kotlinbs.forms.BSInput
 import com.stevdza.san.kotlinbs.forms.BSTextArea
@@ -28,6 +30,7 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.alignItems
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
+import com.varabyte.kobweb.compose.ui.modifiers.color
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.fontSize
 import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
@@ -50,13 +53,15 @@ import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun Footer() {
-	Column(modifier = SmoothColorStyle.toModifier().fillMaxWidth(),
+    val current = LocalAppColorMode.current.value
+    val sitePal = current.toSitePalette()
+	Column(modifier = SmoothColorStyle.toModifier().fillMaxWidth().backgroundColor(sitePal.nearBackground),
 //		verticalArrangement = Arrangement.Center,
 		//horizontalAlignment = ColumnDefaults.HorizontalAlignment
 	) {
 		SpanText("Contact Me",
 			modifier = Modifier.fontStyle(FontStyle.Normal).fontWeight(FontWeight.Bold)
-				.align(alignment = Alignment.CenterHorizontally).padding(10.px))
+				.align(alignment = Alignment.CenterHorizontally).padding(10.px).color(sitePal.pageTitleColor))
 
 		var firstName by remember { mutableStateOf("") }
 		var lastName by remember { mutableStateOf("") }

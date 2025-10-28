@@ -37,12 +37,12 @@ import com.varabyte.kobweb.silk.theme.colors.ColorMode
 fun SkillCardView(title: String, skills: List<String>, icon: String? = null,
                   color: Color = Colors.WhiteSmoke) {
     val current = LocalAppColorMode.current.value
-    val textColor = if (current == ColorMode.DARK) Colors.White else Colors.Black
+    val sitePal = current.toSitePalette()
 
     Box(
         Modifier
             .fillMaxWidth()
-            .backgroundColor(color)
+            .backgroundColor(sitePal.cardColor)
             .borderRadius(12.px)
             .padding(16.px)
     ) {
@@ -51,11 +51,11 @@ fun SkillCardView(title: String, skills: List<String>, icon: String? = null,
                 if (icon != null) {
                     SpanText(icon, Modifier.fontSize(24.px))
                 }
-                SpanText(title, Modifier.fontWeight(FontWeight.Bold).fontSize(20.px))
+                SpanText(title, Modifier.fontWeight(FontWeight.Bold).fontSize(20.px).color(sitePal.cardTitleColor))
             }
             Column {
                 skills.forEach {
-                    SpanText("• $it", Modifier.fontSize(16.px).color(textColor))
+                    SpanText("• $it", Modifier.fontSize(16.px).color(sitePal.cardDescriptionColor))
                 }
             }
         }
@@ -66,12 +66,12 @@ fun SkillCardView(title: String, skills: List<String>, icon: String? = null,
 @Composable
 fun ExperienceCardView(data: ExperienceData) {
     val current = LocalAppColorMode.current.value
-    val textColor = if (current == ColorMode.DARK) Colors.White else Colors.Black
+    val sitePal = current.toSitePalette()
 
     Box(
         Modifier
             .fillMaxWidth()
-            .backgroundColor(data.color)
+            .backgroundColor(sitePal.cardColor)
             .borderRadius(12.px)
             .padding(16.px)
     ) {
@@ -84,21 +84,21 @@ fun ExperienceCardView(data: ExperienceData) {
                     Row {
                         SpanText(
                             data.companyName,
-                            Modifier.fontWeight(FontWeight.Bold).fontSize(20.px)
+                            Modifier.fontWeight(FontWeight.Bold).fontSize(20.px).color(sitePal.cardTitleColor)
                         )
                         Box(modifier = Modifier.width(10.px))
                         SpanText(
                             "(${data.duration})",
                             Modifier.fontWeight(FontWeight.Bold).fontSize(14.px)
-                                .padding(top = 5.px)
+                                .padding(top = 5.px).color(sitePal.cardSubTitleColor)
                         )
                     }
-                    SpanText(data.role, Modifier.fontWeight(FontWeight.Bold).fontSize(14.px))
+                    SpanText(data.role, Modifier.fontWeight(FontWeight.Bold).fontSize(14.px).color(sitePal.cardSubTitleColor))
                 }
             }
             Column {
                 data.skills.forEach {
-                    SpanText("• $it", Modifier.fontSize(16.px).color(textColor))
+                    SpanText("• $it", Modifier.fontSize(16.px).color(sitePal.cardDescriptionColor))
                 }
             }
         }
@@ -159,12 +159,12 @@ fun Chip(text: String, color: Color = Colors.LightBlue) { // Changed default col
 @Composable
 fun ProjectCardView(data: ProjectData) {
     val current = LocalAppColorMode.current.value
-    val textColor = if (current == ColorMode.DARK) Colors.White else Colors.Black
+    val sitePal = current.toSitePalette()
 
     Box(
         Modifier
             .fillMaxWidth()
-            .backgroundColor(data.color)
+            .backgroundColor(sitePal.cardColor)
             .borderRadius(12.px)
             .padding(16.px)
     ) {
@@ -176,16 +176,16 @@ fun ProjectCardView(data: ProjectData) {
                 Column {
                     SpanText(
                         data.name,
-                        Modifier.fontWeight(FontWeight.Bold).fontSize(20.px)
+                        Modifier.fontWeight(FontWeight.Bold).fontSize(20.px).color(sitePal.cardTitleColor)
                     )
                     SpanText(
                         "(${data.duration})",
-                        Modifier.fontWeight(FontWeight.Bold).fontSize(14.px).padding(top = 5.px)
+                        Modifier.fontWeight(FontWeight.Bold).fontSize(14.px).padding(top = 5.px).color(sitePal.cardSubTitleColor)
                     )
-                    SpanText(data.role, Modifier.fontWeight(FontWeight.Bold).fontSize(14.px))
+                    SpanText(data.role, Modifier.fontWeight(FontWeight.Bold).fontSize(14.px).color(sitePal.cardSubTitleColor))
                 }
             }
-            SpanText(data.description, Modifier.fontSize(16.px).color(textColor))
+            SpanText(data.description, Modifier.fontSize(16.px).color(sitePal.cardDescriptionColor))
             ChipLayout(data.technologies)
         }
     }
