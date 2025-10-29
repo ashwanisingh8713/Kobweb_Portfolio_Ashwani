@@ -47,8 +47,7 @@ fun BSHeader(ctx: PageContext) {
             .fillMaxWidth()
             .position(Position.Fixed)
             .top(0.percent)
-            .backgroundColor(Color.black)
-            .opacity(0.6)
+//            .opacity(0.6) // To make translucent to HeaderBar
             .zIndex(10)
     ) {
 

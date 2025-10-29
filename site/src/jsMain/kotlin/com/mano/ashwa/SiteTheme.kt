@@ -1,5 +1,6 @@
 package com.mano.ashwa
 
+import com.stevdza.san.kotlinbs.models.BackgroundStyle
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.silk.init.InitSilk
@@ -8,6 +9,11 @@ import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.background
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 
+// The `com.stevdza.san.kotlinbs.models.BackgroundStyle` type from the library does not expose a `Custom` constructor.
+// To customize nav bar appearance, prefer either:
+// 1) Use `BackgroundStyle.Dark`/`Light` provided by the library where applicable, or
+// 2) Set the parent container's background color (recommended) or use CSS/attrs to override specific styles.
+
 /**
  * @property nearBackground A useful color to apply to a container that should differentiate itself from the background
  *   but just a little.
@@ -15,7 +21,8 @@ import com.varabyte.kobweb.silk.theme.colors.palette.color
 class SitePalette(
     val brand: Brand,
     val nearBackground: Color,
-    val cobweb: Color,
+    val headerBackground: Color,
+    val contactAreaBg: Color,
     val cardColor: Color,
     val cardTitleColor: Color,
     val cardSubTitleColor: Color,
@@ -32,7 +39,7 @@ class SitePalette(
 object SitePalettes {
     val light = SitePalette(
         nearBackground = Color.rgb(0xF4F6FA),
-        cobweb = Colors.LightGray,
+        headerBackground = Color.rgb(0xFfffff),
         brand = SitePalette.Brand(primary = Color.rgb(0x3C83EF), accent = Color.rgb(0xFCBA03)),
         cardColor = Color.rgb(0xFFFFFF),
         cardTitleColor = Color.rgb(0x0F172A),
@@ -40,32 +47,34 @@ object SitePalettes {
         cardDescriptionColor = Color.rgb(0x6B7280),
         pageTitleColor = Color.rgb(0x6B7280),
         textColor = Color.rgb(0x6B7280),
+        contactAreaBg = Color.rgb(0xF4F6FA)
     )
 
     val dark = SitePalette(
         nearBackground = Color.rgb(0x06080B),
-        cobweb = Colors.LightGray.inverted(),
+        headerBackground = Color.rgb(0x06080B),
         brand = SitePalette.Brand(primary = Color.rgb(0x3C83EF), accent = Color.rgb(0xF3DB5B)),
         cardColor = Color.rgb(0x0B1220),
         cardTitleColor = Color.rgb(0xE6EEF8),
         cardSubTitleColor = Color.rgb(0xAAB7C9),
         cardDescriptionColor = Color.rgb(0x94A3B8),
         pageTitleColor = Color.rgb(0x94A3B8),
-        textColor = Color.rgb(0x94A3B8)
+        textColor = Color.rgb(0x94A3B8),
+        contactAreaBg = Color.rgb(0x0A0C10)
     )
 }
 
 fun ColorMode.toSitePalette(): SitePalette {
-    return when (this) {
+    return SitePalettes.dark
+    /*return when (this) {
         ColorMode.LIGHT -> SitePalettes.light
         ColorMode.DARK -> SitePalettes.dark
-    }
+    }*/
 }
 
 @InitSilk
 fun initTheme(ctx: InitSilkContext) {
-    ctx.theme.palettes.light.background = Color.rgb(0xFAFAFA)
-    ctx.theme.palettes.light.color = Colors.Black
-    ctx.theme.palettes.dark.background = Color.rgb(0x06080B)
+    // Keep Silk palette adjustments minimal here. Use the SitePalette values for custom colors.
+    ctx.theme.palettes.dark.background = Colors.White
     ctx.theme.palettes.dark.color = Colors.White
 }
