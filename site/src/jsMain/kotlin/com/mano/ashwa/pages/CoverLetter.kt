@@ -75,7 +75,7 @@ fun CoverLetter() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
     Column(
-        Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground),//.gap(32.px),
+        Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground),
     ) {
         SpanText("My Cover Letter",
             modifier = pageTitleStyle.toModifier().padding(top=40.px).color(sitePal.pageTitleColor).align(alignment = Alignment.CenterHorizontally)

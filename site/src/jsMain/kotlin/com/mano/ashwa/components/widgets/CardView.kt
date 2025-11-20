@@ -106,52 +106,59 @@ fun ExperienceCardView(data: ExperienceData) {
 }
 
 @Composable
-fun ChipLayout(items: List<String>, chipColor: Color = Colors.LightBlue) { // Changed default color
+fun ChipLayout(items: List<String>, chipLayoutColor:Color, chipColor: Color, chipTextColor:Color) { // Changed default color
     Div({
         style {
             display(DisplayStyle.Flex)
             flexWrap(FlexWrap.Wrap)
-            property("gap", "0px")
-            property("margin-top", "4px")
-            property("margin-bottom", "4px")
+            // Add spacing between chips so the layout background is visible
+            property("gap", "8px")
+            property("margin-top", "6px")
+            property("margin-bottom", "6px")
             property("margin-right", "4px")
             width(100.percent)
             // Subtle light blue background for layout
-            property("background-color", "#e3f2fd")
+            property("background-color", chipLayoutColor.toString())
             property("border-radius", "12px")
-            property("padding", "8px 0")
+            // Add horizontal padding so the layout background frames the chips
+            property("padding", "8px 12px")
+            // Subtle inset border to delineate layout area on very dark backgrounds
+            property("box-shadow", "inset 0 0 0 1px rgba(255,255,255,0.02)")
         }
     }) {
         items.forEach { tech ->
-            Chip(tech, chipColor)
+            Chip(tech, chipColor, chipTextColor)
         }
     }
 }
 
 @Composable
-fun Chip(text: String, color: Color = Colors.LightBlue) { // Changed default color
+fun Chip(text: String, chipColor: Color, chipTextColor: Color) { // Updated to increase visibility on dark backgrounds
     Box(
         Modifier
-            .backgroundColor(color)
+            //.backgroundColor(chipColor)
             .borderRadius(16.px)
-            .padding(left = 12.px, right = 12.px, top = 4.px, bottom = 4.px)
-            .margin(left = 5.px, top = 3.px, right = 3.px, bottom = 3.px)
+            // Slightly larger horizontal padding so chips feel more substantial
+            .padding(left = 14.px, right = 14.px, top = 6.px, bottom = 6.px)
+            .margin(left = 6.px, top = 4.px, right = 4.px, bottom = 4.px)
     ) {
         org.jetbrains.compose.web.dom.Span({
             style {
                 property("white-space", "nowrap")
                 property("font-size", "14px")
-                property("color", Colors.DarkSlateBlue.toString())
+                //property("color", chipTextColor.toString())
                 property("margin-right", "8px")
                 property("margin-bottom", "8px")
-                property("box-shadow", "0 2px 8px 0 rgba(0, 120, 255, 0.10)")
+                // Gentle shadow to lift the chip off the layout background
+                property("box-shadow", "0 1px 4px rgba(0,0,0,0.45)")
                 property("display", "flex")
                 property("align-items", "center")
                 property("justify-content", "center") // Center align text
                 property("height", "100%")
             }
         }) {
-            org.jetbrains.compose.web.dom.Text(text)
+            //org.jetbrains.compose.web.dom.Text(text)
+            SpanText(text, Modifier.fontSize(16.px).color(chipTextColor))
         }
     }
 }
@@ -186,7 +193,7 @@ fun ProjectCardView(data: ProjectData) {
                 }
             }
             SpanText(data.description, Modifier.fontSize(16.px).color(sitePal.cardDescriptionColor))
-            ChipLayout(data.technologies)
+            ChipLayout(data.technologies, chipLayoutColor = sitePal.chipLayoutColor, chipColor = sitePal.chipColor, chipTextColor = sitePal.chipTextColor)
         }
     }
 }

@@ -50,7 +50,6 @@ fun Projects() {
     val sitePal = current.toSitePalette()
     Box(Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(32.px)) {
         Column(
-            Modifier.gap(32.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             SpanText("My Projects", modifier = pageTitleStyle.toModifier().color(sitePal.pageTitleColor))

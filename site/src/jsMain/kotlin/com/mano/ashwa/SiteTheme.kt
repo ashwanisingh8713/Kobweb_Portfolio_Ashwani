@@ -28,7 +28,10 @@ class SitePalette(
     val cardSubTitleColor: Color,
     val cardDescriptionColor: Color,
     val textColor: Color,
-    val pageTitleColor: Color
+    val pageTitleColor: Color,
+    val chipColor: Color,
+    val chipLayoutColor: Color,
+    val chipTextColor: Color,
 ) {
     class Brand(
         val primary: Color = Color.rgb(0x3C83EF),
@@ -39,7 +42,7 @@ class SitePalette(
 object SitePalettes {
     val light = SitePalette(
         nearBackground = Color.rgb(0xF4F6FA),
-        headerBackground = Color.rgb(0xFfffff),
+        headerBackground = Color.rgb(0xFFFFFF),
         brand = SitePalette.Brand(primary = Color.rgb(0x3C83EF), accent = Color.rgb(0xFCBA03)),
         cardColor = Color.rgb(0xFFFFFF),
         cardTitleColor = Color.rgb(0x0F172A),
@@ -47,7 +50,10 @@ object SitePalettes {
         cardDescriptionColor = Color.rgb(0x6B7280),
         pageTitleColor = Color.rgb(0x6B7280),
         textColor = Color.rgb(0x6B7280),
-        contactAreaBg = Color.rgb(0xF4F6FA)
+        contactAreaBg = Color.rgb(0xF4F6FA),
+        chipColor = Color.rgb(0xF4F6FA),
+        chipLayoutColor = Color.rgb(0xF4F6FA),
+        chipTextColor = Color.rgb(0xF4F6FA)
     )
 
     val dark = SitePalette(
@@ -58,9 +64,16 @@ object SitePalettes {
         cardTitleColor = Color.rgb(0xE6EEF8),
         cardSubTitleColor = Color.rgb(0xAAB7C9),
         cardDescriptionColor = Color.rgb(0x94A3B8),
-        pageTitleColor = Color.rgb(0x94A3B8),
+        pageTitleColor = Colors.White,
         textColor = Color.rgb(0x94A3B8),
-        contactAreaBg = Color.rgb(0x0A0C10)
+        contactAreaBg = Color.rgb(0x0A0C10),
+        // Distinct chip colors for better contrast in dark mode:
+        // chipLayoutColor: slightly lighter/different dark background for the chip container
+        chipLayoutColor = Color.rgb(0x0F1724),
+        // chipColor: the chip background itself (a bit warmer/different than cardColor)
+        chipColor = Color.rgb(0x122033),
+        // chipTextColor: light text that contrasts with chipColor
+        chipTextColor = Color.rgb(0xE6EEF8)
     )
 }
 
