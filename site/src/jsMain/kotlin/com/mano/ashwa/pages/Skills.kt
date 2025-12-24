@@ -41,22 +41,22 @@ fun SkillPage() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
     Column(
-            Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(top = 100.px, leftRight = 32.px, bottom = 32.px),
+            Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(top = 80.px, leftRight = 16.px, bottom = 32.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Enhanced Page Title Section
             SkillsPageTitleSection(sitePal)
 
-            Div(
-                attrs = Modifier
-                    .fillMaxWidth()
-                    .display(DisplayStyle.Grid)
-                    .gridTemplateColumns {
-                        repeat(4) { minmax(250.px, 1.fr) }
-                    }
-                    .gap(32.px)
-                    .toAttrs()
-            ) {
+            // Responsive grid: 1 column on mobile, 2 on tablet, 4 on desktop
+            Div({
+                style {
+                    width(100.percent)
+                    display(DisplayStyle.Grid)
+                    property("grid-template-columns", "repeat(auto-fit, minmax(280.px, 1fr))")
+                    gap(24.px)
+                    property("max-width", "1400px")
+                }
+            }) {
                 skillCards.forEach { card ->
                     SkillCardView(
                         title = card.title,

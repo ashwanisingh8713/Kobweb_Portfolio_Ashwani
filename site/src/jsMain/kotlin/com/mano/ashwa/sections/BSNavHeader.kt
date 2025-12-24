@@ -49,6 +49,15 @@ val NavLinksContainerStyle = CssStyle {
     }
 }
 
+val MobileMenuButtonStyle = CssStyle {
+    base {
+        Modifier.display(DisplayStyle.Flex)
+    }
+    Breakpoint.MD {
+        Modifier.display(DisplayStyle.None)
+    }
+}
+
 val BrandNameStyle = CssStyle {
     base {
         Modifier.display(DisplayStyle.None)
@@ -72,16 +81,19 @@ fun BSHeader(ctx: PageContext) {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
     var hoveredItem by remember { mutableStateOf<String?>(null) }
+    var mobileMenuOpen by remember { mutableStateOf(false) }
 
     // Theme-aware colors
     val isLight = current == com.varabyte.kobweb.silk.theme.colors.ColorMode.LIGHT
-    val headerBgColor = if (isLight) "rgba(255, 255, 255, 0.9)" else "rgba(6, 8, 11, 0.85)"
+    val headerBgColor = if (isLight) "rgba(255, 255, 255, 0.95)" else "rgba(6, 8, 11, 0.95)"
     val borderColor = if (isLight) "rgba(60, 131, 239, 0.2)" else "rgba(60, 131, 239, 0.15)"
     val textColor = if (isLight) Colors.Black else Colors.White
+    val mobileMenuBg = if (isLight) "rgba(255, 255, 255, 0.98)" else "rgba(10, 13, 18, 0.98)"
 
     // Get current path to highlight active nav item
     val currentPath = ctx.route.path
 
+    // Main Header
     Div({
         style {
             width(100.percent)
@@ -89,7 +101,7 @@ fun BSHeader(ctx: PageContext) {
             top(0.px)
             left(0.px)
             property("z-index", "1000")
-            padding(16.px, 40.px)
+            padding(12.px, 20.px)
             property("backdrop-filter", "blur(20px)")
             property("-webkit-backdrop-filter", "blur(20px)")
             property("background", headerBgColor)
@@ -98,7 +110,7 @@ fun BSHeader(ctx: PageContext) {
         }
     }) {
         Row(
-            modifier = Modifier.fillMaxWidth().maxWidth(1400.px),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -181,13 +193,13 @@ fun BSHeader(ctx: PageContext) {
                 }
             }
 
-            // Right side: Theme Toggle + Download Button
+            // Right side: Theme Toggle + Download Button + Mobile Menu
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
                 // Theme Toggle
-                Box(modifier = Modifier.margin(right = 16.px)) {
+                Box(modifier = Modifier.margin(right = 12.px)) {
                     ThemeToggle(compact = true)
                 }
 
@@ -196,14 +208,14 @@ fun BSHeader(ctx: PageContext) {
                     style {
                         property("background", "linear-gradient(135deg, #3C83EF, #7F52FF)")
                         property("border-radius", "25px")
-                        property("padding", "10px 24px")
+                        property("padding", "8px 16px")
                         property("cursor", "pointer")
                         property("transition", "all 0.3s ease")
                         property("border", "none")
                         property("box-shadow", "0 4px 15px rgba(60, 131, 239, 0.3)")
                         display(DisplayStyle.Flex)
                         alignItems(AlignItems.Center)
-                        gap(8.px)
+                        gap(6.px)
                     }
                     onMouseEnter {
                         it.currentTarget.asDynamic().style.transform = "translateY(-2px)"
@@ -229,6 +241,80 @@ fun BSHeader(ctx: PageContext) {
                                 .fontSize(14.px)
                                 .fontWeight(FontWeight.SemiBold)
                                 .color(Colors.White)
+                        )
+                    }
+                }
+
+                // Mobile Hamburger Menu Button
+                Box(modifier = MobileMenuButtonStyle.toModifier().margin(left = 12.px)) {
+                    Div({
+                        style {
+                            property("padding", "8px")
+                            property("border-radius", "8px")
+                            property("cursor", "pointer")
+                            property("background", if (mobileMenuOpen) "rgba(60, 131, 239, 0.1)" else "transparent")
+                        }
+                        onClick { mobileMenuOpen = !mobileMenuOpen }
+                    }) {
+                        SpanText(
+                            if (mobileMenuOpen) "✕" else "☰",
+                            modifier = Modifier.fontSize(24.px).color(textColor)
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    // Mobile Menu Dropdown
+    if (mobileMenuOpen) {
+        Div({
+            style {
+                position(Position.Fixed)
+                top(60.px)
+                left(0.px)
+                width(100.percent)
+                property("z-index", "999")
+                property("background", mobileMenuBg)
+                property("backdrop-filter", "blur(20px)")
+                property("-webkit-backdrop-filter", "blur(20px)")
+                property("border-bottom", "1px solid $borderColor")
+                property("box-shadow", "0 8px 30px rgba(0, 0, 0, 0.2)")
+                property("padding", "16px 20px")
+            }
+        }) {
+            Column(
+                modifier = Modifier.fillMaxWidth().gap(8.px)
+            ) {
+                navItems.forEach { item ->
+                    val isActive = currentPath == item.path ||
+                        (item.path == "/" && currentPath.isEmpty())
+
+                    Div({
+                        style {
+                            property("padding", "14px 20px")
+                            property("border-radius", "12px")
+                            property("cursor", "pointer")
+                            property("transition", "all 0.2s ease")
+
+                            if (isActive) {
+                                property("background", "linear-gradient(135deg, rgba(60, 131, 239, 0.2), rgba(127, 82, 255, 0.2))")
+                                property("border-left", "3px solid #3C83EF")
+                            } else {
+                                property("background", "transparent")
+                            }
+                        }
+                        onClick {
+                            ctx.router.navigateTo(item.path)
+                            mobileMenuOpen = false
+                        }
+                    }) {
+                        SpanText(
+                            item.label,
+                            modifier = Modifier
+                                .fontSize(16.px)
+                                .fontWeight(if (isActive) FontWeight.SemiBold else FontWeight.Normal)
+                                .color(if (isActive) sitePal.brand.primary else textColor)
                         )
                     }
                 }

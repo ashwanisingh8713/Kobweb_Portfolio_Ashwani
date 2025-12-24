@@ -48,7 +48,7 @@ fun Banner() {
         numColumns(base = 1, md = 2),
         modifier = Modifier
             .fillMaxSize()
-            .padding(200.px, 0.px, 100.px, 0.px)
+            .padding(top = 100.px, leftRight = 16.px, bottom = 60.px)
             .backgroundImage(url(bannerBgUrl))
             .background {
                 position(BackgroundPosition.of(CSSPosition.Center))
@@ -62,7 +62,8 @@ fun Banner() {
             src = Assets.HeaderImg,
             modifier = Modifier
                 .width(100.percent)
-                .padding(0.px atBreakpointMd 50.px)
+                .maxWidth(400.px)
+                .padding(top = 20.px)
                 .height(auto)
                 .animation(
                     zoomIn.toAnimation(
@@ -85,18 +86,19 @@ fun BannerText(text: String, textColor: com.varabyte.kobweb.compose.ui.graphics.
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(0.px, 50.px)
+            .padding(leftRight = 8.px, topBottom = 20.px)
     ) {
         SpanText(
             text = "Welcome to my Portfolio",
             modifier = GradientTagLineStyle.toModifier()
         )
         H1(
-            attrs = Modifier.fontSize(65.px atBreakpointMd 45.px)
+            attrs = Modifier
+                .fontSize(32.px)
                 .fontWeight(700)
                 .letterSpacing(0.80.px)
-                .lineHeight(1.1)
-                .margin(bottom = 20.px)
+                .lineHeight(1.2)
+                .margin(bottom = 16.px)
                 .display(DisplayStyle.Block)
                 .toAttrs()
         ) {
@@ -119,8 +121,8 @@ fun BannerText(text: String, textColor: com.varabyte.kobweb.compose.ui.graphics.
         }
         P(
             attrs = Modifier
-                .fontSize(18.px)
-                .letterSpacing(0.8.px)
+                .fontSize(14.px)
+                .letterSpacing(0.5.px)
                 .lineHeight(1.6.em)
                 .width(100.percent)
                 .toAttrs()

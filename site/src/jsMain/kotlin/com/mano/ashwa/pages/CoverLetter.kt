@@ -78,14 +78,14 @@ fun CoverLetter() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
     Column(
-        Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(top = 100.px),
+        Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(top = 80.px, leftRight = 16.px, bottom = 32.px),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Enhanced Page Title Section
         CoverLetterTitleSection(sitePal)
 
-        // Constrain content width to full width and apply left/right margins for gutters
-        Column(modifier = Modifier.fillMaxWidth().padding (left = 24.px, right = 64.px)) {
+        // Constrain content width with responsive padding
+        Column(modifier = Modifier.fillMaxWidth().maxWidth(800.px).padding(leftRight = 8.px)) {
             renderParagraph("Dear Hiring Manager,", sitePal.textColor)
             renderParagraph("", sitePal.textColor)
             renderParagraph("I am writing to express my interest in a position such as Tech Lead, Lead Android / Kotlin Multiplatform Developer, Full Stack Mobile Developer, or GoLang Developer. With over 14 years of hands-on experience in software engineering and mobile application development, I have cultivated a deep technical foundation combined with a passion for innovation and clean, scalable architecture.", sitePal.textColor)
