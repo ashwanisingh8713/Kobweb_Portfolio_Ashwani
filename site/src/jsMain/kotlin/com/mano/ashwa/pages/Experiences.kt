@@ -29,10 +29,11 @@ import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.silk.components.text.SpanText
 import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.fr
+import org.jetbrains.compose.web.css.height
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.width
 import org.jetbrains.compose.web.dom.Div
 import com.mano.ashwa.LocalAppColorMode
-import com.mano.ashwa.pageTitleStyle
 import com.mano.ashwa.toSitePalette
 import com.varabyte.kobweb.silk.style.toModifier
 
@@ -48,11 +49,16 @@ fun Experiences() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
 
-    Box(Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(32.px)) {
+    Box(Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(top = 100.px, leftRight = 32.px, bottom = 32.px)) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SpanText("My Experiences", modifier = pageTitleStyle.toModifier().color(sitePal.pageTitleColor))
+            // Enhanced Page Title Section
+            PageTitleSection(
+                title = "Work Experience",
+                subtitle = "My professional journey in software development",
+                sitePal = sitePal
+            )
 
             Div(
                 attrs = Modifier
@@ -69,6 +75,43 @@ fun Experiences() {
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun PageTitleSection(title: String, subtitle: String, sitePal: com.mano.ashwa.SitePalette) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth().padding(bottom = 40.px)
+    ) {
+        // Decorative line above title
+        Div({
+            style {
+                width(60.px)
+                height(4.px)
+                property("background", "linear-gradient(90deg, #3C83EF, #7F52FF)")
+                property("border-radius", "2px")
+                property("margin-bottom", "16px")
+            }
+        })
+
+        // Title
+        SpanText(
+            title,
+            modifier = Modifier
+                .fontSize(32.px)
+                .fontWeight(FontWeight.Bold)
+                .color(sitePal.pageTitleColor)
+                .padding(bottom = 8.px)
+        )
+
+        // Subtitle
+        SpanText(
+            subtitle,
+            modifier = Modifier
+                .fontSize(16.px)
+                .color(sitePal.textColor)
+        )
     }
 }
 

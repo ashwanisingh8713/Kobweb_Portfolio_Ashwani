@@ -34,6 +34,7 @@ private val navItems = listOf(
     NavItem("Skills", Screen.Skill.route, Screen.Skill.id),
     NavItem("Projects", Screen.Project.route, Screen.Project.id),
     NavItem("Experience", Screen.Experience.route, Screen.Experience.id),
+    NavItem("Cover Letter", Screen.CoverLetter.route, Screen.CoverLetter.id),
 )
 
 private data class NavItem(val label: String, val path: String, val id: String)
@@ -115,7 +116,7 @@ fun BSHeader(ctx: PageContext) {
                         property("margin-right", "12px")
                         property("cursor", "pointer")
                     }
-                    onClick { window.location.href = "/" }
+                    onClick { ctx.router.navigateTo("/") }
                 }) {
                     SpanText(
                         "AK",
@@ -127,7 +128,7 @@ fun BSHeader(ctx: PageContext) {
                 }
 
                 // Brand name (hidden on mobile using CssStyle)
-                Box(modifier = BrandNameStyle.toModifier().onClick { window.location.href = "/" }) {
+                Box(modifier = BrandNameStyle.toModifier().onClick { ctx.router.navigateTo("/") }) {
                     SpanText(
                         "Ashwani Kumar",
                         modifier = Modifier
@@ -167,7 +168,7 @@ fun BSHeader(ctx: PageContext) {
                         }
                         onMouseEnter { hoveredItem = item.id }
                         onMouseLeave { hoveredItem = null }
-                        onClick { window.location.href = item.path }
+                        onClick { ctx.router.navigateTo(item.path) }
                     }) {
                         SpanText(
                             item.label,

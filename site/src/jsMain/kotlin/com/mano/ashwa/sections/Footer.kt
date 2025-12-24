@@ -32,6 +32,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.fontSize
 import com.varabyte.kobweb.compose.ui.modifiers.fontStyle
 import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
 import com.varabyte.kobweb.compose.ui.modifiers.height
+import com.varabyte.kobweb.compose.ui.modifiers.maxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.modifiers.textAlign
 import com.varabyte.kobweb.compose.ui.modifiers.width
@@ -53,31 +54,55 @@ fun Footer() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
     val isLight = current == com.varabyte.kobweb.silk.theme.colors.ColorMode.LIGHT
-    val titleColor = if (isLight) sitePal.cardTitleColor else Colors.White
+
+    // Theme-aware colors for Contact Me section
+    val contactTitleColor = if (isLight) Color("#1E293B") else Colors.White
+    val contactSubtitleColor = if (isLight) Color("#64748B") else Color("#94A3B8")
+    val contactBgColor = if (isLight) Color("#F8FAFC") else Color("#0A0D12")
 
 	Column(modifier = SmoothColorStyle.toModifier().fillMaxWidth().backgroundColor(sitePal.nearBackground)) {
-		// Contact area (title + form)
-		Box(modifier = Modifier.fillMaxWidth().backgroundColor(sitePal.contactAreaBg).padding(top = 40.px, bottom = 40.px)) {
-			Column(modifier = Modifier.fillMaxWidth(),) {
+		// Contact area (title + form) - Responsive with proper spacing
+		Box(
+			modifier = Modifier
+				.fillMaxWidth()
+				.backgroundColor(contactBgColor)
+				.padding(topBottom = 60.px, leftRight = 24.px),
+			contentAlignment = Alignment.Center
+		) {
+			Column(
+				modifier = Modifier.fillMaxWidth().maxWidth(800.px),
+				horizontalAlignment = Alignment.CenterHorizontally
+			) {
+				// Decorative gradient line
+				Div({
+					style {
+						width(60.px)
+						height(4.px)
+						property("background", "linear-gradient(90deg, #3C83EF, #7F52FF)")
+						property("border-radius", "2px")
+						property("margin-bottom", "20px")
+					}
+				})
+
 				SpanText(
-					"Contact Me",
-					modifier = Modifier.fillMaxWidth()
+					"Get In Touch",
+					modifier = Modifier
 						.fontStyle(FontStyle.Normal)
 						.fontWeight(FontWeight.Bold)
-						.fontSize(28.px)
-						.padding(bottom = 8.px)
+						.fontSize(32.px)
+						.padding(bottom = 12.px)
 						.textAlign(TextAlign.Center)
-						.color(titleColor)
-					)
+						.color(contactTitleColor)
+				)
 				SpanText(
-					"Let's connect and build something amazing together",
-					modifier = Modifier.fillMaxWidth()
-						.fontStyle(FontStyle.Italic)
-						.fontSize(14.px)
-						.padding(bottom = 20.px)
+					"Have a project in mind? Let's collaborate and build something amazing together.",
+					modifier = Modifier
+						.fontStyle(FontStyle.Normal)
+						.fontSize(16.px)
+						.padding(bottom = 32.px)
 						.textAlign(TextAlign.Center)
-						.color(sitePal.textColor)
-					)
+						.color(contactSubtitleColor)
+				)
 
 				ContactUsInput()
 			}
@@ -87,8 +112,8 @@ fun Footer() {
 		Div({
 			style {
 				width(100.percent)
-				height(3.px)
-				property("background", "linear-gradient(90deg, transparent, rgba(60, 131, 239, 0.6), rgba(170, 54, 124, 0.6), transparent)")
+				height(2.px)
+				property("background", "linear-gradient(90deg, transparent, rgba(60, 131, 239, 0.5), rgba(127, 82, 255, 0.5), transparent)")
 			}
 		})
 
@@ -105,18 +130,17 @@ fun ContactUsInput() {
 	val sitePal = current.toSitePalette()
 	val isLight = current == com.varabyte.kobweb.silk.theme.colors.ColorMode.LIGHT
 
-	val fullWidth = 520.px
-	val gap = 18.px
-	val halfWidth = 250.px
-
-	// Theme-aware colors
-	val cardBg = if (isLight) rgb(255, 255, 255) else rgb(20, 22, 28)
-	val inputBg = if (isLight) rgb(248, 250, 252) else rgb(30, 32, 40)
-	val labelColor = if (isLight) sitePal.cardTitleColor else Colors.White
-	val errorColor = rgb(255, 120, 120)
-	val infoColor = rgb(140, 230, 160)
-	val inputTextColor = if (isLight) "color: #1e293b;" else "color: white;"
-	val inputBorderColor = if (isLight) "rgba(60, 131, 239, 0.3)" else "rgba(60, 131, 239, 0.2)"
+	// Theme-aware colors for form
+	val cardBg = if (isLight) rgb(255, 255, 255) else rgb(13, 17, 23)
+	val inputBg = if (isLight) rgb(248, 250, 252) else rgb(22, 27, 34)
+	val labelColor = if (isLight) org.jetbrains.compose.web.css.Color("#1E293B") else Colors.White
+	val placeholderColor = if (isLight) "#94a3b8" else "#6b7280"
+	val errorColor = rgb(239, 68, 68)
+	val infoColor = rgb(34, 197, 94)
+	val inputBorderColor = if (isLight) "rgba(60, 131, 239, 0.2)" else "rgba(60, 131, 239, 0.3)"
+	val inputFocusBorder = "rgba(60, 131, 239, 0.6)"
+	val cardShadow = if (isLight) "0 4px 24px rgba(0, 0, 0, 0.08)" else "0 8px 32px rgba(0, 0, 0, 0.4)"
+	val cardBorder = if (isLight) "1px solid rgba(60, 131, 239, 0.15)" else "1px solid rgba(60, 131, 239, 0.2)"
 
 	// form state
 	var firstName by remember { mutableStateOf("") }
@@ -162,7 +186,7 @@ fun ContactUsInput() {
 			emailError = REQUIRED_MSG
 			ok = false
 		} else if (!isValidEmail(email)) {
-			emailError = REQUIRED_MSG
+			emailError = "Invalid email"
 			ok = false
 		}
 		if (subject.isBlank()) {
@@ -176,147 +200,341 @@ fun ContactUsInput() {
 		return ok
 	}
 
-	// Outer padding to give breathing room; center a constrained dark form card
-	Box(modifier = Modifier.fillMaxWidth().padding(top = 20.px, bottom = 24.px)) {
-		Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-			// Use a Div with a style block so we can set arbitrary CSS properties like box-shadow and overflow
+	// Responsive form container
+	Div({
+		style {
+			width(100.percent)
+			maxWidth(560.px)
+			property("margin", "0 auto")
+			property("border-radius", "20px")
+			property("box-shadow", cardShadow)
+			property("border", cardBorder)
+			property("overflow", "hidden")
+			property("backdrop-filter", "blur(10px)")
+		}
+	}) {
+		Column(
+			modifier = Modifier
+				.backgroundColor(cardBg)
+				.padding(32.px)
+				.fillMaxWidth()
+		) {
+			// Name Row - Responsive (stacks on mobile)
 			Div({
 				style {
-					// Set the fixed width for the card and rounded corners
-					width(fullWidth)
-					property("border-radius", "14px")
-					// Soft, subtle shadow and slight inset highlight
-					property("box-shadow", "0 6px 18px rgba(0,0,0,0.28), 0 1px 0 rgba(255,255,255,0.03) inset")
-					// Ensure child content is clipped to the rounded corners
-					property("overflow", "hidden")
+					display(DisplayStyle.Flex)
+					flexWrap(FlexWrap.Wrap)
+					gap(16.px)
+					width(100.percent)
+					property("margin-bottom", "20px")
 				}
 			}) {
-				Column(
-					modifier = Modifier
-						.backgroundColor(cardBg)
-						.padding(20.px)
-						.borderRadius(14.px) // visual radius on inner element
-				) {
-					// Row: First and Last
-					Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-						// First Name
-						Column(modifier = Modifier.width(halfWidth)) {
-							Row(modifier = Modifier.fillMaxWidth().padding(bottom = 6.px), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-								SpanText("First Name", modifier = Modifier.fontWeight(FontWeight.Bold).color(labelColor))
-								if (firstNameError != null) SpanText(firstNameError!!, modifier = Modifier.color(errorColor))
-							}
-							BSInput(
-								modifier = Modifier.fillMaxWidth().backgroundColor(inputBg).color(labelColor),
-								value = firstName,
-								label = "",
-								placeholder = "First Name",
-								onValueChange = { firstName = it }
-							)
-						}
-
-						// spacer
-						Box(modifier = Modifier.width(12.px))
-
-						// Last Name
-						Column(modifier = Modifier.width(halfWidth)) {
-							Row(modifier = Modifier.fillMaxWidth().padding(bottom = 6.px), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-								SpanText("Last Name", modifier = Modifier.fontWeight(FontWeight.Bold).color(labelColor))
-								if (lastNameError != null) SpanText(lastNameError!!, modifier = Modifier.color(errorColor))
-							}
-							BSInput(
-								modifier = Modifier.fillMaxWidth().backgroundColor(inputBg).color(labelColor),
-								value = lastName,
-								label = "",
-								placeholder = "Last Name",
-								onValueChange = { lastName = it }
-							)
-						}
+				// First Name
+				Div({
+					style {
+						flex(1)
+						minWidth(200.px)
 					}
-
-					// Vertical spacing
-					Box(modifier = Modifier.padding(top = gap))
-
-					// Email
-					Column(modifier = Modifier.fillMaxWidth()) {
-						Row(modifier = Modifier.fillMaxWidth().padding(bottom = 6.px), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-							SpanText("Email", modifier = Modifier.fontWeight(FontWeight.Bold).color(labelColor))
-							if (emailError != null) SpanText(emailError!!, modifier = Modifier.color(errorColor))
-						}
-						BSInput(modifier = Modifier.fillMaxWidth().backgroundColor(inputBg).color(labelColor), value = email, label = "", placeholder = "your@company.com", onValueChange = { email = it })
+				}) {
+					FormField(
+						label = "First Name",
+						error = firstNameError,
+						labelColor = labelColor,
+						errorColor = errorColor
+					) {
+						StyledInput(
+							value = firstName,
+							placeholder = "",
+							inputBg = inputBg,
+							inputBorderColor = inputBorderColor,
+							inputFocusBorder = inputFocusBorder,
+							textColor = if (isLight) "#1e293b" else "#ffffff",
+							placeholderColor = placeholderColor,
+							onValueChange = { firstName = it }
+						)
 					}
+				}
 
-					Box(modifier = Modifier.padding(top = gap))
-
-					// Subject
-					Column(modifier = Modifier.fillMaxWidth()) {
-						Row(modifier = Modifier.fillMaxWidth().padding(bottom = 6.px), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-							SpanText("Subject", modifier = Modifier.fontWeight(FontWeight.Bold).color(labelColor))
-							if (subjectError != null) SpanText(subjectError!!, modifier = Modifier.color(errorColor))
-						}
-						BSInput(modifier = Modifier.fillMaxWidth().backgroundColor(inputBg).color(labelColor), value = subject, label = "", placeholder = "Subject", onValueChange = { subject = it })
+				// Last Name
+				Div({
+					style {
+						flex(1)
+						minWidth(200.px)
 					}
-
-					Box(modifier = Modifier.padding(top = gap))
-
-					// Message
-					Column(modifier = Modifier.fillMaxWidth()) {
-						Row(modifier = Modifier.fillMaxWidth().padding(bottom = 6.px), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-							SpanText("Message", modifier = Modifier.fontWeight(FontWeight.Bold).color(labelColor))
-							if (messageError != null) SpanText(messageError!!, modifier = Modifier.color(errorColor))
-						}
-						BSTextArea(modifier = Modifier.fillMaxWidth().height(110.px).backgroundColor(inputBg).color(labelColor).padding(bottom = 8.px), value = message, label = "", placeholder = "Write your message here", onValueChange = { message = it })
+				}) {
+					FormField(
+						label = "Last Name",
+						error = lastNameError,
+						labelColor = labelColor,
+						errorColor = errorColor
+					) {
+						StyledInput(
+							value = lastName,
+							placeholder = "",
+							inputBg = inputBg,
+							inputBorderColor = inputBorderColor,
+							inputFocusBorder = inputFocusBorder,
+							textColor = if (isLight) "#1e293b" else "#ffffff",
+							placeholderColor = placeholderColor,
+							onValueChange = { lastName = it }
+						)
 					}
-
-					Box(modifier = Modifier.padding(top = gap))
-
-					// Send Button: narrower and centered
-					// Add extra fixed height spacer above the button to avoid any overlap
-					Box(modifier = Modifier.height(36.px))
-					BSButton(
-						modifier = Modifier.width(200.px).align(alignment = Alignment.CenterHorizontally),
-						text = "Send Message  ✉️",
-						customization = ButtonCustomization(
-							color = Colors.White,
-							hoverColor = Colors.White,
-							activeColor = Colors.WhiteSmoke,
-							borderColor = Colors.White,
-							hoverBorderColor = Colors.White,
-							activeBorderColor = rgb(168, 192, 255),
-							gradient = linearGradient(from = rgb(168, 192, 255), to = rgb(63, 43, 150), dir = LinearGradient.Direction.ToTopRight),
-							borderRadius = BSBorderRadius(all = 50.px),
-							horizontalPadding = 1.25.cssRem
-						),
-						onClick = {
-							if (!validateAll()) {
-								// Do not show a generic info message on validation failure; simply return
-								return@BSButton
-							}
-							val recipient = "ashwani@example.com"
-							val body = buildString {
-								append("Name: ")
-								append(firstName)
-								append(" ")
-								append(lastName)
-								append("\n")
-								append("Email: ")
-								append(email)
-								append("\n\n")
-								append(message)
-							}
-							val encSubject = window.asDynamic().encodeURIComponent(subject)
-							val encBody = window.asDynamic().encodeURIComponent(body)
-							val mailto = "mailto:$recipient?subject=$encSubject&body=$encBody"
-							window.open(mailto)
-							infoMessage = "Mail client opened — if it doesn't appear, check your browser settings or use a backend API to send mails."
-						}
-					)
-
-					if (infoMessage != null) {
-						SpanText(infoMessage!!, modifier = Modifier.padding(top = 12.px).color(infoColor))
-					}
-
 				}
 			}
+
+			// Email Field
+			Div({
+				style {
+					width(100.percent)
+					property("margin-bottom", "20px")
+				}
+			}) {
+				FormField(
+					label = "Email",
+					error = emailError,
+					labelColor = labelColor,
+					errorColor = errorColor
+				) {
+					StyledInput(
+						value = email,
+						placeholder = "",
+						inputBg = inputBg,
+						inputBorderColor = inputBorderColor,
+						inputFocusBorder = inputFocusBorder,
+						textColor = if (isLight) "#1e293b" else "#ffffff",
+						placeholderColor = placeholderColor,
+						inputType = "email",
+						onValueChange = { email = it }
+					)
+				}
+			}
+
+			// Subject Field
+			Div({
+				style {
+					width(100.percent)
+					property("margin-bottom", "20px")
+				}
+			}) {
+				FormField(
+					label = "Subject",
+					error = subjectError,
+					labelColor = labelColor,
+					errorColor = errorColor
+				) {
+					StyledInput(
+						value = subject,
+						placeholder = "",
+						inputBg = inputBg,
+						inputBorderColor = inputBorderColor,
+						inputFocusBorder = inputFocusBorder,
+						textColor = if (isLight) "#1e293b" else "#ffffff",
+						placeholderColor = placeholderColor,
+						onValueChange = { subject = it }
+					)
+				}
+			}
+
+			// Message Field
+			Div({
+				style {
+					width(100.percent)
+					property("margin-bottom", "24px")
+				}
+			}) {
+				FormField(
+					label = "Message",
+					error = messageError,
+					labelColor = labelColor,
+					errorColor = errorColor
+				) {
+					StyledTextArea(
+						value = message,
+						placeholder = "",
+						inputBg = inputBg,
+						inputBorderColor = inputBorderColor,
+						inputFocusBorder = inputFocusBorder,
+						textColor = if (isLight) "#1e293b" else "#ffffff",
+						placeholderColor = placeholderColor,
+						onValueChange = { message = it }
+					)
+				}
+			}
+
+			// Send Button
+			Div({
+				style {
+					width(100.percent)
+					display(DisplayStyle.Flex)
+					justifyContent(JustifyContent.Center)
+				}
+			}) {
+				Div({
+					style {
+						property("background", "linear-gradient(135deg, #3C83EF, #7F52FF)")
+						property("border-radius", "50px")
+						property("padding", "14px 40px")
+						property("cursor", "pointer")
+						property("transition", "all 0.3s ease")
+						property("box-shadow", "0 4px 15px rgba(60, 131, 239, 0.3)")
+					}
+					onClick {
+						if (!validateAll()) return@onClick
+						val recipient = "ashwanisingh8713@gmail.com"
+						val body = buildString {
+							append("Name: $firstName $lastName\n")
+							append("Email: $email\n\n")
+							append(message)
+						}
+						val encSubject = window.asDynamic().encodeURIComponent(subject)
+						val encBody = window.asDynamic().encodeURIComponent(body)
+						val mailto = "mailto:$recipient?subject=$encSubject&body=$encBody"
+						window.open(mailto)
+						infoMessage = "Mail client opened successfully!"
+					}
+					onMouseEnter {
+						it.currentTarget.asDynamic().style.transform = "translateY(-2px)"
+						it.currentTarget.asDynamic().style.boxShadow = "0 6px 20px rgba(60, 131, 239, 0.4)"
+					}
+					onMouseLeave {
+						it.currentTarget.asDynamic().style.transform = "translateY(0)"
+						it.currentTarget.asDynamic().style.boxShadow = "0 4px 15px rgba(60, 131, 239, 0.3)"
+					}
+				}) {
+					SpanText(
+						"Send Message",
+						modifier = Modifier
+							.color(Colors.White)
+							.fontWeight(FontWeight.SemiBold)
+							.fontSize(16.px)
+					)
+				}
+			}
+
+			// Success message
+			if (infoMessage != null) {
+				SpanText(
+					infoMessage!!,
+					modifier = Modifier
+						.padding(top = 16.px)
+						.color(infoColor)
+						.textAlign(TextAlign.Center)
+						.fillMaxWidth()
+				)
+			}
+		}
+	}
+}
+
+@Composable
+private fun FormField(
+	label: String,
+	error: String?,
+	labelColor: org.jetbrains.compose.web.css.CSSColorValue,
+	errorColor: org.jetbrains.compose.web.css.CSSColorValue,
+	content: @Composable () -> Unit
+) {
+	Column(modifier = Modifier.fillMaxWidth()) {
+		Row(
+			modifier = Modifier.fillMaxWidth().padding(bottom = 8.px),
+			horizontalArrangement = Arrangement.SpaceBetween,
+			verticalAlignment = Alignment.CenterVertically
+		) {
+			SpanText(
+				label,
+				modifier = Modifier
+					.fontWeight(FontWeight.Medium)
+					.fontSize(14.px)
+					.color(labelColor)
+			)
+			if (error != null) {
+				SpanText(
+					error,
+					modifier = Modifier
+						.fontSize(12.px)
+						.color(errorColor)
+				)
+			}
+		}
+		content()
+	}
+}
+
+@Composable
+private fun StyledInput(
+	value: String,
+	placeholder: String,
+	inputBg: org.jetbrains.compose.web.css.CSSColorValue,
+	inputBorderColor: String,
+	inputFocusBorder: String,
+	textColor: String,
+	placeholderColor: String,
+	inputType: String = "text",
+	onValueChange: (String) -> Unit
+) {
+	Input(if (inputType == "email") InputType.Email else InputType.Text) {
+		value(value)
+		placeholder(placeholder)
+		onInput { onValueChange(it.value) }
+		style {
+			width(100.percent)
+			property("padding", "12px 16px")
+			property("border-radius", "12px")
+			property("border", "1px solid $inputBorderColor")
+			property("background-color", inputBg.toString())
+			property("color", textColor)
+			property("font-size", "15px")
+			property("outline", "none")
+			property("transition", "border-color 0.2s ease, box-shadow 0.2s ease")
+		}
+		onFocus {
+			it.currentTarget.asDynamic().style.borderColor = inputFocusBorder
+			it.currentTarget.asDynamic().style.boxShadow = "0 0 0 3px rgba(60, 131, 239, 0.1)"
+		}
+		onBlur {
+			it.currentTarget.asDynamic().style.borderColor = inputBorderColor
+			it.currentTarget.asDynamic().style.boxShadow = "none"
+		}
+	}
+}
+
+@Composable
+private fun StyledTextArea(
+	value: String,
+	placeholder: String,
+	inputBg: org.jetbrains.compose.web.css.CSSColorValue,
+	inputBorderColor: String,
+	inputFocusBorder: String,
+	textColor: String,
+	placeholderColor: String,
+	onValueChange: (String) -> Unit
+) {
+	TextArea {
+		value(value)
+		placeholder(placeholder)
+		onInput { onValueChange(it.value) }
+		style {
+			width(100.percent)
+			height(120.px)
+			property("padding", "12px 16px")
+			property("border-radius", "12px")
+			property("border", "1px solid $inputBorderColor")
+			property("background-color", inputBg.toString())
+			property("color", textColor)
+			property("font-size", "15px")
+			property("font-family", "inherit")
+			property("outline", "none")
+			property("resize", "vertical")
+			property("min-height", "100px")
+			property("transition", "border-color 0.2s ease, box-shadow 0.2s ease")
+		}
+		onFocus {
+			it.currentTarget.asDynamic().style.borderColor = inputFocusBorder
+			it.currentTarget.asDynamic().style.boxShadow = "0 0 0 3px rgba(60, 131, 239, 0.1)"
+		}
+		onBlur {
+			it.currentTarget.asDynamic().style.borderColor = inputBorderColor
+			it.currentTarget.asDynamic().style.boxShadow = "none"
 		}
 	}
 }

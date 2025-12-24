@@ -4,22 +4,22 @@ package com.mano.ashwa.pages
 import androidx.compose.runtime.Composable
 import com.mano.ashwa.LocalAppColorMode
 import com.mano.ashwa.components.layouts.PageLayoutData
-import com.mano.ashwa.navigation.CoverLetter_Route
-import com.mano.ashwa.pageTitleStyle
 import com.mano.ashwa.highlightStyle
+import com.mano.ashwa.navigation.CoverLetter_Route
 import com.mano.ashwa.normalTextStyle
 import com.mano.ashwa.toSitePalette
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.color
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
-import com.varabyte.kobweb.compose.ui.modifiers.gap
+import com.varabyte.kobweb.compose.ui.modifiers.fontSize
+import com.varabyte.kobweb.compose.ui.modifiers.fontWeight
 import com.varabyte.kobweb.compose.ui.modifiers.margin
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.core.Page
 import com.varabyte.kobweb.core.data.add
 import com.varabyte.kobweb.core.init.InitRoute
@@ -27,7 +27,10 @@ import com.varabyte.kobweb.core.init.InitRouteContext
 import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.toModifier
+import org.jetbrains.compose.web.css.height
 import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.width
+import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.P
 
 @InitRoute
@@ -75,11 +78,11 @@ fun CoverLetter() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
     Column(
-        Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground),
+        Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(top = 100.px),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SpanText("My Cover Letter",
-            modifier = pageTitleStyle.toModifier().padding(top=40.px).color(sitePal.pageTitleColor).align(alignment = Alignment.CenterHorizontally)
-        )
+        // Enhanced Page Title Section
+        CoverLetterTitleSection(sitePal)
 
         // Constrain content width to full width and apply left/right margins for gutters
         Column(modifier = Modifier.fillMaxWidth().padding (left = 24.px, right = 64.px)) {
@@ -146,3 +149,41 @@ fun renderParagraph(para: String, textColor: com.varabyte.kobweb.compose.ui.grap
         }
     }
 }
+
+@Composable
+private fun CoverLetterTitleSection(sitePal: com.mano.ashwa.SitePalette) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth().padding(top = 32.px, bottom = 32.px)
+    ) {
+        // Decorative line
+        Div({
+            style {
+                width(60.px)
+                height(4.px)
+                property("background", "linear-gradient(90deg, #3C83EF, #7F52FF)")
+                property("border-radius", "2px")
+                property("margin-bottom", "16px")
+            }
+        })
+
+        // Title
+        SpanText(
+            "Cover Letter",
+            modifier = Modifier
+                .fontSize(32.px)
+                .fontWeight(FontWeight.Bold)
+                .color(sitePal.pageTitleColor)
+                .padding(bottom = 8.px)
+        )
+
+        // Subtitle
+        SpanText(
+            "A personal introduction to my professional journey",
+            modifier = Modifier
+                .fontSize(16.px)
+                .color(sitePal.textColor)
+        )
+    }
+}
+

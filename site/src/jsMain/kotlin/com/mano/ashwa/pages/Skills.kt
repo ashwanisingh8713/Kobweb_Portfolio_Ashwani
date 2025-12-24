@@ -14,6 +14,9 @@ import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.DisplayStyle
+import org.jetbrains.compose.web.css.height
+import org.jetbrains.compose.web.css.width
+import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.data.add
@@ -22,7 +25,6 @@ import com.varabyte.kobweb.core.init.InitRouteContext
 import com.varabyte.kobweb.core.layout.Layout
 import org.jetbrains.compose.web.dom.Div
 import com.mano.ashwa.LocalAppColorMode
-import com.mano.ashwa.pageTitleStyle
 import com.mano.ashwa.toSitePalette
 import com.varabyte.kobweb.silk.style.toModifier
 
@@ -39,10 +41,11 @@ fun SkillPage() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
     Column(
-            Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(32.px),
+            Modifier.fillMaxWidth().backgroundColor(sitePal.nearBackground).padding(top = 100.px, leftRight = 32.px, bottom = 32.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SpanText("My Skills", modifier = pageTitleStyle.toModifier().color(sitePal.pageTitleColor))
+            // Enhanced Page Title Section
+            SkillsPageTitleSection(sitePal)
 
             Div(
                 attrs = Modifier
@@ -66,6 +69,42 @@ fun SkillPage() {
         }
     }
 
+@Composable
+private fun SkillsPageTitleSection(sitePal: com.mano.ashwa.SitePalette) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth().padding(bottom = 40.px)
+    ) {
+        // Decorative line
+        Div({
+            style {
+                width(60.px)
+                height(4.px)
+                property("background", "linear-gradient(90deg, #3C83EF, #7F52FF)")
+                property("border-radius", "2px")
+                property("margin-bottom", "16px")
+            }
+        })
+
+        // Title
+        SpanText(
+            "My Skills",
+            modifier = Modifier
+                .fontSize(32.px)
+                .fontWeight(FontWeight.Bold)
+                .color(sitePal.pageTitleColor)
+                .padding(bottom = 8.px)
+        )
+
+        // Subtitle
+        SpanText(
+            "Technologies and expertise I bring to the table",
+            modifier = Modifier
+                .fontSize(16.px)
+                .color(sitePal.textColor)
+        )
+    }
+}
 
 public val skillCards = listOf(
     SkillData(
