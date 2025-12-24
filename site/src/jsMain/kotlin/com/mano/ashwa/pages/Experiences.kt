@@ -28,8 +28,10 @@ import com.varabyte.kobweb.core.init.InitRouteContext
 import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.silk.components.text.SpanText
 import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.fr
+import org.jetbrains.compose.web.css.display
+import org.jetbrains.compose.web.css.gap
 import org.jetbrains.compose.web.css.height
+import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.width
 import org.jetbrains.compose.web.dom.Div

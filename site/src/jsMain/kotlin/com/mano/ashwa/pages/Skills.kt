@@ -1,6 +1,5 @@
 package com.mano.ashwa.pages
 
-import org.jetbrains.compose.web.css.fr
 import androidx.compose.runtime.Composable
 import com.mano.ashwa.components.layouts.PageLayoutData
 import com.mano.ashwa.components.widgets.SkillCardView
@@ -12,6 +11,9 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import org.jetbrains.compose.web.css.display
+import org.jetbrains.compose.web.css.gap
+import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.height

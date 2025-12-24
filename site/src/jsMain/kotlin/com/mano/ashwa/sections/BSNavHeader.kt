@@ -12,6 +12,7 @@ import com.mano.ashwa.toSitePalette
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
+import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -281,42 +282,41 @@ fun BSHeader(ctx: PageContext) {
                 property("border-bottom", "1px solid $borderColor")
                 property("box-shadow", "0 8px 30px rgba(0, 0, 0, 0.2)")
                 property("padding", "16px 20px")
+                display(DisplayStyle.Flex)
+                flexDirection(FlexDirection.Column)
+                gap(8.px)
             }
         }) {
-            Column(
-                modifier = Modifier.fillMaxWidth().gap(8.px)
-            ) {
-                navItems.forEach { item ->
-                    val isActive = currentPath == item.path ||
-                        (item.path == "/" && currentPath.isEmpty())
+            navItems.forEach { item ->
+                val isActive = currentPath == item.path ||
+                    (item.path == "/" && currentPath.isEmpty())
 
-                    Div({
-                        style {
-                            property("padding", "14px 20px")
-                            property("border-radius", "12px")
-                            property("cursor", "pointer")
-                            property("transition", "all 0.2s ease")
+                Div({
+                    style {
+                        property("padding", "14px 20px")
+                        property("border-radius", "12px")
+                        property("cursor", "pointer")
+                        property("transition", "all 0.2s ease")
 
-                            if (isActive) {
-                                property("background", "linear-gradient(135deg, rgba(60, 131, 239, 0.2), rgba(127, 82, 255, 0.2))")
-                                property("border-left", "3px solid #3C83EF")
-                            } else {
-                                property("background", "transparent")
-                            }
+                        if (isActive) {
+                            property("background", "linear-gradient(135deg, rgba(60, 131, 239, 0.2), rgba(127, 82, 255, 0.2))")
+                            property("border-left", "3px solid #3C83EF")
+                        } else {
+                            property("background", "transparent")
                         }
-                        onClick {
-                            ctx.router.navigateTo(item.path)
-                            mobileMenuOpen = false
-                        }
-                    }) {
-                        SpanText(
-                            item.label,
-                            modifier = Modifier
-                                .fontSize(16.px)
-                                .fontWeight(if (isActive) FontWeight.SemiBold else FontWeight.Normal)
-                                .color(if (isActive) sitePal.brand.primary else textColor)
-                        )
                     }
+                    onClick {
+                        ctx.router.navigateTo(item.path)
+                        mobileMenuOpen = false
+                    }
+                }) {
+                    SpanText(
+                        item.label,
+                        modifier = Modifier
+                            .fontSize(16.px)
+                            .fontWeight(if (isActive) FontWeight.SemiBold else FontWeight.Normal)
+                            .color(if (isActive) sitePal.brand.primary else textColor)
+                    )
                 }
             }
         }

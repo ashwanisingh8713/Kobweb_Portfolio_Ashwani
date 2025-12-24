@@ -28,8 +28,10 @@ import com.varabyte.kobweb.compose.ui.modifiers.gridTemplateColumns
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.compose.ui.toAttrs
 import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.fr
+import org.jetbrains.compose.web.css.display
+import org.jetbrains.compose.web.css.gap
 import org.jetbrains.compose.web.css.height
+import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.width
 import org.jetbrains.compose.web.dom.Div
