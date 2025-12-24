@@ -30,7 +30,7 @@ fun HomeAboutSection() {
         modifier = Modifier
             .fillMaxWidth()
             .backgroundColor(sitePal.nearBackground)
-            .padding(topBottom = 80.px, leftRight = 40.px)
+            .padding(topBottom = 60.px, leftRight = 16.px) // Reduced padding for mobile
             .id("about"),
         contentAlignment = Alignment.Center
     ) {

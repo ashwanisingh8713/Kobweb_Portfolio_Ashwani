@@ -1,6 +1,8 @@
 package com.mano.ashwa
 
+import com.varabyte.kobweb.compose.css.BoxSizing
 import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -31,6 +33,16 @@ fun initSiteStyles(ctx: InitSilkContext) {
         }
     }
 
+    // Global box-sizing for proper mobile layout
+    ctx.stylesheet.registerStyleBase("*, *::before, *::after") {
+        Modifier.boxSizing(BoxSizing.BorderBox)
+    }
+
+    // HTML root - ensure full width on mobile
+    ctx.stylesheet.registerStyleBase("html") {
+        Modifier.fillMaxWidth()
+    }
+
     ctx.stylesheet.registerStyleBase("body") {
         Modifier
             .fontFamily(
@@ -39,7 +51,20 @@ fun initSiteStyles(ctx: InitSilkContext) {
             )
             .fontSize(18.px)
             .lineHeight(1.5)
+            .fillMaxWidth()
+            .margin(0.px)
+            .padding(0.px)
     }
+
+    // Prevent horizontal scroll on mobile - using raw CSS registration
+    ctx.stylesheet.registerStyle("html, body") {
+        base {
+            Modifier.overflow { x(Overflow.Hidden) }
+        }
+    }
+
+    // Note: Responsive navigation styles are now handled via CssStyle with Breakpoints
+    // in BSNavHeader.kt (MobileMenuButtonStyle, DesktopNavLinksStyle, etc.)
 
     // Silk dividers only extend 90% by default; we want full width dividers in our site
     ctx.theme.modifyStyleBase(HorizontalDividerStyle) {

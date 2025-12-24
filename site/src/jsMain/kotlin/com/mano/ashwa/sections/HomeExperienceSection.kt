@@ -57,7 +57,7 @@ fun HomeExperienceSection() {
         modifier = Modifier
             .fillMaxWidth()
             .backgroundColor(sitePal.contactAreaBg)
-            .padding(topBottom = 80.px, leftRight = 40.px)
+            .padding(topBottom = 60.px, leftRight = 16.px) // Reduced padding for mobile
             .id("experience"),
         contentAlignment = Alignment.Center
     ) {

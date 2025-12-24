@@ -21,6 +21,8 @@ import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.loadFromLocalStorage
 import com.varabyte.kobweb.silk.theme.colors.saveToLocalStorage
 import com.varabyte.kobweb.silk.theme.colors.systemPreference
+import kotlinx.browser.document
+import org.w3c.dom.HTMLMetaElement
 
 private const val COLOR_MODE_KEY = "ashwa:colorMode"
 
@@ -37,10 +39,26 @@ fun initStyles(ctx: InitSilkContext) {
     }
 }
 
+// Ensure viewport meta tag is present for proper mobile rendering
+private fun ensureViewportMeta() {
+    val existingViewport = document.querySelector("meta[name='viewport']")
+    if (existingViewport == null) {
+        val meta = document.createElement("meta") as HTMLMetaElement
+        meta.name = "viewport"
+        meta.content = "width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+        document.head?.appendChild(meta)
+    }
+}
+
 @App
 @Composable
 fun AppEntry(content: @Composable () -> Unit) {
     SilkApp {
+        // Ensure viewport meta tag is set for mobile
+        LaunchedEffect(Unit) {
+            ensureViewportMeta()
+        }
+
         // Provide an app-wide MutableState<ColorMode> (backed by localStorage) so components using LocalAppColorMode
         // will update live when the user picks a different mode.
         val initial = ColorMode.loadFromLocalStorage(COLOR_MODE_KEY) ?: ColorMode.systemPreference

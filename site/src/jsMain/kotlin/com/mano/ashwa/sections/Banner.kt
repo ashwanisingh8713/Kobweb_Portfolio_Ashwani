@@ -48,7 +48,7 @@ fun Banner() {
         numColumns(base = 1, md = 2),
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 100.px, leftRight = 16.px, bottom = 60.px)
+            .padding(top = 80.px, leftRight = 16.px, bottom = 40.px) // Reduced padding for mobile
             .backgroundImage(url(bannerBgUrl))
             .background {
                 position(BackgroundPosition.of(CSSPosition.Center))
