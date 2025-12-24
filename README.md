@@ -1,6 +1,56 @@
 This is a [Kobweb](https://github.com/varabyte/kobweb) project bootstrapped with the `app` template.
 
-## Getting Started
+## 🚀 Deploy to Render (Static Website)
+
+### Quick Deploy Steps:
+
+1. **Push your code to GitHub/GitLab**
+   ```bash
+   git add .
+   git commit -m "Ready for Render deployment"
+   git push origin main
+   ```
+
+2. **Create a new Static Site on Render:**
+   - Go to [Render Dashboard](https://dashboard.render.com/)
+   - Click **"New +"** → **"Static Site"**
+   - Connect your GitHub/GitLab repository
+
+3. **Configure Build Settings:**
+   | Setting | Value |
+   |---------|-------|
+   | **Name** | `ashwani-portfolio` (or your preferred name) |
+   | **Branch** | `main` |
+   | **Build Command** | `./build.sh` |
+   | **Publish Directory** | `site/.kobweb/site` |
+
+4. **Environment Variables (Optional):**
+   - Add `JAVA_HOME` if needed (Render has Java pre-installed)
+
+5. **Advanced Settings - Add Rewrite Rule:**
+   - Go to **Redirects/Rewrites** tab
+   - Add a rewrite rule:
+     - **Source:** `/*`
+     - **Destination:** `/index.html`
+     - **Action:** `Rewrite`
+   
+   This ensures client-side routing works correctly.
+
+6. **Click "Create Static Site"** and wait for deployment!
+
+### Alternative: Manual Export & Deploy
+
+```bash
+# Build the static site locally
+./gradlew kobwebExport -PkobwebExportLayout=STATIC -PkobwebBuildTarget=RELEASE
+
+# The static files will be in: site/.kobweb/site/
+# Upload this folder to any static hosting service
+```
+
+---
+
+## Getting Started (Development)
 
 First, run the development server by typing the following command in a terminal under the `site` folder:
 
