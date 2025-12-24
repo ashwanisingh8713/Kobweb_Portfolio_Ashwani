@@ -98,16 +98,19 @@ fun BSHeader(ctx: PageContext) {
     Div({
         style {
             width(100.percent)
+            property("box-sizing", "border-box")
             position(Position.Fixed)
             top(0.px)
             left(0.px)
+            right(0.px)
             property("z-index", "1000")
-            padding(12.px, 20.px)
+            property("padding", "10px 12px")
             property("backdrop-filter", "blur(20px)")
             property("-webkit-backdrop-filter", "blur(20px)")
             property("background", headerBgColor)
             property("border-bottom", "1px solid $borderColor")
             property("box-shadow", if (isLight) "0 2px 20px rgba(0, 0, 0, 0.08)" else "0 4px 30px rgba(0, 0, 0, 0.3)")
+            property("overflow", "hidden")
         }
     }) {
         Row(
@@ -124,17 +127,18 @@ fun BSHeader(ctx: PageContext) {
                 Div({
                     style {
                         property("background", "linear-gradient(135deg, #3C83EF, #7F52FF)")
-                        property("border-radius", "12px")
-                        property("padding", "8px 12px")
-                        property("margin-right", "12px")
+                        property("border-radius", "10px")
+                        property("padding", "6px 10px")
+                        property("margin-right", "8px")
                         property("cursor", "pointer")
+                        property("flex-shrink", "0")
                     }
                     onClick { ctx.router.navigateTo("/") }
                 }) {
                     SpanText(
                         "AK",
                         modifier = Modifier
-                            .fontSize(18.px)
+                            .fontSize(16.px)
                             .fontWeight(FontWeight.Bold)
                             .color(Colors.White)
                     )
@@ -200,7 +204,7 @@ fun BSHeader(ctx: PageContext) {
                 horizontalArrangement = Arrangement.End
             ) {
                 // Theme Toggle
-                Box(modifier = Modifier.margin(right = 12.px)) {
+                Box(modifier = Modifier.margin(right = 8.px)) {
                     ThemeToggle(compact = true)
                 }
 
@@ -208,15 +212,16 @@ fun BSHeader(ctx: PageContext) {
                 Div({
                     style {
                         property("background", "linear-gradient(135deg, #3C83EF, #7F52FF)")
-                        property("border-radius", "25px")
-                        property("padding", "8px 16px")
+                        property("border-radius", "20px")
+                        property("padding", "6px 12px")
                         property("cursor", "pointer")
                         property("transition", "all 0.3s ease")
                         property("border", "none")
                         property("box-shadow", "0 4px 15px rgba(60, 131, 239, 0.3)")
+                        property("flex-shrink", "0")
                         display(DisplayStyle.Flex)
                         alignItems(AlignItems.Center)
-                        gap(6.px)
+                        gap(4.px)
                     }
                     onMouseEnter {
                         it.currentTarget.asDynamic().style.transform = "translateY(-2px)"
@@ -231,7 +236,7 @@ fun BSHeader(ctx: PageContext) {
                     // Download icon
                     SpanText(
                         "📄",
-                        modifier = Modifier.fontSize(14.px)
+                        modifier = Modifier.fontSize(12.px)
                     )
 
                     // Button text (hidden on small screens using CssStyle)
@@ -239,7 +244,7 @@ fun BSHeader(ctx: PageContext) {
                         SpanText(
                             "Resume",
                             modifier = Modifier
-                                .fontSize(14.px)
+                                .fontSize(13.px)
                                 .fontWeight(FontWeight.SemiBold)
                                 .color(Colors.White)
                         )
@@ -247,11 +252,11 @@ fun BSHeader(ctx: PageContext) {
                 }
 
                 // Mobile Hamburger Menu Button
-                Box(modifier = MobileMenuButtonStyle.toModifier().margin(left = 12.px)) {
+                Box(modifier = MobileMenuButtonStyle.toModifier().margin(left = 8.px)) {
                     Div({
                         style {
-                            property("padding", "8px")
-                            property("border-radius", "8px")
+                            property("padding", "6px")
+                            property("border-radius", "6px")
                             property("cursor", "pointer")
                             property("background", if (mobileMenuOpen) "rgba(60, 131, 239, 0.1)" else "transparent")
                         }
@@ -259,7 +264,7 @@ fun BSHeader(ctx: PageContext) {
                     }) {
                         SpanText(
                             if (mobileMenuOpen) "✕" else "☰",
-                            modifier = Modifier.fontSize(24.px).color(textColor)
+                            modifier = Modifier.fontSize(20.px).color(textColor)
                         )
                     }
                 }
