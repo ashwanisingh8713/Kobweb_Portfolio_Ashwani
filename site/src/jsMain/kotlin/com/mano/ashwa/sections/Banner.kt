@@ -17,6 +17,7 @@ import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
+import org.jetbrains.compose.web.css.Color
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.graphics.Image
@@ -84,13 +85,22 @@ fun BannerText(text: String) {
             attrs = Modifier.fontSize(65.px atBreakpointMd 45.px)
                 .fontWeight(700)
                 .letterSpacing(0.80.px)
-                .lineHeight(1)
+                .lineHeight(1.1)
                 .margin(bottom = 20.px)
                 .display(DisplayStyle.Block)
                 .toAttrs()
         ) {
             SpanText(
-                text = "Hi! I'm Ashwani $text",
+                text = "Hi! I'm ",
+                modifier = Modifier.color(Colors.White)
+            )
+            SpanText(
+                text = "Ashwani",
+                modifier = Modifier
+                    .color(Color("#3C83EF"))
+            )
+            SpanText(
+                text = " $text",
                 modifier = Modifier.borderRight(
                     width = 0.08.em,
                     style = LineStyle.Solid,
@@ -101,7 +111,7 @@ fun BannerText(text: String) {
             attrs = Modifier
                 .fontSize(18.px)
                 .letterSpacing(0.8.px)
-                .lineHeight(1.5.em)
+                .lineHeight(1.6.em)
                 .width(100.percent)
                 .toAttrs()
         ) {

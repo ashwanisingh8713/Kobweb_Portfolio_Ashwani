@@ -25,27 +25,31 @@ val bannerStyle = CssStyle {
         Modifier
             .fillMaxSize()
             .padding(200.px, 0.px, 100.px, 0.px)
-            .backgroundPosition(BackgroundPosition.of(CSSPosition.Top))
             .backgroundImage(url(Assets.BannerBg))
-            .backgroundPosition(BackgroundPosition.of(CSSPosition.Center))
-            .backgroundSize(BackgroundSize.Cover)
-            .backgroundRepeat(BackgroundRepeat.NoRepeat)
+            .background {
+                position(BackgroundPosition.of(CSSPosition.Center))
+                size(BackgroundSize.Cover)
+                repeat(BackgroundRepeat.NoRepeat)
+            }
     }
 }
 val GradientTagLineStyle = CssStyle {
     base {
         Modifier.fontWeight(700)
-            .letterSpacing(0.8.px)
-            .padding(8.px, 10.px)
-            .styleModifier { background("linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%)") }
-            .border(1.px, LineStyle.Solid, rgba(255, 255, 255, 0.5))
-            .fontSize(18.px)
-            .margin(bottom = 16.px)
+            .letterSpacing(1.px)
+            .padding(10.px, 14.px)
+            .styleModifier {
+                background("linear-gradient(90.21deg, rgba(170, 54, 124, 0.6) -5.91%, rgba(74, 47, 189, 0.6) 111.58%)")
+            }
+            .border(1.px, LineStyle.Solid, rgba(255, 255, 255, 0.3))
+            .fontSize(16.px)
+            .margin(bottom = 20.px)
             .color(Colors.White)
             .display(DisplayStyle.InlineBlock)
+            .borderRadius(8.px)
     }
     Breakpoint.MD {
-        Modifier.fontSize(20.px)
+        Modifier.fontSize(18.px)
     }
 }
 

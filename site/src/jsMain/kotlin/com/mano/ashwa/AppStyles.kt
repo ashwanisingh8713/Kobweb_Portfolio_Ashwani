@@ -71,7 +71,11 @@ val UncoloredButtonVariant = ButtonStyle.addVariantBase {
 
 val pageTitleStyle = CssStyle {
     base {
-        Modifier.margin(all = 56.px ).fontSize(32.px).fontWeight(FontWeight.Bold)
+        Modifier
+            .margin(all = 56.px)
+            .fontSize(36.px)
+            .fontWeight(FontWeight.Bold)
+            .letterSpacing(0.5.px)
     }
 }
 

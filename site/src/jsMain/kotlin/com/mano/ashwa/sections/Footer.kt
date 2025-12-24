@@ -55,30 +55,40 @@ fun Footer() {
 
 	Column(modifier = SmoothColorStyle.toModifier().fillMaxWidth().backgroundColor(sitePal.nearBackground)) {
 		// Dark contact area (title + form)
-		Box(modifier = Modifier.fillMaxWidth().backgroundColor(sitePal.contactAreaBg).padding(top = 28.px, bottom = 28.px)) {
+		Box(modifier = Modifier.fillMaxWidth().backgroundColor(sitePal.contactAreaBg).padding(top = 40.px, bottom = 40.px)) {
 			Column(modifier = Modifier.fillMaxWidth(),) {
 				SpanText(
 					"Contact Me",
 					modifier = Modifier.fillMaxWidth()
 						.fontStyle(FontStyle.Normal)
 						.fontWeight(FontWeight.Bold)
-						.fontSize(22.px)
-						.padding(bottom = 12.px)
+						.fontSize(28.px)
+						.padding(bottom = 8.px)
 						.textAlign(TextAlign.Center)
 						.color(Colors.White)
+					)
+				SpanText(
+					"Let's connect and build something amazing together",
+					modifier = Modifier.fillMaxWidth()
+						.fontStyle(FontStyle.Italic)
+						.fontSize(14.px)
+						.padding(bottom = 20.px)
+						.textAlign(TextAlign.Center)
+						.color(sitePal.textColor)
 					)
 
 				ContactUsInput()
 			}
 		}
 
-		// Divider
-		Box(
-			modifier = Modifier
-				.fillMaxWidth()
-				.height(2.px)
-				.backgroundColor(Colors.LightGray)
-		)
+		// Gradient Divider
+		Div({
+			style {
+				width(100.percent)
+				height(3.px)
+				property("background", "linear-gradient(90deg, transparent, rgba(60, 131, 239, 0.6), rgba(170, 54, 124, 0.6), transparent)")
+			}
+		})
 
 		// Quick Infos (keeps the site background)
 		QuickInfos()

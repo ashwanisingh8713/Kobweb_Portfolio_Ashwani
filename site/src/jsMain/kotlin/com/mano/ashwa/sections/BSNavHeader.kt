@@ -84,8 +84,10 @@ fun BSHeader(ctx: PageContext) {
 // The file lives at src/jsMain/resources/public/resume/Ashwani TechLead & KMP Developer.pdf
 private fun downloadResume() {
     val fileName = "Ashwani TechLead & KMP Developer.pdf"
-    // Encode the filename for use in a URL
-    val encoded = js("encodeURIComponent(fileName)") as String
+    // Manually encode the filename for use in a URL (spaces -> %20, & -> %26)
+    val encoded = fileName
+        .replace(" ", "%20")
+        .replace("&", "%26")
     val href = "/resume/$encoded"
 
     val a = document.createElement("a") as HTMLAnchorElement

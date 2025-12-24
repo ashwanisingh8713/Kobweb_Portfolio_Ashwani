@@ -1,29 +1,169 @@
-# General ignores
+# ===========================================
+# Kobweb Portfolio - .gitignore
+# ===========================================
+
+# ==================
+# OS Generated Files
+# ==================
 .DS_Store
-build
-out
-kotlin-js-store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
 
-# IntelliJ ignores
+# ==================
+# Build Outputs
+# ==================
+build/
+out/
+dist/
+target/
+bin/
+
+# ==================
+# Gradle
+# ==================
+.gradle/
+**/build/
+!src/**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# ==================
+# Kotlin / Kotlin JS
+# ==================
+.kotlin/
+kotlin-js-store/
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+
+# ==================
+# Node / NPM / Yarn
+# ==================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+.npm/
+.yarn/
+
+# ==================
+# IntelliJ IDEA
+# ==================
 *.iml
-/*.ipr
+*.ipr
+*.iws
 
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/gradle.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-/.idea/artifacts
-/.idea/compiler.xml
-/.idea/jarRepositories.xml
-/.idea/*.iml
-/.idea/modules
-/.idea/libraries-with-intellij-classes.xml
+# Ignore .idea folder but allow specific shareable files
+.idea/
 
-# Gradle ignores
-.gradle
+# If you want to track .idea, uncomment below and comment .idea/ above
+# .idea/*
+# !.idea/runConfigurations/
+# !.idea/codeStyles/
+# !.idea/inspectionProfiles/
+# !.idea/dictionaries/
+# !.idea/copyright/
+# .idea/workspace.xml
+# .idea/tasks.xml
+# .idea/usage.statistics.xml
+# .idea/shelf/
+# .idea/misc.xml
+# .idea/modules.xml
+# .idea/gradle.xml
+# .idea/jarRepositories.xml
+# .idea/compiler.xml
+# .idea/libraries/
+# .idea/artifacts/
+# .idea/caches/
+# .idea/httpRequests/
+# .idea/dataSources/
+# .idea/*.iml
 
-# Kotlin ignores
-.kotlin
+# ==================
+# Eclipse
+# ==================
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+# ==================
+# VS Code
+# ==================
+.vscode/
+*.code-workspace
+
+# ==================
+# Kobweb Specific
+# ==================
+.kobweb/
+**/kobweb/cache/
+**/.kobweb/
+
+# ==================
+# Environment & Secrets
+# ==================
+.env
+.env.local
+.env.*.local
+*.env
+local.properties
+secrets.properties
+*.pem
+*.key
+
+# ==================
+# Logs & Temp Files
+# ==================
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# ==================
+# Testing & Coverage
+# ==================
+coverage/
+*.lcov
+.nyc_output/
+test-results/
+jest/
+
+# ==================
+# Documentation Build
+# ==================
+docs/_build/
+site/public/
+
+# ==================
+# Miscellaneous
+# ==================
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*

@@ -68,12 +68,12 @@ object SitePalettes {
         textColor = Color.rgb(0x94A3B8),
         contactAreaBg = Color.rgb(0x0A0C10),
         // Distinct chip colors for better contrast in dark mode:
-        // chipLayoutColor: slightly lighter/different dark background for the chip container
-        chipLayoutColor = Color.rgb(0x0F1724),
-        // chipColor: the chip background itself (a bit warmer/different than cardColor)
-        chipColor = Color.rgb(0x122033),
-        // chipTextColor: light text that contrasts with chipColor
-        chipTextColor = Color.rgb(0xE6EEF8)
+        // chipLayoutColor: semi-transparent gradient background for chip container
+        chipLayoutColor = Color.rgba(60, 131, 239, 0.08f),
+        // chipColor: visible blue-tinted chip background
+        chipColor = Color.rgb(0x1E3A5F),
+        // chipTextColor: bright text that contrasts with chipColor
+        chipTextColor = Color.rgb(0x7DD3FC)
     )
 }
 
