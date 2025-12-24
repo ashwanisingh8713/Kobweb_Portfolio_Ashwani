@@ -1,6 +1,6 @@
 #!/bin/bash
 # Build Command for Render Static Site Deployment
-# This script builds the Kobweb static site for production
+# This script installs Java and builds the Kobweb static site
 
 set -e  # Exit on error
 
@@ -8,9 +8,20 @@ echo "========================================"
 echo "  Kobweb Portfolio - Static Build"
 echo "========================================"
 
-# Check Java version
+# Install Java using SDKMAN
+echo "Installing Java 17..."
+curl -s "https://get.sdkman.io?rcupdate=false" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk install java 17.0.9-tem -y
+sdk use java 17.0.9-tem
+
+# Verify Java installation
 echo "Java version:"
-java -version 2>&1 || echo "Java not found, Render should have it pre-installed"
+java -version
+
+# Set JAVA_HOME
+export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
+echo "JAVA_HOME: $JAVA_HOME"
 
 # Make gradlew executable
 chmod +x ./gradlew
@@ -20,7 +31,7 @@ echo ""
 echo "Building Kobweb static site..."
 echo ""
 
-./gradlew kobwebExport -PkobwebExportLayout=STATIC -PkobwebBuildTarget=RELEASE --no-daemon --stacktrace
+./gradlew kobwebExport -PkobwebExportLayout=STATIC -PkobwebBuildTarget=RELEASE --no-daemon
 
 echo ""
 echo "========================================"
