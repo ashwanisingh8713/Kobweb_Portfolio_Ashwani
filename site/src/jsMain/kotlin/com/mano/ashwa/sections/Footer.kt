@@ -52,9 +52,11 @@ private const val REQUIRED_MSG = "Required"
 fun Footer() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
+    val isLight = current == com.varabyte.kobweb.silk.theme.colors.ColorMode.LIGHT
+    val titleColor = if (isLight) sitePal.cardTitleColor else Colors.White
 
 	Column(modifier = SmoothColorStyle.toModifier().fillMaxWidth().backgroundColor(sitePal.nearBackground)) {
-		// Dark contact area (title + form)
+		// Contact area (title + form)
 		Box(modifier = Modifier.fillMaxWidth().backgroundColor(sitePal.contactAreaBg).padding(top = 40.px, bottom = 40.px)) {
 			Column(modifier = Modifier.fillMaxWidth(),) {
 				SpanText(
@@ -65,7 +67,7 @@ fun Footer() {
 						.fontSize(28.px)
 						.padding(bottom = 8.px)
 						.textAlign(TextAlign.Center)
-						.color(Colors.White)
+						.color(titleColor)
 					)
 				SpanText(
 					"Let's connect and build something amazing together",
@@ -99,18 +101,22 @@ fun Footer() {
 
 @Composable
 fun ContactUsInput() {
+	val current = LocalAppColorMode.current.value
+	val sitePal = current.toSitePalette()
+	val isLight = current == com.varabyte.kobweb.silk.theme.colors.ColorMode.LIGHT
 
 	val fullWidth = 520.px
 	val gap = 18.px
 	val halfWidth = 250.px
 
-	// Colors from app palette
-	// val current = LocalAppColorMode.current.value
-	val cardBg = rgb(20, 22, 28) // dark card background
-	val inputBg = rgb(30, 32, 40) // darker input background
-	val labelColor = Colors.White
+	// Theme-aware colors
+	val cardBg = if (isLight) rgb(255, 255, 255) else rgb(20, 22, 28)
+	val inputBg = if (isLight) rgb(248, 250, 252) else rgb(30, 32, 40)
+	val labelColor = if (isLight) sitePal.cardTitleColor else Colors.White
 	val errorColor = rgb(255, 120, 120)
 	val infoColor = rgb(140, 230, 160)
+	val inputTextColor = if (isLight) "color: #1e293b;" else "color: white;"
+	val inputBorderColor = if (isLight) "rgba(60, 131, 239, 0.3)" else "rgba(60, 131, 239, 0.2)"
 
 	// form state
 	var firstName by remember { mutableStateOf("") }
@@ -317,25 +323,29 @@ fun ContactUsInput() {
 
 @Composable
 fun QuickInfos() {
-	// No local state required here — keep this composable focused on layout / links
+	val current = LocalAppColorMode.current.value
+	val sitePal = current.toSitePalette()
+	val isLight = current == com.varabyte.kobweb.silk.theme.colors.ColorMode.LIGHT
+	val textColor = sitePal.textColor
+	val headingColor = sitePal.cardTitleColor
 
 	Row(modifier = Modifier.fillMaxWidth(),
 		horizontalArrangement = Arrangement.SpaceEvenly,
-		verticalAlignment = Alignment.Top // changed from CenterVertically to Top
+		verticalAlignment = Alignment.Top
 	) {
 		// Start ### My Projects-------------------------------
 		Row(
 			modifier = Modifier.fillMaxWidth().padding(20.px)
 				.padding(20.px),
 			horizontalArrangement = Arrangement.SpaceEvenly,
-			verticalAlignment = Alignment.Top // changed from CenterVertically to Top
+			verticalAlignment = Alignment.Top
 		) {
 			Column(
 				horizontalAlignment = Alignment.Start,
 				verticalArrangement = Arrangement.Center,
 				modifier = Modifier.padding(10.px)
 			) {
-				H5 { Text("My Projects") }
+				H5(attrs = { style { color(if (isLight) org.jetbrains.compose.web.css.Color("#1e293b") else org.jetbrains.compose.web.css.Color.white) } }) { Text("My Projects") }
 				Column(
 					horizontalAlignment = Alignment.Start,
 					verticalArrangement = Arrangement.Center,
@@ -347,7 +357,7 @@ fun QuickInfos() {
 							target(ATarget.Blank)
 						}
 					) {
-						SpanText("Nemo Handy Handheld Measurement Solution", modifier = Modifier.padding(5.px))
+						SpanText("Nemo Handy Handheld Measurement Solution", modifier = Modifier.padding(5.px).color(sitePal.brand.primary))
 					}
 					A(
 						href = "https://play.google.com/store/apps/details?id=com.mobstac.thehindu&h&pli=1",
@@ -357,7 +367,7 @@ fun QuickInfos() {
 					) {
 						SpanText(
 							"The Hindu: India & World News",
-							modifier = Modifier.padding(5.px)
+							modifier = Modifier.padding(5.px).color(sitePal.brand.primary)
 						)
 					}
 					A(
@@ -368,12 +378,12 @@ fun QuickInfos() {
 					) {
 						SpanText(
 							"The Hindu BusinessLine",
-							modifier = Modifier.padding(5.px)
+							modifier = Modifier.padding(5.px).color(sitePal.brand.primary)
 						)
 					}
-					SpanText("Shorts News", modifier = Modifier.padding(5.px))
-					SpanText("KMP Shopify: Shopify Mobile Apps POC", modifier = Modifier.padding(5.px))
-					SpanText("KMP Project : THE HINDU", modifier = Modifier.padding(5.px))
+					SpanText("Shorts News", modifier = Modifier.padding(5.px).color(textColor))
+					SpanText("KMP Shopify: Shopify Mobile Apps POC", modifier = Modifier.padding(5.px).color(textColor))
+					SpanText("KMP Project : THE HINDU", modifier = Modifier.padding(5.px).color(textColor))
 				}
 			}
 		}
@@ -384,20 +394,20 @@ fun QuickInfos() {
 			modifier = Modifier.fillMaxWidth().padding(20.px)
 				.padding(20.px),
 			horizontalArrangement = Arrangement.SpaceEvenly,
-			verticalAlignment = Alignment.Top // changed from CenterVertically to Top
+			verticalAlignment = Alignment.Top
 		) {
 			Column(
 				horizontalAlignment = Alignment.Start,
 				verticalArrangement = Arrangement.Center,
 				modifier = Modifier.padding(10.px)
 			) {
-				H5 { Text("Quick Links") }
-				SpanText("Home", modifier = Modifier.padding(5.px).textAlign(TextAlign.Start))
-				SpanText("About Me", modifier = Modifier.padding(5.px))
-				SpanText("Skills", modifier = Modifier.padding(5.px))
-				SpanText("Experiences", modifier = Modifier.padding(5.px))
-				SpanText("Portfolio", modifier = Modifier.padding(5.px))
-				SpanText("Download CV", modifier = Modifier.padding(5.px))
+				H5(attrs = { style { color(if (isLight) org.jetbrains.compose.web.css.Color("#1e293b") else org.jetbrains.compose.web.css.Color.white) } }) { Text("Quick Links") }
+				SpanText("Home", modifier = Modifier.padding(5.px).textAlign(TextAlign.Start).color(textColor))
+				SpanText("About Me", modifier = Modifier.padding(5.px).color(textColor))
+				SpanText("Skills", modifier = Modifier.padding(5.px).color(textColor))
+				SpanText("Experiences", modifier = Modifier.padding(5.px).color(textColor))
+				SpanText("Portfolio", modifier = Modifier.padding(5.px).color(textColor))
+				SpanText("Download CV", modifier = Modifier.padding(5.px).color(textColor))
 			}
 		}
 
@@ -406,19 +416,19 @@ fun QuickInfos() {
 			modifier = Modifier.fillMaxWidth().padding(20.px)
 				.padding(20.px),
 			horizontalArrangement = Arrangement.SpaceEvenly,
-			verticalAlignment = Alignment.Top // changed from CenterVertically to Top
+			verticalAlignment = Alignment.Top
 		) {
 			Column(
 				horizontalAlignment = Alignment.Start,
 				verticalArrangement = Arrangement.Center,
 				modifier = Modifier.padding(10.px)
 			) {
-				H5 { Text("Follow Me") }
+				H5(attrs = { style { color(if (isLight) org.jetbrains.compose.web.css.Color("#1e293b") else org.jetbrains.compose.web.css.Color.white) } }) { Text("Follow Me") }
 				Div(
 					attrs = Modifier
 						.fillMaxWidth()
 						.height(2.px)
-						.backgroundColor(Colors.Blue)
+						.backgroundColor(sitePal.brand.primary)
 						.toAttrs()
 					)
 
@@ -428,7 +438,7 @@ fun QuickInfos() {
 						target(ATarget.Blank)
 					}
 				) {
-					SpanText("GitHub", modifier = Modifier.padding(5.px))
+					SpanText("GitHub", modifier = Modifier.padding(5.px).color(sitePal.brand.primary))
 				}
 				A (
 					href = "https://www.linkedin.com/in/ashwani-kumar-singh-45577042/",
@@ -436,7 +446,7 @@ fun QuickInfos() {
 						target(ATarget.Blank)
 					}
 				) {
-					SpanText("Linkedin", modifier = Modifier.padding(5.px))
+					SpanText("Linkedin", modifier = Modifier.padding(5.px).color(sitePal.brand.primary))
 				}
 
 				A (
@@ -445,7 +455,7 @@ fun QuickInfos() {
 						target(ATarget.Blank)
 					}
 				) {
-					SpanText("Medium", modifier = Modifier.padding(5.px))
+					SpanText("Medium", modifier = Modifier.padding(5.px).color(sitePal.brand.primary))
 				}
 			}
 		}

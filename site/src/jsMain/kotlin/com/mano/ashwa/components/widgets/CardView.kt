@@ -38,16 +38,27 @@ fun SkillCardView(title: String, skills: List<String>, icon: String? = null,
                   color: Color = Colors.WhiteSmoke) {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
+    val isLight = current == ColorMode.LIGHT
+
+    // Theme-aware card styling
+    val cardBg = if (isLight) {
+        "linear-gradient(145deg, ${sitePal.cardColor}, rgba(248, 250, 252, 0.95))"
+    } else {
+        "linear-gradient(145deg, ${sitePal.cardColor}, rgba(11, 18, 32, 0.95))"
+    }
+    val borderColor = if (isLight) "rgba(60, 131, 239, 0.2)" else "rgba(60, 131, 239, 0.15)"
+    val defaultShadow = if (isLight) "0 4px 15px rgba(0, 0, 0, 0.08)" else "none"
 
     Div({
         style {
             width(100.percent)
-            property("background", "linear-gradient(145deg, ${sitePal.cardColor}, rgba(11, 18, 32, 0.95))")
+            property("background", cardBg)
             property("border-radius", "16px")
             property("padding", "20px")
-            property("border", "1px solid rgba(60, 131, 239, 0.15)")
+            property("border", "1px solid $borderColor")
             property("transition", "all 0.3s ease")
             property("cursor", "default")
+            property("box-shadow", defaultShadow)
         }
         onMouseEnter {
             it.currentTarget.asDynamic().style.transform = "translateY(-4px)"
@@ -56,8 +67,8 @@ fun SkillCardView(title: String, skills: List<String>, icon: String? = null,
         }
         onMouseLeave {
             it.currentTarget.asDynamic().style.transform = "translateY(0)"
-            it.currentTarget.asDynamic().style.boxShadow = "none"
-            it.currentTarget.asDynamic().style.borderColor = "rgba(60, 131, 239, 0.15)"
+            it.currentTarget.asDynamic().style.boxShadow = defaultShadow
+            it.currentTarget.asDynamic().style.borderColor = borderColor
         }
     }) {
         Column(Modifier.gap(12.px)) {
@@ -93,16 +104,27 @@ fun SkillCardView(title: String, skills: List<String>, icon: String? = null,
 fun ExperienceCardView(data: ExperienceData) {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
+    val isLight = current == ColorMode.LIGHT
+
+    // Theme-aware card styling
+    val cardBg = if (isLight) {
+        "linear-gradient(145deg, ${sitePal.cardColor}, rgba(248, 250, 252, 0.95))"
+    } else {
+        "linear-gradient(145deg, ${sitePal.cardColor}, rgba(11, 18, 32, 0.95))"
+    }
+    val borderColor = if (isLight) "rgba(60, 131, 239, 0.2)" else "rgba(60, 131, 239, 0.15)"
+    val defaultShadow = if (isLight) "0 4px 15px rgba(0, 0, 0, 0.08)" else "none"
 
     Div({
         style {
             width(100.percent)
-            property("background", "linear-gradient(145deg, ${sitePal.cardColor}, rgba(11, 18, 32, 0.95))")
+            property("background", cardBg)
             property("border-radius", "16px")
             property("padding", "20px")
-            property("border", "1px solid rgba(60, 131, 239, 0.15)")
+            property("border", "1px solid $borderColor")
             property("transition", "all 0.3s ease")
             property("cursor", "default")
+            property("box-shadow", defaultShadow)
         }
         onMouseEnter {
             it.currentTarget.asDynamic().style.transform = "translateY(-4px)"
@@ -111,8 +133,8 @@ fun ExperienceCardView(data: ExperienceData) {
         }
         onMouseLeave {
             it.currentTarget.asDynamic().style.transform = "translateY(0)"
-            it.currentTarget.asDynamic().style.boxShadow = "none"
-            it.currentTarget.asDynamic().style.borderColor = "rgba(60, 131, 239, 0.15)"
+            it.currentTarget.asDynamic().style.boxShadow = defaultShadow
+            it.currentTarget.asDynamic().style.borderColor = borderColor
         }
     }) {
         Column(Modifier.gap(10.px)) {
@@ -214,16 +236,27 @@ fun Chip(text: String, chipColor: Color, chipTextColor: Color) { // Updated to i
 fun ProjectCardView(data: ProjectData) {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
+    val isLight = current == ColorMode.LIGHT
+
+    // Theme-aware card styling
+    val cardBg = if (isLight) {
+        "linear-gradient(145deg, ${sitePal.cardColor}, rgba(248, 250, 252, 0.95))"
+    } else {
+        "linear-gradient(145deg, ${sitePal.cardColor}, rgba(11, 18, 32, 0.95))"
+    }
+    val borderColor = if (isLight) "rgba(60, 131, 239, 0.2)" else "rgba(60, 131, 239, 0.15)"
+    val defaultShadow = if (isLight) "0 4px 15px rgba(0, 0, 0, 0.08)" else "none"
 
     Div({
         style {
             width(100.percent)
-            property("background", "linear-gradient(145deg, ${sitePal.cardColor}, rgba(11, 18, 32, 0.95))")
+            property("background", cardBg)
             property("border-radius", "16px")
             property("padding", "20px")
-            property("border", "1px solid rgba(60, 131, 239, 0.15)")
+            property("border", "1px solid $borderColor")
             property("transition", "all 0.3s ease")
             property("cursor", "default")
+            property("box-shadow", defaultShadow)
         }
         onMouseEnter {
             it.currentTarget.asDynamic().style.transform = "translateY(-4px)"
@@ -232,8 +265,8 @@ fun ProjectCardView(data: ProjectData) {
         }
         onMouseLeave {
             it.currentTarget.asDynamic().style.transform = "translateY(0)"
-            it.currentTarget.asDynamic().style.boxShadow = "none"
-            it.currentTarget.asDynamic().style.borderColor = "rgba(60, 131, 239, 0.15)"
+            it.currentTarget.asDynamic().style.boxShadow = defaultShadow
+            it.currentTarget.asDynamic().style.borderColor = borderColor
         }
     }) {
         Column(Modifier.gap(12.px)) {

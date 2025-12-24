@@ -1,32 +1,29 @@
 package com.mano.ashwa
 
 import androidx.compose.runtime.Composable
-import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
-import com.varabyte.kobweb.compose.ui.graphics.Color
-import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
-import com.varabyte.kobweb.compose.ui.modifiers.border
-import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
-import com.varabyte.kobweb.compose.ui.modifiers.gap
-import com.varabyte.kobweb.compose.ui.modifiers.padding
-import com.varabyte.kobweb.compose.ui.modifiers.fontSize
-import com.varabyte.kobweb.silk.components.forms.Button
+import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.colors.systemPreference
 import kotlinx.browser.document
-import org.jetbrains.compose.web.css.LineStyle
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.dom.Div
 import org.w3c.dom.HTMLElement
 
 @Composable
 fun ThemeToggle(compact: Boolean = false) {
     val appColorState = LocalAppColorMode.current
     val current = appColorState.value
+    val isLight = current == ColorMode.LIGHT
 
-    fun apply(modeName: String, mode: ColorMode) {
-        appColorState.value = mode
+    fun toggleTheme() {
+        val newMode = if (isLight) ColorMode.DARK else ColorMode.LIGHT
+        val modeName = if (isLight) "dark" else "light"
+
+        appColorState.value = newMode
+
         // Update HTML attribute for any CSS that relies on it
         try {
             (document.documentElement as? HTMLElement)?.setAttribute("data-color-mode", modeName)
@@ -34,9 +31,9 @@ fun ThemeToggle(compact: Boolean = false) {
 
         // Also set a few CSS variables and inline styles so visual changes show immediately
         try {
-            val sitePal = if (mode == ColorMode.LIGHT) SitePalettes.light else SitePalettes.dark
+            val sitePal = if (newMode == ColorMode.LIGHT) SitePalettes.light else SitePalettes.dark
             val bg = sitePal.nearBackground.toString()
-            val text = if (mode == ColorMode.DARK) Colors.White.toString() else Colors.Black.toString()
+            val text = if (newMode == ColorMode.DARK) Colors.White.toString() else Colors.Black.toString()
             val brandPrimary = sitePal.brand.primary.toString()
             val brandAccent = sitePal.brand.accent.toString()
 
@@ -51,55 +48,43 @@ fun ThemeToggle(compact: Boolean = false) {
         } catch (_: Throwable) { }
     }
 
-    val font = if (compact) 12.px else 16.px
-    val pad = if (compact) 4.px else 8.px
+    val size = if (compact) 36.px else 44.px
+    val iconSize = if (compact) 18.px else 22.px
 
-    // Palette to style active button
-    val activeBg: Color = if (current == ColorMode.LIGHT) SitePalettes.light.brand.primary else SitePalettes.dark.brand.primary
-    val inactiveBg: Color = Colors.Transparent
+    // Single toggle button with sun/moon icon
+    Div({
+        style {
+            width(size)
+            height(size)
+            property("border-radius", "50%")
+            property("cursor", "pointer")
+            property("transition", "all 0.3s ease")
+            display(DisplayStyle.Flex)
+            alignItems(AlignItems.Center)
+            justifyContent(JustifyContent.Center)
 
-    // Border color for active state (slightly darker/lighter depending on mode)
-    val activeBorder: Color = if (current == ColorMode.DARK) SitePalettes.dark.brand.accent else SitePalettes.light.brand.accent
-
-    Row(Modifier.gap(6.px)) {
-        val isLight = current == ColorMode.LIGHT
-        Button(
-            onClick = { apply("light", ColorMode.LIGHT) },
-            // Apply background first so padding sits inside the colored area; add a border when active
-            Modifier
-                .backgroundColor(if (isLight) activeBg else inactiveBg)
-                .borderRadius(6.px)
-                .then(if (isLight) Modifier.border(1.px, LineStyle.Solid, activeBorder) else Modifier)
-                .padding(pad),
-            variant = UncoloredButtonVariant
-        ) {
-            SpanText("Day", Modifier.fontSize(font))
+            if (isLight) {
+                // Light mode - show moon icon, dark background
+                property("background", "linear-gradient(135deg, #1e293b, #334155)")
+                property("box-shadow", "0 2px 8px rgba(0, 0, 0, 0.2)")
+            } else {
+                // Dark mode - show sun icon, light/golden background
+                property("background", "linear-gradient(135deg, #fbbf24, #f59e0b)")
+                property("box-shadow", "0 2px 8px rgba(251, 191, 36, 0.4)")
+            }
         }
-
-        val isDark = current == ColorMode.DARK
-        Button(
-            onClick = { apply("dark", ColorMode.DARK) },
-            Modifier
-                .backgroundColor(if (isDark) activeBg else inactiveBg)
-                .borderRadius(6.px)
-                .then(if (isDark) Modifier.border(1.px, LineStyle.Solid, activeBorder) else Modifier)
-                .padding(pad),
-            variant = UncoloredButtonVariant
-        ) {
-            SpanText("Night", Modifier.fontSize(font))
+        onClick { toggleTheme() }
+        onMouseEnter {
+            it.currentTarget.asDynamic().style.transform = "scale(1.1)"
         }
-
-        val isSystem = current == ColorMode.systemPreference
-        Button(
-            onClick = { apply("system", ColorMode.systemPreference) },
-            Modifier
-                .backgroundColor(if (isSystem) activeBg else inactiveBg)
-                .borderRadius(6.px)
-                .then(if (isSystem) Modifier.border(1.px, LineStyle.Solid, activeBorder) else Modifier)
-                .padding(pad),
-            variant = UncoloredButtonVariant
-        ) {
-            SpanText("Browser", Modifier.fontSize(font))
+        onMouseLeave {
+            it.currentTarget.asDynamic().style.transform = "scale(1)"
         }
+    }) {
+        // Icon: Sun for dark mode (click to go light), Moon for light mode (click to go dark)
+        SpanText(
+            text = if (isLight) "🌙" else "☀️",
+            modifier = Modifier.fontSize(iconSize)
+        )
     }
 }

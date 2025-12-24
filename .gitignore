@@ -130,7 +130,6 @@ secrets.properties
 # ==================
 # Logs & Temp Files
 # ==================
-*.log
 logs/
 tmp/
 temp/
@@ -167,3 +166,50 @@ site/public/
 *.rar
 hs_err_pid*
 replay_pid*
+
+# ==================
+# Additional Kobweb/Kotlin JS
+# ==================
+# Webpack cache
+.webpack/
+**/webpack-cache/
+
+# Kotlin daemon
+.kotlin-daemon/
+
+# Gradle daemon
+.gradle-daemon/
+
+# ==================
+# macOS Specific
+# ==================
+.AppleDouble
+.LSOverride
+Icon
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# ==================
+# Windows Specific
+# ==================
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ==================
+# Linux Specific
+# ==================
+.directory
+.Trash-*
+
+# ==================
+# Editor Backup Files
+# ==================
+*.orig
+*.rej
+.#*
+\#*#
+

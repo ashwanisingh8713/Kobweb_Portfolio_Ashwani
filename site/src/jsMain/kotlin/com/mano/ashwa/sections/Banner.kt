@@ -4,30 +4,28 @@ import androidx.compose.runtime.Composable
 import com.mano.ashwa.LocalAppColorMode
 import com.mano.ashwa.components.rememberAnimatedText
 import com.mano.ashwa.styles.GradientTagLineStyle
-import com.mano.ashwa.styles.bannerStyle
-import com.mano.ashwa.styles.buttonStyle
 import com.mano.ashwa.styles.upDownAnim
 import com.mano.ashwa.styles.zoomIn
-import com.mano.ashwa.toSitePalette
 import com.mano.ashwa.utils.Assets
 import com.mano.ashwa.utils.atBreakpointMd
 import com.varabyte.kobweb.compose.css.AnimationIterationCount
+import com.varabyte.kobweb.compose.css.BackgroundPosition
+import com.varabyte.kobweb.compose.css.BackgroundRepeat
+import com.varabyte.kobweb.compose.css.BackgroundSize
+import com.varabyte.kobweb.compose.css.CSSPosition
 import com.varabyte.kobweb.compose.css.functions.url
 import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import org.jetbrains.compose.web.css.Color
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.graphics.Image
-import com.varabyte.kobweb.silk.components.icons.fa.FaCircleArrowRight
 import com.varabyte.kobweb.silk.components.layout.SimpleGrid
 import com.varabyte.kobweb.silk.components.layout.numColumns
-import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.animation.toAnimation
-import org.jetbrains.compose.web.attributes.AutoComplete.Companion.url
+import com.varabyte.kobweb.silk.style.toModifier
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.keywords.auto
 import org.jetbrains.compose.web.dom.H1
@@ -36,8 +34,11 @@ import org.jetbrains.compose.web.dom.P
 @Composable
 fun Banner() {
     val current = LocalAppColorMode.current.value
-    val sitePal = current.toSitePalette()
-    val textColor = if (current == com.varabyte.kobweb.silk.theme.colors.ColorMode.DARK) Colors.White else Colors.Black
+    val isLight = current == com.varabyte.kobweb.silk.theme.colors.ColorMode.LIGHT
+    val textColor = if (isLight) Colors.Black else Colors.White
+
+    // Theme-aware banner background
+    val bannerBgUrl = if (isLight) "/assets/banner-bg-light.svg" else "/assets/banner-bg-dark.svg"
 
     val animatedText = rememberAnimatedText(
         toRotate = listOf("Android Tech Lead", "KMP Developer","Kobweb Developer"),
@@ -45,9 +46,18 @@ fun Banner() {
     )
     SimpleGrid(
         numColumns(base = 1, md = 2),
-        modifier = bannerStyle.toModifier().id("home")
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(200.px, 0.px, 100.px, 0.px)
+            .backgroundImage(url(bannerBgUrl))
+            .background {
+                position(BackgroundPosition.of(CSSPosition.Center))
+                size(BackgroundSize.Cover)
+                repeat(BackgroundRepeat.NoRepeat)
+            }
+            .id("home")
     ) {
-        BannerText(animatedText.value)
+        BannerText(animatedText.value, textColor)
         Image(
             src = Assets.HeaderImg,
             modifier = Modifier
@@ -71,7 +81,7 @@ fun Banner() {
 }
 
 @Composable
-fun BannerText(text: String) {
+fun BannerText(text: String, textColor: com.varabyte.kobweb.compose.ui.graphics.Color) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -92,7 +102,7 @@ fun BannerText(text: String) {
         ) {
             SpanText(
                 text = "Hi! I'm ",
-                modifier = Modifier.color(Colors.White)
+                modifier = Modifier.color(textColor)
             )
             SpanText(
                 text = "Ashwani",
@@ -104,7 +114,7 @@ fun BannerText(text: String) {
                 modifier = Modifier.borderRight(
                     width = 0.08.em,
                     style = LineStyle.Solid,
-                ).color(Colors.White)
+                ).color(textColor)
             )
         }
         P(

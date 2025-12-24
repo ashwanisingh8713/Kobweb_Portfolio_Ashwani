@@ -41,19 +41,19 @@ class SitePalette(
 
 object SitePalettes {
     val light = SitePalette(
-        nearBackground = Color.rgb(0xF4F6FA),
+        nearBackground = Color.rgb(0xF8FAFC),
         headerBackground = Color.rgb(0xFFFFFF),
         brand = SitePalette.Brand(primary = Color.rgb(0x3C83EF), accent = Color.rgb(0xFCBA03)),
         cardColor = Color.rgb(0xFFFFFF),
         cardTitleColor = Color.rgb(0x0F172A),
-        cardSubTitleColor = Color.rgb(0x4B5563),
-        cardDescriptionColor = Color.rgb(0x6B7280),
-        pageTitleColor = Color.rgb(0x6B7280),
-        textColor = Color.rgb(0x6B7280),
-        contactAreaBg = Color.rgb(0xF4F6FA),
-        chipColor = Color.rgb(0xF4F6FA),
-        chipLayoutColor = Color.rgb(0xF4F6FA),
-        chipTextColor = Color.rgb(0xF4F6FA)
+        cardSubTitleColor = Color.rgb(0x475569),
+        cardDescriptionColor = Color.rgb(0x64748B),
+        pageTitleColor = Color.rgb(0x1E293B),
+        textColor = Color.rgb(0x475569),
+        contactAreaBg = Color.rgb(0xE2E8F0),
+        chipColor = Color.rgb(0xE0E7FF),
+        chipLayoutColor = Color.rgb(0xEEF2FF),
+        chipTextColor = Color.rgb(0x3730A3)
     )
 
     val dark = SitePalette(
@@ -68,26 +68,24 @@ object SitePalettes {
         textColor = Color.rgb(0x94A3B8),
         contactAreaBg = Color.rgb(0x0A0C10),
         // Distinct chip colors for better contrast in dark mode:
-        // chipLayoutColor: semi-transparent gradient background for chip container
         chipLayoutColor = Color.rgba(60, 131, 239, 0.08f),
-        // chipColor: visible blue-tinted chip background
         chipColor = Color.rgb(0x1E3A5F),
-        // chipTextColor: bright text that contrasts with chipColor
         chipTextColor = Color.rgb(0x7DD3FC)
     )
 }
 
 fun ColorMode.toSitePalette(): SitePalette {
-    return SitePalettes.dark
-    /*return when (this) {
+    return when (this) {
         ColorMode.LIGHT -> SitePalettes.light
         ColorMode.DARK -> SitePalettes.dark
-    }*/
+    }
 }
 
 @InitSilk
 fun initTheme(ctx: InitSilkContext) {
-    // Keep Silk palette adjustments minimal here. Use the SitePalette values for custom colors.
-    ctx.theme.palettes.dark.background = Colors.White
+    // Set up Silk palettes for both light and dark modes
+    ctx.theme.palettes.light.background = SitePalettes.light.nearBackground
+    ctx.theme.palettes.light.color = Color.rgb(0x1E293B)
+    ctx.theme.palettes.dark.background = SitePalettes.dark.nearBackground
     ctx.theme.palettes.dark.color = Colors.White
 }
