@@ -32,7 +32,7 @@ import org.jetbrains.compose.web.dom.P
 
 @InitRoute
 fun initCoverLetterPage(ctx: InitRouteContext) {
-    ctx.data.add(PageLayoutData("Ashwani Cover Letter"))
+    ctx.data.add(PageLayoutData("Cover Letter | Ashwani Kumar Singh"))
 }
 
 val keywords = listOf(

@@ -39,7 +39,7 @@ import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 
 @InitRoute
 fun initMyProjectsPage(ctx: InitRouteContext) {
-    ctx.data.add(PageLayoutData("Ashwani Projects"))
+    ctx.data.add(PageLayoutData("Portfolio & Projects | Ashwani Kumar Singh"))
 }
 
 @Page(Project_Route)

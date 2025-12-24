@@ -38,7 +38,7 @@ import com.varabyte.kobweb.silk.style.toModifier
 
 @InitRoute
 fun initExperiencesPage(ctx: InitRouteContext) {
-    ctx.data.add(PageLayoutData("Ashwani Skills"))
+    ctx.data.add(PageLayoutData("Work Experience | Ashwani Kumar Singh"))
 }
 
 @Page(Experience_Route)

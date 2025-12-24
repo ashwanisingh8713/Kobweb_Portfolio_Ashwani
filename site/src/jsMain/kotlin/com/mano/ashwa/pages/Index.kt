@@ -49,7 +49,7 @@ val HomeGridCellStyle = CssStyle.base {
 
 @InitRoute
 fun initHomePage(ctx: InitRouteContext) {
-    ctx.data.add(PageLayoutData("Ashwani Kumar"))
+    ctx.data.add(PageLayoutData("Ashwani Kumar Singh | Android Tech Lead & KMP Developer"))
 }
 
 @Page
