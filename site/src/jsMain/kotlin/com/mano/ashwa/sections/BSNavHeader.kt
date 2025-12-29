@@ -157,39 +157,46 @@ fun BSHeader(ctx: PageContext) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Logo / Brand
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
-            ) {
-                // Logo icon
+            // Logo / Brand - Clean Design
+            Div({
+                style {
+                    display(DisplayStyle.Flex)
+                    alignItems(AlignItems.Center)
+                    property("cursor", "pointer")
+                    property("transition", "all 0.3s ease")
+                }
+                onMouseEnter {
+                    it.currentTarget.asDynamic().style.opacity = "0.8"
+                }
+                onMouseLeave {
+                    it.currentTarget.asDynamic().style.opacity = "1"
+                }
+                onClick { ctx.router.navigateTo("/") }
+            }) {
+                // Brand name and tagline
                 Div({
                     style {
-                        property("background", "linear-gradient(135deg, #3C83EF, #7F52FF)")
-                        property("border-radius", "10px")
-                        property("padding", "6px 10px")
-                        property("margin-right", "8px")
-                        property("cursor", "pointer")
-                        property("flex-shrink", "0")
+                        display(DisplayStyle.Flex)
+                        flexDirection(FlexDirection.Column)
+                        gap(2.px)
                     }
-                    onClick { ctx.router.navigateTo("/") }
                 }) {
-                    SpanText(
-                        "AK",
-                        modifier = Modifier
-                            .fontSize(16.px)
-                            .fontWeight(FontWeight.Bold)
-                            .color(Colors.White)
-                    )
-                }
-
-                // Brand name (hidden on mobile using CssStyle)
-                Box(modifier = BrandNameStyle.toModifier().onClick { ctx.router.navigateTo("/") }) {
+                    // Main name - single color, clean typography
                     SpanText(
                         "Ashwani Kumar",
                         modifier = BrandTextStyle.toModifier()
                             .fontWeight(FontWeight.Bold)
                             .color(textColor)
+                            .letterSpacing((-0.5).px)
+                    )
+                    // Subtitle tagline
+                    SpanText(
+                        "Tech Lead • KMP Developer",
+                        modifier = Modifier
+                            .fontSize(11.px)
+                            .fontWeight(FontWeight.Normal)
+                            .color(if (isLight) com.varabyte.kobweb.compose.ui.graphics.Color.rgb(0x64748B) else com.varabyte.kobweb.compose.ui.graphics.Color.rgb(0x94A3B8))
+                            .letterSpacing(0.3.px)
                     )
                 }
             }

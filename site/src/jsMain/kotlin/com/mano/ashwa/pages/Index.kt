@@ -18,6 +18,7 @@ import org.jetbrains.compose.web.css.vh
 import com.mano.ashwa.components.layouts.PageLayoutData
 import com.mano.ashwa.sections.Banner
 import com.mano.ashwa.sections.HomeAboutSection
+import com.mano.ashwa.sections.HomeExpertiseSection
 import com.mano.ashwa.sections.HomeSkillsSection
 import com.mano.ashwa.sections.HomeFeaturedProjectsSection
 import com.mano.ashwa.sections.HomeExperienceSection
@@ -49,7 +50,7 @@ val HomeGridCellStyle = CssStyle.base {
 
 @InitRoute
 fun initHomePage(ctx: InitRouteContext) {
-    ctx.data.add(PageLayoutData("Ashwani Kumar Singh | Android Tech Lead & KMP Developer"))
+    ctx.data.add(PageLayoutData("Ashwani Kumar Singh | Android TechLead • KMP • Kobweb • GoLang Developer"))
 }
 
 @Page
@@ -63,6 +64,9 @@ fun HomePage() {
 
     // Hero Banner with animated text and image
     Banner()
+
+    // Expertise areas - showcasing developer specializations
+    HomeExpertiseSection()
 
     // About Me section with stats and core technologies
     HomeAboutSection()

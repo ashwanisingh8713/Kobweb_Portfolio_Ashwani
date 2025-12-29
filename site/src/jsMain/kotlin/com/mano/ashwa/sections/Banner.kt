@@ -7,7 +7,6 @@ import com.mano.ashwa.styles.GradientTagLineStyle
 import com.mano.ashwa.styles.upDownAnim
 import com.mano.ashwa.styles.zoomIn
 import com.mano.ashwa.utils.Assets
-import com.mano.ashwa.utils.atBreakpointMd
 import com.varabyte.kobweb.compose.css.AnimationIterationCount
 import com.varabyte.kobweb.compose.css.BackgroundPosition
 import com.varabyte.kobweb.compose.css.BackgroundRepeat
@@ -29,7 +28,7 @@ import com.varabyte.kobweb.silk.style.toModifier
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.keywords.auto
 import org.jetbrains.compose.web.dom.H1
-import org.jetbrains.compose.web.dom.P
+import org.jetbrains.compose.web.dom.Div
 
 @Composable
 fun Banner() {
@@ -41,7 +40,13 @@ fun Banner() {
     val bannerBgUrl = if (isLight) "/assets/banner-bg-light.svg" else "/assets/banner-bg-dark.svg"
 
     val animatedText = rememberAnimatedText(
-        toRotate = listOf("Android Tech Lead", "KMP Developer","Kobweb Developer"),
+        toRotate = listOf(
+            "Android Tech Lead",
+            "Kotlin Multiplatform Developer",
+            "Kobweb Developer",
+            "GoLang Developer",
+            "FullStack Mobile Developer"
+        ),
         period = 2000
     )
     SimpleGrid(
@@ -119,17 +124,153 @@ fun BannerText(text: String, textColor: com.varabyte.kobweb.compose.ui.graphics.
                 ).color(textColor)
             )
         }
-        P(
-            attrs = Modifier
-                .fontSize(14.px)
-                .letterSpacing(0.5.px)
-                .lineHeight(1.6.em)
-                .width(100.percent)
-                .toAttrs()
-        ) {
-            SpanText("""A self-taught software developer and Tech Lead with a strong passion for modern technology.
-            Skilled in leading teams, collaborating with clients, and delivering high-quality, impactful digital solutions that drive business success."""
-            ,modifier = GradientTagLineStyle.toModifier())
+        // Enhanced Bio Section
+        BioHighlights(textColor)
+
+        // Expertise badges row
+        ExpertiseBadges()
+    }
+}
+
+@Composable
+private fun BioHighlights(textColor: com.varabyte.kobweb.compose.ui.graphics.Color) {
+    val current = LocalAppColorMode.current.value
+    val isLight = current == com.varabyte.kobweb.silk.theme.colors.ColorMode.LIGHT
+
+    val cardBg = if (isLight) "rgba(255, 255, 255, 0.7)" else "rgba(15, 23, 42, 0.7)"
+    val borderColor = if (isLight) "rgba(60, 131, 239, 0.2)" else "rgba(60, 131, 239, 0.3)"
+    val highlightColor = "#3C83EF"
+    val subtleText = if (isLight) "#64748B" else "#94A3B8"
+
+    Div({
+        style {
+            property("background", cardBg)
+            property("backdrop-filter", "blur(10px)")
+            property("-webkit-backdrop-filter", "blur(10px)")
+            property("border-radius", "16px")
+            property("border", "1px solid $borderColor")
+            property("padding", "20px 24px")
+            property("margin-top", "16px")
+            property("margin-bottom", "8px")
+        }
+    }) {
+        // Main intro text
+        Div({
+            style {
+                property("font-size", "16px")
+                property("line-height", "1.8")
+                property("color", textColor.toString())
+                property("margin-bottom", "16px")
+            }
+        }) {
+            SpanText("With ")
+            SpanText(
+                "14+ years",
+                modifier = Modifier
+                    .fontWeight(700)
+                    .color(Color(highlightColor))
+            )
+            SpanText(" of experience, I transform ideas into ")
+            SpanText(
+                "production-ready solutions",
+                modifier = Modifier
+                    .fontWeight(700)
+                    .color(Color(highlightColor))
+            )
+            SpanText(" — from mobile apps to full-stack systems.")
+        }
+
+        // Highlight chips row
+        Div({
+            style {
+                display(DisplayStyle.Flex)
+                flexWrap(FlexWrap.Wrap)
+                gap(12.px)
+                property("margin-bottom", "16px")
+            }
+        }) {
+            listOf(
+                "🎯" to "Clean Architecture",
+                "👥" to "Team Leadership",
+                "🚀" to "Enterprise Apps",
+                "🔄" to "Cross-Platform"
+            ).forEach { (icon, label) ->
+                Div({
+                    style {
+                        display(DisplayStyle.Flex)
+                        alignItems(AlignItems.Center)
+                        gap(6.px)
+                        property("background", if (isLight) "rgba(60, 131, 239, 0.1)" else "rgba(60, 131, 239, 0.15)")
+                        property("border-radius", "8px")
+                        property("padding", "6px 12px")
+                        property("font-size", "13px")
+                        property("font-weight", "500")
+                        property("color", highlightColor)
+                    }
+                }) {
+                    SpanText(icon)
+                    SpanText(label)
+                }
+            }
+        }
+
+        // Quote/tagline
+        Div({
+            style {
+                property("font-size", "14px")
+                property("font-style", "italic")
+                property("color", subtleText)
+                property("border-left", "3px solid $highlightColor")
+                property("padding-left", "12px")
+            }
+        }) {
+            SpanText("\"Building impactful digital solutions that drive business success — one line of Kotlin at a time.\"")
+        }
+    }
+}
+
+@Composable
+private fun ExpertiseBadges() {
+    val expertiseBadges = listOf(
+        "📱 Android TechLead" to "#3C83EF",
+        "🔄 KMP Developer" to "#7F52FF",
+        "🌐 Kobweb" to "#10B981",
+        "🚀 GoLang" to "#00ADD8",
+        "📲 FullStack Mobile" to "#F59E0B"
+    )
+
+    Div({
+        style {
+            display(DisplayStyle.Flex)
+            flexWrap(FlexWrap.Wrap)
+            gap(10.px)
+            marginTop(20.px)
+        }
+    }) {
+        expertiseBadges.forEach { (label, color) ->
+            Div({
+                style {
+                    property("background", color)
+                    property("border-radius", "20px")
+                    property("padding", "8px 16px")
+                    property("font-size", "13px")
+                    property("font-weight", "600")
+                    property("color", "white")
+                    property("white-space", "nowrap")
+                    property("transition", "all 0.3s ease")
+                    property("cursor", "default")
+                }
+                onMouseEnter {
+                    it.currentTarget.asDynamic().style.transform = "translateY(-2px)"
+                    it.currentTarget.asDynamic().style.opacity = "0.9"
+                }
+                onMouseLeave {
+                    it.currentTarget.asDynamic().style.transform = "translateY(0)"
+                    it.currentTarget.asDynamic().style.opacity = "1"
+                }
+            }) {
+                SpanText(label)
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ fun HomeAboutSection() {
         modifier = Modifier
             .fillMaxWidth()
             .backgroundColor(sitePal.nearBackground)
-            .padding(topBottom = 60.px, leftRight = 16.px) // Reduced padding for mobile
+            .padding(topBottom = 80.px, leftRight = 16.px)
             .id("about"),
         contentAlignment = Alignment.Center
     ) {
@@ -38,6 +38,17 @@ fun HomeAboutSection() {
             modifier = Modifier.fillMaxWidth().maxWidth(1200.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Decorative line
+            Div({
+                style {
+                    width(60.px)
+                    height(4.px)
+                    property("background", "#3C83EF")
+                    property("border-radius", "2px")
+                    property("margin-bottom", "20px")
+                }
+            })
+
             // Section Title
             SpanText(
                 "About Me",
@@ -45,7 +56,7 @@ fun HomeAboutSection() {
                     .fontSize(36.px)
                     .fontWeight(FontWeight.Bold)
                     .color(sitePal.pageTitleColor)
-                    .margin(bottom = 16.px)
+                    .margin(bottom = 12.px)
             )
 
             // Subtitle
@@ -55,7 +66,7 @@ fun HomeAboutSection() {
                     .fontSize(18.px)
                     .color(sitePal.textColor)
                     .textAlign(TextAlign.Center)
-                    .margin(bottom = 48.px)
+                    .margin(bottom = 56.px)
             )
 
             // Content Grid
@@ -149,12 +160,9 @@ fun HomeAboutSection() {
 
 @Composable
 private fun StatCard(number: String, label: String, icon: String, sitePal: com.mano.ashwa.SitePalette, isLight: Boolean) {
-    val cardBg = if (isLight) {
-        "linear-gradient(135deg, ${sitePal.cardColor}, rgba(60, 131, 239, 0.05))"
-    } else {
-        "linear-gradient(135deg, ${sitePal.cardColor}, rgba(60, 131, 239, 0.1))"
-    }
-    val borderColor = if (isLight) "rgba(60, 131, 239, 0.15)" else "rgba(60, 131, 239, 0.2)"
+    val cardBg = sitePal.cardColor.toString()
+    val borderColor = if (isLight) "rgba(0, 0, 0, 0.08)" else "rgba(255, 255, 255, 0.08)"
+    val accentColor = "#3C83EF"
 
     Div({
         style {
@@ -167,22 +175,22 @@ private fun StatCard(number: String, label: String, icon: String, sitePal: com.m
             property("border", "1px solid $borderColor")
             property("transition", "all 0.3s ease")
             if (isLight) {
-                property("box-shadow", "0 4px 15px rgba(0, 0, 0, 0.06)")
+                property("box-shadow", "0 2px 12px rgba(0, 0, 0, 0.06)")
             }
         }
         onMouseEnter {
             it.currentTarget.asDynamic().style.transform = "translateX(8px)"
-            it.currentTarget.asDynamic().style.borderColor = "rgba(60, 131, 239, 0.5)"
+            it.currentTarget.asDynamic().style.borderColor = accentColor
         }
         onMouseLeave {
             it.currentTarget.asDynamic().style.transform = "translateX(0)"
             it.currentTarget.asDynamic().style.borderColor = borderColor
         }
     }) {
-        // Icon
+        // Icon with subtle background
         Div({
             style {
-                property("background", "linear-gradient(135deg, rgba(60, 131, 239, 0.3), rgba(170, 54, 124, 0.3))")
+                property("background", "${accentColor}15")
                 property("border-radius", "12px")
                 property("padding", "16px")
                 property("font-size", "32px")
@@ -212,12 +220,8 @@ private fun StatCard(number: String, label: String, icon: String, sitePal: com.m
 
 @Composable
 private fun TechPill(text: String, sitePal: com.mano.ashwa.SitePalette, isLight: Boolean) {
-    val pillBg = if (isLight) {
-        "linear-gradient(135deg, ${sitePal.chipColor}, rgba(60, 131, 239, 0.1))"
-    } else {
-        "linear-gradient(135deg, ${sitePal.chipColor}, rgba(60, 131, 239, 0.2))"
-    }
-    val borderColor = if (isLight) "rgba(60, 131, 239, 0.2)" else "rgba(125, 211, 252, 0.2)"
+    val accentColor = "#3C83EF"
+    val pillBg = if (isLight) "${accentColor}15" else "${accentColor}20"
 
     Div({
         style {
@@ -226,8 +230,7 @@ private fun TechPill(text: String, sitePal: com.mano.ashwa.SitePalette, isLight:
             property("padding", "8px 16px")
             property("font-size", "14px")
             property("font-weight", "500")
-            property("color", sitePal.chipTextColor.toString())
-            property("border", "1px solid $borderColor")
+            property("color", accentColor)
         }
     }) {
         SpanText(text)

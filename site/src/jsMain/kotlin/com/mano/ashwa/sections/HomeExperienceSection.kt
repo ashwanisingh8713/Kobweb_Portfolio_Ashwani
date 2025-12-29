@@ -57,7 +57,7 @@ fun HomeExperienceSection() {
         modifier = Modifier
             .fillMaxWidth()
             .backgroundColor(sitePal.contactAreaBg)
-            .padding(topBottom = 60.px, leftRight = 16.px) // Reduced padding for mobile
+            .padding(topBottom = 80.px, leftRight = 16.px)
             .id("experience"),
         contentAlignment = Alignment.Center
     ) {
@@ -65,6 +65,17 @@ fun HomeExperienceSection() {
             modifier = Modifier.fillMaxWidth().maxWidth(900.px),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Decorative line
+            Div({
+                style {
+                    width(60.px)
+                    height(4.px)
+                    property("background", "#3C83EF")
+                    property("border-radius", "2px")
+                    property("margin-bottom", "20px")
+                }
+            })
+
             // Section Title
             SpanText(
                 "Experience",
@@ -72,7 +83,7 @@ fun HomeExperienceSection() {
                     .fontSize(36.px)
                     .fontWeight(FontWeight.Bold)
                     .color(sitePal.pageTitleColor)
-                    .margin(bottom = 16.px)
+                    .margin(bottom = 12.px)
             )
 
             // Subtitle
@@ -82,7 +93,7 @@ fun HomeExperienceSection() {
                     .fontSize(18.px)
                     .color(sitePal.textColor)
                     .textAlign(TextAlign.Center)
-                    .margin(bottom = 48.px)
+                    .margin(bottom = 56.px)
             )
 
             // Timeline
@@ -96,20 +107,19 @@ fun HomeExperienceSection() {
             Div({
                 style {
                     marginTop(48.px)
-                    property("background", "linear-gradient(135deg, rgba(60, 131, 239, 0.2), rgba(170, 54, 124, 0.2))")
+                    property("background", "#3C83EF")
                     property("border-radius", "30px")
                     property("padding", "14px 32px")
                     property("cursor", "pointer")
                     property("transition", "all 0.3s ease")
-                    property("border", "1px solid rgba(60, 131, 239, 0.3)")
                 }
                 onMouseEnter {
-                    it.currentTarget.asDynamic().style.background = "linear-gradient(135deg, rgba(60, 131, 239, 0.4), rgba(170, 54, 124, 0.4))"
-                    it.currentTarget.asDynamic().style.transform = "scale(1.05)"
+                    it.currentTarget.asDynamic().style.opacity = "0.9"
+                    it.currentTarget.asDynamic().style.transform = "translateY(-2px)"
                 }
                 onMouseLeave {
-                    it.currentTarget.asDynamic().style.background = "linear-gradient(135deg, rgba(60, 131, 239, 0.2), rgba(170, 54, 124, 0.2))"
-                    it.currentTarget.asDynamic().style.transform = "scale(1)"
+                    it.currentTarget.asDynamic().style.opacity = "1"
+                    it.currentTarget.asDynamic().style.transform = "translateY(0)"
                 }
                 onClick {
                     kotlinx.browser.window.location.href = "/experiences"
@@ -119,8 +129,8 @@ fun HomeExperienceSection() {
                     "View Full Experience →",
                     modifier = Modifier
                         .fontSize(16.px)
-                        .fontWeight(FontWeight.Bold)
-                        .color(sitePal.chipTextColor)
+                        .fontWeight(FontWeight.SemiBold)
+                        .color(com.varabyte.kobweb.compose.ui.graphics.Colors.White)
                 )
             }
         }
@@ -129,12 +139,9 @@ fun HomeExperienceSection() {
 
 @Composable
 private fun TimelineCard(item: TimelineItem, sitePal: com.mano.ashwa.SitePalette, isLast: Boolean, isLight: Boolean) {
-    val cardBg = if (isLight) {
-        "linear-gradient(145deg, ${sitePal.cardColor}, rgba(248, 250, 252, 0.95))"
-    } else {
-        "linear-gradient(145deg, ${sitePal.cardColor}, rgba(11, 18, 32, 0.95))"
-    }
-    val borderColor = if (isLight) "rgba(60, 131, 239, 0.2)" else "rgba(60, 131, 239, 0.15)"
+    val cardBg = sitePal.cardColor.toString()
+    val borderColor = if (isLight) "rgba(0, 0, 0, 0.08)" else "rgba(255, 255, 255, 0.08)"
+    val accentColor = "#3C83EF"
 
     Div({
         style {
@@ -158,7 +165,7 @@ private fun TimelineCard(item: TimelineItem, sitePal: com.mano.ashwa.SitePalette
                     height(16.px)
                     property("border-radius", "50%")
                     if (item.isCurrent) {
-                        property("background", "linear-gradient(135deg, #3C83EF, #AA367C)")
+                        property("background", accentColor)
                         property("box-shadow", "0 0 12px rgba(60, 131, 239, 0.5)")
                     } else {
                         property("background", "rgba(60, 131, 239, 0.4)")
@@ -174,7 +181,7 @@ private fun TimelineCard(item: TimelineItem, sitePal: com.mano.ashwa.SitePalette
                     style {
                         width(2.px)
                         flexGrow(1)
-                        property("background", "linear-gradient(180deg, rgba(60, 131, 239, 0.4), rgba(60, 131, 239, 0.1))")
+                        property("background", "rgba(60, 131, 239, 0.3)")
                         marginTop((-2).px)
                     }
                 })
@@ -192,11 +199,11 @@ private fun TimelineCard(item: TimelineItem, sitePal: com.mano.ashwa.SitePalette
                 property("margin-bottom", "24px")
                 property("transition", "all 0.3s ease")
                 if (isLight) {
-                    property("box-shadow", "0 4px 15px rgba(0, 0, 0, 0.08)")
+                    property("box-shadow", "0 2px 12px rgba(0, 0, 0, 0.06)")
                 }
             }
             onMouseEnter {
-                it.currentTarget.asDynamic().style.borderColor = "rgba(60, 131, 239, 0.4)"
+                it.currentTarget.asDynamic().style.borderColor = accentColor
                 it.currentTarget.asDynamic().style.transform = "translateX(8px)"
             }
             onMouseLeave {
@@ -209,7 +216,7 @@ private fun TimelineCard(item: TimelineItem, sitePal: com.mano.ashwa.SitePalette
                 Div({
                     style {
                         property("display", "inline-block")
-                        property("background", "linear-gradient(135deg, rgba(60, 131, 239, 0.8), rgba(170, 54, 124, 0.8))")
+                        property("background", accentColor)
                         property("border-radius", "12px")
                         property("padding", "4px 12px")
                         property("font-size", "11px")

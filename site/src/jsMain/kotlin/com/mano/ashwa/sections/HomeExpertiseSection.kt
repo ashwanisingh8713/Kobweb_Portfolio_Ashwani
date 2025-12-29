@@ -16,55 +16,49 @@ import com.varabyte.kobweb.silk.components.text.SpanText
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 
-// Highlighted skills for homepage
-private val homeSkillsData = listOf(
-    HomeSkillItem(
+// Expertise areas data
+private val expertiseAreas = listOf(
+    ExpertiseItem(
         icon = "📱",
-        title = "Android & KMP",
-        description = "Expert in Android native development and Kotlin Multiplatform for cross-platform apps targeting Android, iOS, and Web.",
-        technologies = listOf("Kotlin", "Jetpack Compose", "KMP", "Swift")
+        title = "Android Tech Lead",
+        description = "Leading teams to build enterprise-grade Android apps with clean architecture, Jetpack Compose, and modern development practices.",
+        accentColor = "#3C83EF"
     ),
-    HomeSkillItem(
-        icon = "🏗️",
-        title = "Architecture",
-        description = "Designing scalable, maintainable apps using Clean Architecture, MVVM/MVI patterns, and SOLID principles.",
-        technologies = listOf("Clean Arch", "MVVM", "MVI", "Modular")
+    ExpertiseItem(
+        icon = "🔄",
+        title = "Kotlin Multiplatform Developer",
+        description = "Building cross-platform apps targeting Android, iOS & Web with shared business logic using KMP, Compose Multiplatform.",
+        accentColor = "#7F52FF"
     ),
-    HomeSkillItem(
+    ExpertiseItem(
         icon = "🌐",
-        title = "Web Development",
-        description = "Building modern web applications with Kobweb, Compose for Web, and full-stack Kotlin solutions.",
-        technologies = listOf("Kobweb", "Compose Web", "Ktor", "MongoDB")
+        title = "Kobweb Developer",
+        description = "Creating modern, responsive web applications entirely in Kotlin using Kobweb framework with Compose for Web.",
+        accentColor = "#10B981"
     ),
-    HomeSkillItem(
-        icon = "☁️",
-        title = "Backend & Cloud",
-        description = "Creating RESTful APIs, microservices, and cloud integrations with Firebase and GoLang.",
-        technologies = listOf("Firebase", "GoLang", "GraphQL", "REST")
+    ExpertiseItem(
+        icon = "🚀",
+        title = "GoLang Developer",
+        description = "Developing high-performance backend services, REST APIs, and microservices using Go for scalable solutions.",
+        accentColor = "#00ADD8"
     ),
-    HomeSkillItem(
-        icon = "👥",
-        title = "Team Leadership",
-        description = "Leading cross-functional teams, mentoring developers, and driving projects from concept to delivery.",
-        technologies = listOf("Agile", "Scrum", "Code Review", "Mentoring")
-    ),
-    HomeSkillItem(
-        icon = "🤖",
-        title = "AI & Automation",
-        description = "Leveraging AI tools, prompt engineering, and building intelligent features into applications.",
-        technologies = listOf("AI Agents", "Prompt Eng", "Automation", "ML APIs")
+    ExpertiseItem(
+        icon = "📲",
+        title = "FullStack Mobile Developer",
+        description = "End-to-end mobile development expertise from UI/UX to backend integration, cloud services, and deployment.",
+        accentColor = "#F59E0B"
     )
 )
 
-private data class HomeSkillItem(
+private data class ExpertiseItem(
     val icon: String,
     val title: String,
     val description: String,
-    val technologies: List<String>
+    val accentColor: String
 )
 
 @Composable
-fun HomeSkillsSection() {
+fun HomeExpertiseSection() {
     val current = LocalAppColorMode.current.value
     val sitePal = current.toSitePalette()
     val isLight = current == com.varabyte.kobweb.silk.theme.colors.ColorMode.LIGHT
@@ -74,7 +68,7 @@ fun HomeSkillsSection() {
             .fillMaxWidth()
             .backgroundColor(sitePal.contactAreaBg)
             .padding(topBottom = 80.px, leftRight = 16.px)
-            .id("skills"),
+            .id("expertise"),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -94,7 +88,7 @@ fun HomeSkillsSection() {
 
             // Section Title
             SpanText(
-                "What I Do",
+                "What I Specialize In",
                 modifier = Modifier
                     .fontSize(36.px)
                     .fontWeight(FontWeight.Bold)
@@ -104,7 +98,7 @@ fun HomeSkillsSection() {
 
             // Subtitle
             SpanText(
-                "Specialized in mobile-first development with a full-stack mindset",
+                "Expertise across mobile, web, and backend technologies",
                 modifier = Modifier
                     .fontSize(18.px)
                     .color(sitePal.textColor)
@@ -112,13 +106,13 @@ fun HomeSkillsSection() {
                     .margin(bottom = 56.px)
             )
 
-            // Skills Grid
+            // Expertise Grid - 5 cards with responsive layout
             SimpleGrid(
                 numColumns(base = 1, sm = 2, lg = 3),
                 modifier = Modifier.fillMaxWidth().gap(24.px)
             ) {
-                homeSkillsData.forEach { skill ->
-                    HomeSkillCard(skill, sitePal, isLight)
+                expertiseAreas.forEach { expertise ->
+                    ExpertiseCard(expertise, sitePal, isLight)
                 }
             }
         }
@@ -126,10 +120,10 @@ fun HomeSkillsSection() {
 }
 
 @Composable
-private fun HomeSkillCard(skill: HomeSkillItem, sitePal: com.mano.ashwa.SitePalette, isLight: Boolean) {
+private fun ExpertiseCard(expertise: ExpertiseItem, sitePal: com.mano.ashwa.SitePalette, isLight: Boolean) {
     val cardBg = sitePal.cardColor.toString()
     val borderColor = if (isLight) "rgba(0, 0, 0, 0.08)" else "rgba(255, 255, 255, 0.08)"
-    val accentColor = "#3C83EF"
+    val accentColor = expertise.accentColor
 
     Div({
         style {
@@ -139,12 +133,14 @@ private fun HomeSkillCard(skill: HomeSkillItem, sitePal: com.mano.ashwa.SitePale
             property("border", "1px solid $borderColor")
             property("transition", "all 0.3s ease")
             property("cursor", "default")
-            property("height", "100%")
+            property("position", "relative")
+            property("overflow", "hidden")
             if (isLight) {
                 property("box-shadow", "0 2px 12px rgba(0, 0, 0, 0.06)")
             }
             display(DisplayStyle.Flex)
             flexDirection(FlexDirection.Column)
+            property("height", "100%")
         }
         onMouseEnter {
             it.currentTarget.asDynamic().style.transform = "translateY(-8px)"
@@ -157,6 +153,18 @@ private fun HomeSkillCard(skill: HomeSkillItem, sitePal: com.mano.ashwa.SitePale
             it.currentTarget.asDynamic().style.borderColor = borderColor
         }
     }) {
+        // Accent line at top
+        Div({
+            style {
+                property("position", "absolute")
+                property("top", "0")
+                property("left", "0")
+                property("right", "0")
+                property("height", "3px")
+                property("background", accentColor)
+            }
+        })
+
         // Icon with subtle background
         Div({
             style {
@@ -168,14 +176,14 @@ private fun HomeSkillCard(skill: HomeSkillItem, sitePal: com.mano.ashwa.SitePale
                 property("margin-bottom", "20px")
             }
         }) {
-            SpanText(skill.icon)
+            SpanText(expertise.icon)
         }
 
         // Title
         SpanText(
-            skill.title,
+            expertise.title,
             modifier = Modifier
-                .fontSize(22.px)
+                .fontSize(20.px)
                 .fontWeight(FontWeight.Bold)
                 .color(sitePal.cardTitleColor)
                 .margin(bottom = 12.px)
@@ -183,38 +191,12 @@ private fun HomeSkillCard(skill: HomeSkillItem, sitePal: com.mano.ashwa.SitePale
 
         // Description
         SpanText(
-            skill.description,
+            expertise.description,
             modifier = Modifier
                 .fontSize(15.px)
-                .lineHeight(1.6)
+                .lineHeight(1.7)
                 .color(sitePal.cardDescriptionColor)
-                .margin(bottom = 20.px)
         )
-
-        // Tech tags
-        Div({
-            style {
-                display(DisplayStyle.Flex)
-                flexWrap(FlexWrap.Wrap)
-                gap(8.px)
-                property("margin-top", "auto")
-            }
-        }) {
-            skill.technologies.forEach { tech ->
-                Div({
-                    style {
-                        property("background", "rgba(60, 131, 239, 0.15)")
-                        property("border-radius", "12px")
-                        property("padding", "6px 12px")
-                        property("font-size", "12px")
-                        property("color", sitePal.chipTextColor.toString())
-                        property("border", "1px solid rgba(125, 211, 252, 0.15)")
-                    }
-                }) {
-                    SpanText(tech)
-                }
-            }
-        }
     }
 }
 

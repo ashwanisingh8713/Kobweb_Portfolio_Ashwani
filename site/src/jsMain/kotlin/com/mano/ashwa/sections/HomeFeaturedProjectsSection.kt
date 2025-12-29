@@ -107,20 +107,19 @@ fun HomeFeaturedProjectsSection() {
             Div({
                 style {
                     marginTop(48.px)
-                    property("background", "linear-gradient(135deg, rgba(60, 131, 239, 0.2), rgba(170, 54, 124, 0.2))")
+                    property("background", "#3C83EF")
                     property("border-radius", "30px")
                     property("padding", "14px 32px")
                     property("cursor", "pointer")
                     property("transition", "all 0.3s ease")
-                    property("border", "1px solid rgba(60, 131, 239, 0.3)")
                 }
                 onMouseEnter {
-                    it.currentTarget.asDynamic().style.background = "linear-gradient(135deg, rgba(60, 131, 239, 0.4), rgba(170, 54, 124, 0.4))"
-                    it.currentTarget.asDynamic().style.transform = "scale(1.05)"
+                    it.currentTarget.asDynamic().style.opacity = "0.9"
+                    it.currentTarget.asDynamic().style.transform = "translateY(-2px)"
                 }
                 onMouseLeave {
-                    it.currentTarget.asDynamic().style.background = "linear-gradient(135deg, rgba(60, 131, 239, 0.2), rgba(170, 54, 124, 0.2))"
-                    it.currentTarget.asDynamic().style.transform = "scale(1)"
+                    it.currentTarget.asDynamic().style.opacity = "1"
+                    it.currentTarget.asDynamic().style.transform = "translateY(0)"
                 }
                 onClick {
                     kotlinx.browser.window.location.href = "/project"
@@ -130,8 +129,8 @@ fun HomeFeaturedProjectsSection() {
                     "View All Projects →",
                     modifier = Modifier
                         .fontSize(16.px)
-                        .fontWeight(FontWeight.Bold)
-                        .color(sitePal.chipTextColor)
+                        .fontWeight(FontWeight.SemiBold)
+                        .color(com.varabyte.kobweb.compose.ui.graphics.Colors.White)
                 )
             }
         }
@@ -140,12 +139,9 @@ fun HomeFeaturedProjectsSection() {
 
 @Composable
 private fun FeaturedProjectCard(project: FeaturedProject, sitePal: com.mano.ashwa.SitePalette, isLight: Boolean) {
-    val cardBg = if (isLight) {
-        "linear-gradient(145deg, ${sitePal.cardColor}, rgba(248, 250, 252, 0.95))"
-    } else {
-        "linear-gradient(145deg, ${sitePal.cardColor}, rgba(11, 18, 32, 0.95))"
-    }
-    val borderColor = if (isLight) "rgba(60, 131, 239, 0.2)" else "rgba(60, 131, 239, 0.15)"
+    val cardBg = sitePal.cardColor.toString()
+    val borderColor = if (isLight) "rgba(0, 0, 0, 0.08)" else "rgba(255, 255, 255, 0.08)"
+    val accentColor = "#3C83EF"
 
     Div({
         style {
@@ -158,7 +154,7 @@ private fun FeaturedProjectCard(project: FeaturedProject, sitePal: com.mano.ashw
             property("position", "relative")
             property("overflow", "hidden")
             if (isLight) {
-                property("box-shadow", "0 4px 15px rgba(0, 0, 0, 0.08)")
+                property("box-shadow", "0 2px 12px rgba(0, 0, 0, 0.06)")
             }
             display(DisplayStyle.Flex)
             flexDirection(FlexDirection.Column)
@@ -166,12 +162,12 @@ private fun FeaturedProjectCard(project: FeaturedProject, sitePal: com.mano.ashw
         }
         onMouseEnter {
             it.currentTarget.asDynamic().style.transform = "translateY(-8px)"
-            it.currentTarget.asDynamic().style.boxShadow = "0 20px 40px rgba(60, 131, 239, 0.15)"
-            it.currentTarget.asDynamic().style.borderColor = "rgba(60, 131, 239, 0.4)"
+            it.currentTarget.asDynamic().style.boxShadow = "0 16px 40px rgba(0, 0, 0, 0.12)"
+            it.currentTarget.asDynamic().style.borderColor = accentColor
         }
         onMouseLeave {
             it.currentTarget.asDynamic().style.transform = "translateY(0)"
-            it.currentTarget.asDynamic().style.boxShadow = if (isLight) "0 4px 15px rgba(0, 0, 0, 0.08)" else "none"
+            it.currentTarget.asDynamic().style.boxShadow = if (isLight) "0 2px 12px rgba(0, 0, 0, 0.06)" else "none"
             it.currentTarget.asDynamic().style.borderColor = borderColor
         }
     }) {
@@ -181,7 +177,7 @@ private fun FeaturedProjectCard(project: FeaturedProject, sitePal: com.mano.ashw
                 property("position", "absolute")
                 property("top", "16px")
                 property("right", "16px")
-                property("background", "linear-gradient(135deg, rgba(60, 131, 239, 0.8), rgba(170, 54, 124, 0.8))")
+                property("background", accentColor)
                 property("border-radius", "12px")
                 property("padding", "4px 12px")
                 property("font-size", "11px")
@@ -194,11 +190,11 @@ private fun FeaturedProjectCard(project: FeaturedProject, sitePal: com.mano.ashw
             SpanText(project.highlight)
         }
 
-        // Icon
+        // Icon with subtle background
         Div({
             style {
-                property("background", "linear-gradient(135deg, rgba(60, 131, 239, 0.3), rgba(170, 54, 124, 0.3))")
-                property("border-radius", "14px")
+                property("background", "${accentColor}15")
+                property("border-radius", "12px")
                 property("padding", "14px")
                 property("width", "fit-content")
                 property("font-size", "32px")
